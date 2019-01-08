@@ -1,7 +1,3 @@
-.topBarContainer {
-  margin: 1em;
-}
-
 .logoContainer {
   display: flex;
   align-items: center;
@@ -10,11 +6,8 @@
   margin-left: 1em;
 }
 
-.topBarContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+
+
 .signoutContainer{
   display:flex; 
   justify-content: space-between;
