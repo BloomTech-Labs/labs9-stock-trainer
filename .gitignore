@@ -6,7 +6,9 @@
 .pnp.js
 
 # testing
+/htmlcov
 /coverage
+.coverage
 
 # production
 /build
