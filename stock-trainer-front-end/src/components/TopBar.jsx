@@ -3,7 +3,6 @@ import Logo from "./Logo";
 import SignOutContainer from "./SignInContainer";
 import SignInContainer from "./SignOutContainer";
 import { Grid } from "semantic-ui-react";
-import NavBreadcrumbs from "./NavBreadcrumbs";
 
 export default class TopBar extends Component {
   render() {

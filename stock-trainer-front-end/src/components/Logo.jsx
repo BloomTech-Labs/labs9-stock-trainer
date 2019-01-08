@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PlaceholderExampleImage from "./PlaceholderImage";
-import { Header } from "semantic-ui-react";
 
 export default class Logo extends Component {
   render() {
