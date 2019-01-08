@@ -1,0 +1,11 @@
+{
+  "name": "labs9-stock-trainer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Lambda-School-Labs/labs9-stock-trainer.git",
+  "author": "chainchompa <chainchompa@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.7.0"
+  }
+}
