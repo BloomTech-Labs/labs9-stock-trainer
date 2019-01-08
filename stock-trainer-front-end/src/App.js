@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import TestComponent from './components/TestComponent';
 import TopBar from './components/TopBar';
 
 class App extends Component {
