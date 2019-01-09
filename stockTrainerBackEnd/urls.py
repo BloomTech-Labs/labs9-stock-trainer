@@ -18,8 +18,6 @@ from django.contrib import admin
 from rest_framework import routers
 from django.urls import path, include
 
-from stockTrainerApp.views import Haywood
-
 from stockTrainerApp.api import UserViewset
 
 #Router to add viewsets
