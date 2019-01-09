@@ -6,7 +6,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
   class Meta:
     model = User
-    fields = (username, firstname, lastname)
+    fields = ('username', 'firstname', 'lastname')
 
 class UserViewset(viewsets.ModelViewSet):
   serializer_class = UserSerializer
