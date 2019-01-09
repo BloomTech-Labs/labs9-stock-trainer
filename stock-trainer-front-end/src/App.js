@@ -8,6 +8,7 @@ import Stock from "./components/Stock";
 import Graph from "./components/Graph";
 import Indicators from "./components/Indicators";
 
+
 class App extends Component {
   constructor(props) {
     super(props);
