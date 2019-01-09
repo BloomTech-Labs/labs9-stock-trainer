@@ -7,6 +7,7 @@ import SideBar from "./components/SideBar";
 import Stock from "./components/Stock";
 import Graph from "./components/Graph";
 import Indicators from "./components/Indicators";
+import Target from "./components/Target";
 
 class App extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class App extends Component {
         <Route path="/stock" component={Stock} />
         <Route path="/graph" component={Graph} />
         <Route path="/indicators" component={Indicators} />
+        <Route path="/target" component={Target} />
       </div>
     );
   }
