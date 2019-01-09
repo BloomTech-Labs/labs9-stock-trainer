@@ -5,6 +5,7 @@ import TopBar from "./components/TopBar";
 import Landing from "./components/Landing";
 import SideBar from "./components/SideBar";
 import Stock from "./components/Stock";
+import Graph from "./components/Graph";
 
 class App extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class App extends Component {
         <SideBar />
         <Route exact path="/" component={Landing} />
         <Route path="/stock" component={Stock} />
+        <Route path="/graph" component={Graph} />
       </div>
     );
   }
