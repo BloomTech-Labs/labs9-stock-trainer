@@ -4,6 +4,7 @@ import "./App.css";
 import TopBar from "./components/TopBar";
 import Landing from "./components/Landing";
 import SideBar from "./components/SideBar";
+import Stock from "./components/Stock";
 
 class App extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class App extends Component {
         <TopBar currentUser={currentUser} signedInState={signedIn} />
         <SideBar />
         <Route exact path="/" component={Landing} />
+        <Route path="/stock" component={Stock} />
       </div>
     );
   }
