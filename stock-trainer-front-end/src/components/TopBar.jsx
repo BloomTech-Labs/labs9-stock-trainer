@@ -7,11 +7,11 @@ import SignOutContainer from "./SignOutContainer";
 const TopBar = props => {
   const { signedInState, currentUser } = props;
   return (
-    <Grid padded>
-      <Grid.Column width={5}>
+    <Grid columns="equal" padded>
+      <Grid.Column>
         <Logo />
       </Grid.Column>
-      <Grid.Column floated="right" width={4}>
+      <Grid.Column textAlign="right" floated="right">
         {signedInState ? (
           <SignOutContainer currentUser={currentUser} />
         ) : (
