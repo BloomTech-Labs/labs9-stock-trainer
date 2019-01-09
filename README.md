@@ -33,6 +33,7 @@ Welcome to our application that teaches and guides you on trading stocks.
   - [Third-Party APIs](#third-party-apis)
     - [Stripe](#stripe)
     - [Quantopian](#quantopian)
+  - [Backend API](#backend-api)
 
 ## Styling Guidelines
 
@@ -79,3 +80,7 @@ The Python code follows [Pep 8 Style Guide](https://www.python.org/dev/peps/pep-
 ### Stripe
 
 ### Quantopian
+
+## Backend API
+
+How to interact with our backend api here
