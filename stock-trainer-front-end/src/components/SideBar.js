@@ -7,8 +7,10 @@ export default class SideBar extends Component {
     super(props);
     this.state = { activeItem: "Dashboard" };
   }
-  // todo fix this
-  // handleItemClick (e, { name }) {this.setState({ activeItem: name })}
+
+  handleItemClick = (e, { name }) => {
+    this.setState({ activeItem: name });
+  };
 
   render() {
     const { activeItem } = this.state;
