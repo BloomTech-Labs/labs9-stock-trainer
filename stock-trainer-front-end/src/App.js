@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import TopBar from "./components/TopBar";
 import KeyIndicators from "./components/KeyIndicators";
+import SideBar from "./components/SideBar";
 
 class App extends Component {
   constructor(props) {
@@ -18,7 +19,10 @@ class App extends Component {
     return (
       <div className="App">
         <TopBar currentUser={currentUser} signedInState={signedIn} />
-        <KeyIndicators />
+        <div className="lowerPageLayout">
+          <SideBar />
+          <KeyIndicators />
+        </div>
       </div>
     );
   }

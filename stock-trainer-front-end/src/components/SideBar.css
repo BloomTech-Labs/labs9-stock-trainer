@@ -1,5 +1,4 @@
 .SideBar {
-    margin-top: 5%;
-    margin-left: 2%;
-    position: fixed;
+  width: 10rem;
+  min-width: 10rem;
 }
