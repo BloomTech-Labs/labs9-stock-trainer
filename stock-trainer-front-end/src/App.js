@@ -6,6 +6,7 @@ import Landing from "./components/Landing";
 import SideBar from "./components/SideBar";
 import Stock from "./components/Stock";
 import Graph from "./components/Graph";
+import Indicators from "./components/Indicators";
 
 class App extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class App extends Component {
         <Route exact path="/" component={Landing} />
         <Route path="/stock" component={Stock} />
         <Route path="/graph" component={Graph} />
+        <Route path="/indicators" component={Indicators} />
       </div>
     );
   }
