@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from rest_framework import routers
+
+from stockTrainerApp.api import UserViewset
+
+#Router to add viewsets
+router = routers.DefaultRouter()
+router.register(r'User', PersonalNoteViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    path('api/', include(router.urls)),
 ]
