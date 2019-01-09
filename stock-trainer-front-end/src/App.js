@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import { Route } from "react-router-dom";
 import "./App.css";
 import TopBar from "./components/TopBar";
+import Landing from "./components/Landing";
+import SideBar from "./components/SideBar";
 
 class App extends Component {
   constructor(props) {
@@ -17,6 +20,8 @@ class App extends Component {
     return (
       <div className="App">
         <TopBar currentUser={currentUser} signedInState={signedIn} />
+        <SideBar />
+        <Route exact path="/" component={Landing} />
       </div>
     );
   }
