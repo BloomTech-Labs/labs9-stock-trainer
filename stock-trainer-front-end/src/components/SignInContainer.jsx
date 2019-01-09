@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-import { Button } from 'semantic-ui-react';
+import React from "react";
+import { Button } from "semantic-ui-react";
 
-export default class SignedOutContainer extends Component {
-  render() {
-    return (
-      <div className="signoutContainer">
-        <div className="currentUserText">{this.props.currentUser}</div>
-        <Button size='big' basic>Sign Out</Button>
-      </div>
-    )
-  }
-}
+const SignInContainer = () => (
+  <div>
+    <Button size="big" primary>
+      Register
+    </Button>
+    <Button size="big" secondary>
+      Sign In
+    </Button>
+  </div>
+);
+export default SignInContainer;

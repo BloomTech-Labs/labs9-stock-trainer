@@ -1,24 +1,25 @@
-import React, { Component } from "react";
-import Logo from "./Logo";
-import SignOutContainer from "./SignInContainer";
-import SignInContainer from "./SignOutContainer";
+import React from "react";
 import { Grid } from "semantic-ui-react";
+import Logo from "./Logo";
+import SignInContainer from "./SignInContainer";
+import SignOutContainer from "./SignOutContainer";
 
-export default class TopBar extends Component {
-  render() {
-    return (
-      <Grid padded>
-        <Grid.Column width={5}>
-          <Logo />
-        </Grid.Column>
-        <Grid.Column floated="right" width={4}>
-          {this.props.signedInState ? (
-            <SignOutContainer currentUser={this.props.currentUser} />
-          ) : (
-            <SignInContainer />
-          )}
-        </Grid.Column>
-      </Grid>
-    );
-  }
-}
+const TopBar = props => {
+  const { signedInState, currentUser } = props;
+  return (
+    <Grid padded>
+      <Grid.Column width={5}>
+        <Logo />
+      </Grid.Column>
+      <Grid.Column floated="right" width={4}>
+        {signedInState ? (
+          <SignOutContainer currentUser={currentUser} />
+        ) : (
+          <SignInContainer />
+        )}
+      </Grid.Column>
+    </Grid>
+  );
+};
+
+export default TopBar;

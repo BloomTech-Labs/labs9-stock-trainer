@@ -6,14 +6,12 @@
   margin-left: 1em;
 }
 
-
-
-.signoutContainer{
-  display:flex; 
+.signoutContainer {
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size:20px;
+  font-size: 20px;
 }
-.currentUserText{
+.currentUserText {
   margin-right: 1em;
 }
