@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import TopBar from "./components/TopBar";
+import Landing from "./components/Landing";
 
 class App extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class App extends Component {
     return (
       <div className="App">
         <TopBar currentUser={currentUser} signedInState={signedIn} />
+        <Landing />
       </div>
     );
   }
