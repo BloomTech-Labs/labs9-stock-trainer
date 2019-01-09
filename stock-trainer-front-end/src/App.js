@@ -16,7 +16,6 @@ class App extends Component {
     return (
       <div className="App">
         <TopBar currentUser={this.state.currentUser} currentPage={this.state.home} signedInState = {this.state.signedIn}/>
-
       </div>
     );
   }
