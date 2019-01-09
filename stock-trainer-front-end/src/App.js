@@ -9,6 +9,7 @@ import Graph from "./components/Graph";
 import Indicators from "./components/Indicators";
 import Target from "./components/Target";
 
+
 class App extends Component {
   constructor(props) {
     super(props);
