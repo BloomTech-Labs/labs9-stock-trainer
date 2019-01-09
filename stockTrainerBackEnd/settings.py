@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'stockTrainerApp',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
