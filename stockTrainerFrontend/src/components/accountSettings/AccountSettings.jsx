@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Form, Checkbox } from "semantic-ui-react";
+import "./AccountSettings.css";
 
 class AccountSettings extends Component {
   state = {
@@ -56,12 +57,12 @@ class AccountSettings extends Component {
     return (
       <Form
         size="large"
-        style={{ width: "25%", marginLeft: "200px" }}
+        style={{ width: "25%", marginLeft: "20px" }}
         onSubmit={this.handleSubmit}
       >
         <Form.Field>
           <label htmlFor="email">
-            Email{" "}
+            Email
             <input
               id="email"
               name="email"
@@ -73,7 +74,7 @@ class AccountSettings extends Component {
         </Form.Field>
         <Form.Field>
           <label htmlFor="phone">
-            Phone{" "}
+            Phone
             <input
               id="phone"
               name="phone"
@@ -98,7 +99,7 @@ class AccountSettings extends Component {
         </Form.Field>
         <Form.Field>
           <label htmlFor="oldPassword">
-            Old Password{" "}
+            Old Password
             <input
               id="oldPassword"
               name="oldPassword"
@@ -110,7 +111,7 @@ class AccountSettings extends Component {
         </Form.Field>
         <Form.Field>
           <label htmlFor="newPassword">
-            New Password{" "}
+            New Password
             <input
               name="newPassword"
               value={newPassword}
