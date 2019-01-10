@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import "./App.css";
 import TopBar from "./components/topbar/TopBar";
 import SideBar from "./components/sidebar/SideBar";
-import Targets from "./components/targets/Targets";
+import KeyIndicators from "./components/keyindicators/KeyIndicators";
 
 class App extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class App extends Component {
         <TopBar currentUser={currentUser} signedInState={signedIn} />
         <div className="lowerPageLayout">
           <SideBar />
-          <Targets />
+          <KeyIndicators />
         </div>
       </div>
     );
