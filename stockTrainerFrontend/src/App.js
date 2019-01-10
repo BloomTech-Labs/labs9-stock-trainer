@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-// import { Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import "./App.css";
 import TopBar from "./components/topbar/TopBar";
 import SideBar from "./components/sidebar/SideBar";
-import Reports from "./components/reports/Reports";
+// import Reports from "./components/reports/Reports";
+import UserInfo from "./components/userinfo/UserInfo";
 
 class App extends Component {
   constructor(props) {
@@ -22,7 +23,8 @@ class App extends Component {
         <TopBar currentUser={currentUser} signedInState={signedIn} />
         <div className="lowerPageLayout">
           <SideBar />
-          <Reports />
+          {/* <Reports /> */}
+          <Route path="/user/:id" component={UserInfo} />
         </div>
       </div>
     );
