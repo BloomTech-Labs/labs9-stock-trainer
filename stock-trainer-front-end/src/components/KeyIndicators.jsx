@@ -64,7 +64,6 @@ const KeyIndicators = () => (
     </Grid.Column>
     <Grid.Column>
       <Segment>
-        {" "}
         <Placeholder>
           <List divided>
             <List.Item className="listItem">

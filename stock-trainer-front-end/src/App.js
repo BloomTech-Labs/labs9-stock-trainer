@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
 import TopBar from "./components/TopBar";
-import KeyIndicators from "./components/KeyIndicators";
 import SideBar from "./components/SideBar";
+import Reports from "./components/Reports";
 
 class App extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class App extends Component {
         <TopBar currentUser={currentUser} signedInState={signedIn} />
         <div className="lowerPageLayout">
           <SideBar />
-          <KeyIndicators />
+          <Reports />
         </div>
       </div>
     );
