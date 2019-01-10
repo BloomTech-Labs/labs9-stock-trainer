@@ -1,0 +1,10 @@
+.signoutContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+}
+
+.currentUserText {
+  margin-right: 1em;
+}

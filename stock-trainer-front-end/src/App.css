@@ -1,17 +1,8 @@
-.logoContainer {
-  display: flex;
-  align-items: center;
-}
-.logoText {
-  margin-left: 1em;
+.App {
+  height: 100vh;
 }
 
-.signoutContainer {
+.lowerPageLayout {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 20px;
 }
-.currentUserText {
-  margin-right: 1em;
-}
+

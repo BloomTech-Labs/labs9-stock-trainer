@@ -1,0 +1,13 @@
+.pageGrid {
+  width: 100%;
+  height: 90vh;
+}
+.stockSearch {
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 2rem;
+}
+.topRight {
+  max-height: 20rem;
+}

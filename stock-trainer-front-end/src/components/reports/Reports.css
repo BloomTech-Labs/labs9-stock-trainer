@@ -1,0 +1,44 @@
+.titleRowReports {
+  display: flex;
+  align-content: center;
+}
+
+
+
+i.icon {
+  margin-left: 10%;
+}
+
+.reportsSearch {
+  margin-left: 10%;
+  width: 30%;
+}
+.leftInfobox {
+  display: flex;
+}
+.rightInfobox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.infoRowReports {
+  display: flex;
+  justify-content: space-between;
+  height: 20%;
+}
+.targetScoreResult {
+  font-size: 45px;
+  margin-top: 10px;
+}
+.leftInfobox {
+  width: 40%;
+}
+.lowerRowInfobox {
+  margin-top: 1rem;
+}
+.leftColumnInfobox {
+  width: 10rem;
+}
+.ui.container.reportsContainer {
+  margin-right: 3rem !important;
+}

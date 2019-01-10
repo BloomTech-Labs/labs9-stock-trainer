@@ -1,0 +1,7 @@
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+.logoText {
+  margin-left: 1em;
+}

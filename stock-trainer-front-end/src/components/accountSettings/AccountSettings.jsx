@@ -35,17 +35,13 @@ class AccountSettings extends Component {
   toggleEmail = () => {
     // e.target.id throws an error, and e.target.name does not work, want to find a way of reusability, but will
     // hold off for now
-    this.setState(prevState => {
-      return { emailCheck: !prevState.emailCheck };
-    });
+    this.setState(prevState => ({ emailCheck: !prevState.emailCheck }));
   };
 
   toggleText = () => {
     // e.target.id throws an error, and e.target.name does not work, want to find a way of reusability, but will
     // hold off for now
-    this.setState(prevState => {
-      return { textCheck: !prevState.textCheck };
-    });
+    this.setState(prevState => ({ textCheck: !prevState.textCheck }));
   };
 
   render() {
