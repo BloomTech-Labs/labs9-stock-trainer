@@ -8,21 +8,18 @@ import {
   Input,
   List
 } from "semantic-ui-react";
+import "./KeyIndicators.css";
 
 const KeyIndicators = () => (
   <Grid padded stretched className="pageGrid" columns="equal">
     <Grid.Column>
-      <Segment>
-        <Placeholder>
+      <Segment className="topRight">
+        <Placeholder className="topRightPlaceholder">
           <Placeholder.Header>
             <Placeholder.Line />
             <Placeholder.Line />
           </Placeholder.Header>
           <Placeholder.Paragraph>
-            <Placeholder.Line />
-            <Placeholder.Line />
-            <Placeholder.Line />
-            <Placeholder.Line />
             <Placeholder.Line />
             <Placeholder.Line />
             <Placeholder.Line />

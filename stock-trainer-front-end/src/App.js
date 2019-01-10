@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+// import { Route } from "react-router-dom";
 import "./App.css";
-import TopBar from "./components/TopBar";
-import SideBar from "./components/SideBar";
-import Reports from "./components/Reports";
+import TopBar from "./components/topbar/TopBar";
+import SideBar from "./components/sidebar/SideBar";
+import Reports from "./components/reports/Reports";
 
 class App extends Component {
   constructor(props) {

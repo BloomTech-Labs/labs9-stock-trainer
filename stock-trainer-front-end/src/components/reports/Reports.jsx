@@ -7,6 +7,7 @@ import {
   Tab,
   Placeholder
 } from "semantic-ui-react";
+import "./Reports.css";
 
 const placeholderPane = (
   <Tab.Pane>
