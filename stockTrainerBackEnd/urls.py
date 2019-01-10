@@ -16,15 +16,17 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from rest_framework import routers
-from django.urls import path, include
+from django.urls import path, include, re_path
+from django.views.generic import TemplateView
 
 from stockTrainerApp.api import UserViewset
 
-#Router to add viewsets
+# Router to add viewsets
 router = routers.DefaultRouter()
 router.register(r'User', UserViewset)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    re_path('.*', TemplateView.as_view(template_name='index.html')),
 ]
