@@ -13,6 +13,7 @@ python-decouple = "*"
 django-coverage = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
+django-webpack-loader = "*"
 
 [requires]
 python_version = "3.6"
