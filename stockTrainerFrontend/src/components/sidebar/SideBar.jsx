@@ -17,7 +17,7 @@ export default class SideBar extends Component {
 
     return (
       <div className="SideBar">
-        <Menu ui vertical fluid left size="massive">
+        <Menu vertical fluid size="massive">
           <Menu.Item
             name="Dashboard"
             active={activeItem === "Dashboard"}
