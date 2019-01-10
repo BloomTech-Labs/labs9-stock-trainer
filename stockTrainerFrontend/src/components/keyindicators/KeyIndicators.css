@@ -1,5 +1,5 @@
 .pageGrid {
-  width: 100%;
+  width: 85%;
   height: 90vh;
 }
 .stockSearch {
@@ -10,4 +10,6 @@
 }
 .topRight {
   max-height: 20rem;
+  display: flex;
+  align-content: center;
 }
