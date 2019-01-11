@@ -6,7 +6,13 @@ import SignInContainer from "./SignInContainer";
 import SignOutContainer from "./SignOutContainer";
 
 const TopBar = props => {
-  const { signedInState, currentUser, signOutFunc } = props;
+  const {
+    signedInState,
+    currentUser,
+    signOutFunc,
+    signInFunc,
+    register
+  } = props;
   return (
     <Grid columns="equal" padded>
       <Grid.Column>
@@ -21,7 +27,7 @@ const TopBar = props => {
             currentUser={currentUser}
           />
         ) : (
-          <SignInContainer />
+          <SignInContainer signInFunc={signInFunc} register={register} />
         )}
       </Grid.Column>
     </Grid>

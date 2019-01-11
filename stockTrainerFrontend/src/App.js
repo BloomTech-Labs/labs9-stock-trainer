@@ -26,6 +26,18 @@ class App extends Component {
     this.setState({ signedIn: false });
   };
 
+  register = () => {
+    this.setState({ currentUser: Math.floor(Math.random() * 10) }, () => {
+      this.signIn();
+    });
+  };
+
+  signIn = () => {
+    this.setState({
+      signedIn: true
+    });
+  };
+
   render() {
     const { currentUser, signedIn } = this.state;
     return (
@@ -34,6 +46,8 @@ class App extends Component {
           currentUser={currentUser}
           signedInState={signedIn}
           signOutFunc={this.signOut}
+          signInFunc={this.signIn}
+          register={this.register}
         />
         <Switch>
           <Route
