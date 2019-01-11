@@ -1,14 +1,17 @@
 import React from "react";
 import { Button } from "semantic-ui-react";
 
-const SignInContainer = () => (
-  <div>
-    <Button size="big" primary>
-      Register
-    </Button>
-    <Button size="big" secondary>
-      Sign In
-    </Button>
-  </div>
-);
+const SignInContainer = props => {
+  const { signInFunc, register } = props;
+  return (
+    <div>
+      <Button onClick={register} size="big" primary>
+        Register
+      </Button>
+      <Button onClick={signInFunc} size="big" secondary>
+        Sign In
+      </Button>
+    </div>
+  );
+};
 export default SignInContainer;

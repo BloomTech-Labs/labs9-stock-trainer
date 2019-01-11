@@ -17,16 +17,38 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      signedIn: false,
+      signedIn: true,
       currentUser: "test user"
     };
   }
+
+  signOut = () => {
+    this.setState({ signedIn: false });
+  };
+
+  register = () => {
+    this.setState({ currentUser: Math.floor(Math.random() * 10) }, () => {
+      this.signIn();
+    });
+  };
+
+  signIn = () => {
+    this.setState({
+      signedIn: true
+    });
+  };
 
   render() {
     const { currentUser, signedIn } = this.state;
     return (
       <div className="App">
-        <TopBar currentUser={currentUser} signedInState={signedIn} />
+        <TopBar
+          currentUser={currentUser}
+          signedInState={signedIn}
+          signOutFunc={this.signOut}
+          signInFunc={this.signIn}
+          register={this.register}
+        />
         <Switch>
           <Route
             exact
