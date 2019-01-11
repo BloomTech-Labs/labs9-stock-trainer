@@ -1,9 +1,9 @@
 import React from "react";
 import { Grid, Segment, Placeholder, Input, List } from "semantic-ui-react";
-import "./KeyIndicators.css";
+import "./Dashboard.css";
 import Indicators from "./Indicators";
 
-const KeyIndicators = () => (
+const Dashboard = () => (
   <Grid padded stretched className="pageGrid" columns="equal">
     <Grid.Column>
       <Segment className="topRight">
@@ -52,4 +52,4 @@ const KeyIndicators = () => (
   </Grid>
 );
 
-export default KeyIndicators;
+export default Dashboard;
