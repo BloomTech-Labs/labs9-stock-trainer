@@ -5,11 +5,16 @@ import "./SideBar.css";
 export default class SideBar extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeItem: "Dashboard" };
+    this.state = { activeItem: "" };
   }
 
   handleItemClick = (e, { name }) => {
     this.setState({ activeItem: name });
+  };
+
+  componentDidMount = () => {
+    const { location } = this.props;
+    this.setState({ activeItem: location.pathname });
   };
 
   render() {
@@ -20,27 +25,27 @@ export default class SideBar extends Component {
         <Menu vertical fluid size="massive">
           <Menu.Item
             name="Dashboard"
-            active={activeItem === "Dashboard"}
+            active={activeItem === "/indicators"}
             onClick={this.handleItemClick}
           />
           <Menu.Item
             name="Reports"
-            active={activeItem === "Reports"}
+            active={activeItem === "/reports"}
             onClick={this.handleItemClick}
           />
           <Menu.Item
             name="Targets"
-            active={activeItem === "Targets"}
+            active={activeItem === "/targets"}
             onClick={this.handleItemClick}
           />
           <Menu.Item
             name="Settings"
-            active={activeItem === "Settings"}
+            active={activeItem === "/settings"}
             onClick={this.handleItemClick}
           />
           <Menu.Item
             name="Billing"
-            active={activeItem === "Billing"}
+            active={activeItem === "/billing"}
             onClick={this.handleItemClick}
           />
         </Menu>

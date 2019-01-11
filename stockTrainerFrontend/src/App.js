@@ -6,11 +6,12 @@ import SideBar from "./components/sidebar/SideBar";
 
 import AccountSettings from "./components/accountSettings/AccountSettings";
 import Landing from "./components/landing/Landing";
-import KeyIndicators from "./components/keyindicators/KeyIndicators";
+
 import Reports from "./components/reports/Reports";
 import Targets from "./components/targets/Targets";
 import Billing from "./components/billing/Billing";
 import UserInfo from "./components/userinfo/UserInfo";
+import Dashboard from "./components/dashboard/Dashboard";
 
 class App extends Component {
   constructor(props) {
@@ -69,16 +70,6 @@ class App extends Component {
           />
           <Route
             exact
-            path="/targets"
-            render={props => (
-              <div className="lowerPageLayout">
-                <SideBar {...props} />
-                <Targets />
-              </div>
-            )}
-          />
-          <Route
-            exact
             path="/reports"
             render={props => (
               <div className="lowerPageLayout">
@@ -89,11 +80,11 @@ class App extends Component {
           />
           <Route
             exact
-            path="/indicators"
+            path="/dashboard"
             render={props => (
               <div className="lowerPageLayout">
                 <SideBar {...props} />
-                <KeyIndicators />
+                <Dashboard />
               </div>
             )}
           />
