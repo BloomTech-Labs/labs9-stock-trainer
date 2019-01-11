@@ -1,0 +1,1 @@
+web: gunicorn stockTrainerBackEnd.wsgi --log-file -
