@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Menu } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import "./SideBar.css";
 
 export default class SideBar extends Component {
@@ -8,14 +9,18 @@ export default class SideBar extends Component {
     this.state = { activeItem: "" };
   }
 
-  handleItemClick = (e, { name }) => {
-    this.setState({ activeItem: name });
-  };
-
   componentDidMount = () => {
     const { location } = this.props;
     this.setState({ activeItem: location.pathname });
   };
+
+  componentWillReceiveProps(nextProps) {
+    const { location } = nextProps;
+    const { activeItem } = this.state;
+    if (location.pathname !== activeItem) {
+      this.setState({ activeItem: location.pathname });
+    }
+  }
 
   render() {
     const { activeItem } = this.state;
@@ -25,28 +30,33 @@ export default class SideBar extends Component {
         <Menu vertical fluid size="massive">
           <Menu.Item
             name="Dashboard"
-            active={activeItem === "/indicators"}
-            onClick={this.handleItemClick}
+            active={activeItem === "/dashboard"}
+            to="dashboard"
+            as={Link}
           />
           <Menu.Item
             name="Reports"
             active={activeItem === "/reports"}
-            onClick={this.handleItemClick}
+            to="reports"
+            as={Link}
           />
           <Menu.Item
             name="Targets"
             active={activeItem === "/targets"}
-            onClick={this.handleItemClick}
+            to="targets"
+            as={Link}
           />
           <Menu.Item
             name="Settings"
             active={activeItem === "/settings"}
-            onClick={this.handleItemClick}
+            to="settings"
+            as={Link}
           />
           <Menu.Item
             name="Billing"
             active={activeItem === "/billing"}
-            onClick={this.handleItemClick}
+            to="billing"
+            as={Link}
           />
         </Menu>
       </div>
