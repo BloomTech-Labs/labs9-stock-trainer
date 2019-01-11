@@ -17,16 +17,24 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      signedIn: false,
+      signedIn: true,
       currentUser: "test user"
     };
   }
+
+  signOut = () => {
+    this.setState({ signedIn: false });
+  };
 
   render() {
     const { currentUser, signedIn } = this.state;
     return (
       <div className="App">
-        <TopBar currentUser={currentUser} signedInState={signedIn} />
+        <TopBar
+          currentUser={currentUser}
+          signedInState={signedIn}
+          signOutFunc={this.signOut}
+        />
         <Switch>
           <Route
             exact
