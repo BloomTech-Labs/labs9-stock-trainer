@@ -55,11 +55,7 @@ class AccountSettings extends Component {
       newPassword
     } = this.state;
     return (
-      <Form
-        size="large"
-        style={{ width: "25%", marginLeft: "20px" }}
-        onSubmit={this.handleSubmit}
-      >
+      <Form size="large" style={{ width: "25%" }} onSubmit={this.handleSubmit}>
         <Form.Field>
           <label htmlFor="email">
             Email

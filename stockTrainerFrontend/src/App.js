@@ -13,11 +13,13 @@ import Billing from "./components/billing/Billing";
 import UserInfo from "./components/userinfo/UserInfo";
 import Dashboard from "./components/dashboard/Dashboard";
 
+import Callback from "./Auth/Callback";
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      signedIn: true,
+      signedIn: false,
       currentUser: "test user"
     };
   }
@@ -111,6 +113,7 @@ class App extends Component {
             )}
           />
           <Route exact path="/" render={props => <Landing {...props} />} />
+          <Route exact path="/callback" Component={Callback} />
         </Switch>
       </div>
     );

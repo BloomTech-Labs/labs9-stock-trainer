@@ -33,7 +33,7 @@ class CheckoutForm extends Component {
 
   render() {
     const { complete } = this.state;
-    if ({ complete } === true) return <h1>Purchase Complete</h1>;
+    if (complete === true) return <h1>Purchase Complete</h1>;
     return (
       <div className="checkout">
         <p>$9.99/month</p>
