@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Header,
-  Container,
-  Icon,
-  Input,
-  Tab,
-  Placeholder
-} from "semantic-ui-react";
+import { Header, Icon, Input, Tab, Placeholder } from "semantic-ui-react";
 import "./Reports.css";
 
 const placeholderPane = (
