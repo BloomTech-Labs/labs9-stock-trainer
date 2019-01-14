@@ -1,5 +1,5 @@
 .gridContainer {
-  width: 85%;
+  width: 90%;
   display: grid;
   grid-template-columns: 45% 45%;
   grid-column-gap: 2%;
