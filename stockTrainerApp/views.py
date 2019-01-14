@@ -1,13 +1,37 @@
-from django.shortcuts import render
-
+import stripe
 from functools import wraps
-
-from rest_framework.decorators import api_view
-from django.http import JsonResponse
 from jose import jwt
+from rest_framework.decorators import api_view
 
+from django.shortcuts import render
+from django.conf import settings
+from django.views.generic.base import TemplateView
+from django.http import JsonResponse
+
+
+
+stripe.api_key = settings.STRIPE_SECRET_TEST_KEY
 
 # Create your views here.
+
+class HomePageView(TemplateView):
+    template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['STRIPE_PUBLISHABLE_TEST_KEY'] = settings.STRIPE_PUBLISHABLE_TEST_KEY
+        # TODO: set this key to STRIPE_PUBLISHABLE_KEY post testing
+        return context
+
+def charge(request):
+    if request.method == 'POST':
+        charge = stripe.Charge.create(
+            amount=500,
+            currency='usd',
+            description="It's just stuff... Don't worry about it...",
+            source=request.POST['stripeToken']
+        )
+        return render(request, 'charge.html')
 
 # Auth0 check for granted scopes from access_token
 
