@@ -5,6 +5,8 @@ import auth0Client from "../../Auth";
 class SignInContainer extends React.Component {
   signIn = () => {
     auth0Client.signIn();
+    // eslint-disable-next-line react/destructuring-assignment
+    this.props.history.replace("/");
   };
 
   render() {
