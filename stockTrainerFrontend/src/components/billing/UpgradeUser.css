@@ -1,14 +1,7 @@
 .upgradePage {
     display: flex;
-    width: 50%;
-    margin: auto;
+    flex-direction: column;
 }
-
-.checkoutForm {
-    width: 50%;
-    margin: auto;
-}
-
 input,
 .StripeElement {
     display: block;
