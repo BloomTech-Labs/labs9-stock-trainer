@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Modal, Icon } from "semantic-ui-react";
 import "./SignoutContainer.css";
-import auth0Client from "../../Auth";
+import auth0Client from "../../Auth/Auth";
 
 class SignedOutContainer extends React.Component {
   constructor(props) {

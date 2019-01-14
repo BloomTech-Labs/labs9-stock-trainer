@@ -13,7 +13,7 @@ import Billing from "./components/billing/Billing";
 import UserInfo from "./components/userinfo/UserInfo";
 import Dashboard from "./components/dashboard/Dashboard";
 
-import Callback from "./Callback";
+import Callback from "./Auth/Callback";
 
 class App extends Component {
   constructor(props) {

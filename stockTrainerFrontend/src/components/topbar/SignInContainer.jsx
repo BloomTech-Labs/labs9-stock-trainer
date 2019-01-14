@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "semantic-ui-react";
-import auth0Client from "../../Auth";
+import auth0Client from "../../Auth/Auth";
 
 class SignInContainer extends React.Component {
   signIn = () => {
