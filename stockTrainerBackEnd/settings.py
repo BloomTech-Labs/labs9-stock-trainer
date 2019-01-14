@@ -65,6 +65,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # TODO: see if this can route the react app index to the front page.
         'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
