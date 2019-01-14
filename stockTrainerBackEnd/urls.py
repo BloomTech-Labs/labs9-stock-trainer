@@ -21,7 +21,7 @@ from django.urls import path, include
 from stockTrainerApp.api import UserViewset, StockViewset, StudyViewset, IndicatorViewset, PortfolioViewset
 
 
-#Router to add viewsets
+# Router to add viewsets
 router = routers.DefaultRouter()
 router.register(r'User', UserViewset)
 router.register(r'Stock', StockViewset)
@@ -32,4 +32,5 @@ router.register(r'Portfolio', PortfolioViewset)
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('', include('stockTrainerApp.urls'))
 ]
