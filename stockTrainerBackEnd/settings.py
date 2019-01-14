@@ -14,6 +14,14 @@ import dj_database_url
 
 import os
 
+#Auth0 configuration 
+
+import json 
+from six.moves.urllib import request
+
+from cryptograpy.x509 import load_pem_x509_certificate
+from cryptograpy.haxmat.backends import default_backend 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -51,9 +59,17 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.RemoteUserMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware'
+]
+
+# Auth0 configuration 
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.RemoteUserBackend'
 ]
 
 ROOT_URLCONF = 'stockTrainerBackEnd.urls'
@@ -88,11 +104,18 @@ DATABASES['default'] = dj_database_url.config(
     default=config('DATABASE_URL'), conn_max_age=600)
 
 # Django REST framework settings
+# Django REST authentication framework 
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
+    'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-    ]
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULTH_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
 }
 
 # Password validation
@@ -113,6 +136,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Configuring the JWK 
+
+JWT_AUTH = {
+    'JWT_PAYLOAD_GET_USERNAME_HANDLER':
+        'auth0authorization.user.jwt_get_username_from_payload_handler',
+    'JWT_PUBLIC_KEY': publickkey,
+    'JWT_ALGORITHM': 'RS256',
+    'JWT_AUDIENCE': 'https://stock-trainer.auth0.com/api/v2/',
+    'JWT_ISSUER': 'https://stock-trainer.auth0.com',
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -141,3 +175,11 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = (
     'localhost:3000'
 )
+
+# JWKS for Auth0 
+jsonurl = request.urlopen("https://stock-trainer.auth0.com/.well-kown/jwks.json")
+jwks = json.loads(jsonurl.read())
+cert = '-----BEGIN CERTIFICATE-----\n' + jwks['keys'][0]['x5c'][0] + '\n-----END'
+
+certificate = load_pem_x509_certificate(str.encode(cert), default_backend())
+publickkey = certificate.public_key()
