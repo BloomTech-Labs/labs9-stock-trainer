@@ -3,11 +3,12 @@ import quandl
 from .models import User, Stock, Study, Indicator, Portfolio, Test
 
 df = quandl.get("FRED/GDP", start_date="2001-12-31", end_date="2005-12-31")
-print(df.columns.values)
+# print(df.columns.values)
 
 # for index, row in df.iterrows():
 #   mymodel = Test()
-#   # print((row['Value']))
+#   # print(row['Value'])
+#   mymodel.create(row['Value'])
 #   mymodel.save(row['Value'])
 
 
