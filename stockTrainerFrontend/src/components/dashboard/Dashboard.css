@@ -1,15 +1,21 @@
-.pageGrid {
+.gridContainer {
   width: 85%;
   height: 90vh;
+  display: grid;
+  grid-template-columns: 45% 45%;
+  grid-column-gap: 2%;
+  grid-template-rows: 30% 68%;
+  grid-row-gap: 2%;
 }
-.stockSearch {
-  width: 90%;
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-bottom: 2rem;
+
+/* This overrides semantics default margin for segments */
+.ui.segment {
+  margin: 0;
 }
-.topRight {
-  max-height: 20rem;
-  display: flex;
-  align-content: center;
+
+.leftColumn {
+  grid-row-start:1;
+  grid-row-end:3;
+  grid-column-start:2;
+  grid-column-end:3;
 }
