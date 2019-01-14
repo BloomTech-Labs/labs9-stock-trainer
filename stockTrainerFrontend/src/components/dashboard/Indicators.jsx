@@ -11,12 +11,16 @@ const settings = {
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,
-  autoplay: true
+  autoplay: true,
+  adaptiveHeight: true,
+  pauseOnDotsHover: true,
+  pauseOnHover: true,
+  arrows: false
 };
 
 const Indicators = () => (
-  <Container fluid className="indicators">
-    <Slider {...settings}>
+  <Container className="slidersContainer">
+    <Slider className="slidersSlider" {...settings}>
       <div>
         <Header as="h3">Indicator 1</Header>
         <Placeholder>
