@@ -1,3 +1,6 @@
-.indicators {
+.slidersContainer {
   height: 100%;
+}
+.slidersSlider{
+  height: 93%;
 }
