@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import User, Portfolio, Stock, Study, Indicator
+from .models import User, Portfolio, Stock, Study, Indicator, Test
 
 # Register your models here.
 
@@ -14,4 +14,5 @@ admin.site.register(Stock)
 admin.site.register(Study)
 admin.site.register(Indicator)
 admin.site.register(Portfolio)
+admin.site.register(Test)
 
