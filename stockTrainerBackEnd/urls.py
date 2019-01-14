@@ -18,11 +18,16 @@ from django.contrib import admin
 from rest_framework import routers
 from django.urls import path, include
 
-from stockTrainerApp.api import UserViewset
+from stockTrainerApp.api import UserViewset, StockViewset, StudyViewset, IndicatorViewset, PortfolioViewset
+
 
 #Router to add viewsets
 router = routers.DefaultRouter()
 router.register(r'User', UserViewset)
+router.register(r'Stock', StockViewset)
+router.register(r'Study', StudyViewset)
+router.register(r'Indicator', IndicatorViewset)
+router.register(r'Portfolio', PortfolioViewset)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
