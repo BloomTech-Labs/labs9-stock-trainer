@@ -11,19 +11,30 @@ class User(models.Model):
     username = models.CharField(max_length=25)
     firstname = models.CharField(max_length=25)
     lastname = models.CharField(max_length=25)
-    created_at = models.DateTimeField(auto_now_add=True)
-    last_modified = models.DateTimeField(auto_now=True)
+    study_name = models.ForeignKey('Study', on_delete=models.CASCADE, default="NA")
+    portfolio_name = models.ForeignKey('Portfolio', on_delete=models.CASCADE, default="NA")
+    
+
+class Study(models.Model):
+    study_name = models.CharField(primary_key=True, unique=True, max_length=25, help_text='Pick a name for your study', default="NA")
+    stock_name = models.ForeignKey('Stock', on_delete=models.CASCADE)
+    indicator_name = models.ForeignKey('Indicator', on_delete=models.CASCADE)
+    start_date = models.DateTimeField(blank=False, null=False)
+    end_date = models.DateTimeField(blank=False, null=False)
+    
+
+class Portfolio(models.Model):
+    portfolio_name = models.CharField(primary_key=True, unique=True, max_length=25, help_text='Pick a name for your portfolio', default="NA")
+    study_name = models.ForeignKey(Study, on_delete=models.CASCADE, default="NA")
 
 
 class Stock(models.Model):
-    symbol = models.CharField(max_length=25)
-    name = models.CharField(max_length=25)
-    created_at = models.DateTimeField(auto_now_add=True)
-    last_modified = models.DateTimeField(auto_now=True)
+    symbol = models.CharField(max_length=5, help_text='Enter Stock Symbol')
+    name = models.CharField(primary_key=True, max_length=25, help_text='Enter Stock Name')
+    price_close = models.IntegerField(default=0)
 
 
-class Portfolio(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    last_modified = models.DateTimeField(auto_now=True)
-    stocks = models.ManyToManyField(Stock)
+class Indicator(models.Model):
+    indicator_name = models.CharField(primary_key=True, max_length=25, help_text='Enter Stock Name')
+    indicator_parameters = models.IntegerField # should we save a new one per parameter...?
+
