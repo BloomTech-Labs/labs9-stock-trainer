@@ -1,14 +1,17 @@
 from django.contrib import admin
 
-from .models import User, Portfolio, Stock
+from .models import User, Portfolio, Stock, Study, Indicator
 
 # Register your models here.
 
 # TODO: any other model added in .models can be registered along with user
 
 
-class stockTrainerAdmin(admin.ModelAdmin):
-    readonly_fields = ('created_at', 'last_modified')
 
 
-admin.site.register((User, Portfolio, Stock), stockTrainerAdmin)
+admin.site.register(User)
+admin.site.register(Stock)
+admin.site.register(Study)
+admin.site.register(Indicator)
+admin.site.register(Portfolio)
+
