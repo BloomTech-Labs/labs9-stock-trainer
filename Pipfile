@@ -17,8 +17,8 @@ gunicorn = "*"
 "psycopg2-binary" = "*"
 dj-database-url = "*"
 whitenoise = "*"
-stripe = "*"
 djangorestframework-jwt = "*"
+stripe = "*"
 
 [requires]
 python_version = "3.6"
