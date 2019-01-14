@@ -1,6 +1,15 @@
 from rest_framework import serializers, viewsets
+import quandl
+from .models import User, Stock, Study, Indicator, Portfolio, Test
 
-from .models import User, Stock, Study, Indicator, Portfolio
+df = quandl.get("FRED/GDP", start_date="2001-12-31", end_date="2005-12-31")
+print(df.columns.values)
+
+# for index, row in df.iterrows():
+#   mymodel = Test()
+#   # print((row['Value']))
+#   mymodel.save(row['Value'])
+
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
 
@@ -59,3 +68,17 @@ class PortfolioSerializer(serializers.HyperlinkedModelSerializer):
 class PortfolioViewset(viewsets.ModelViewSet):
   serializer_class = PortfolioSerializer
   queryset = Portfolio.objects.all()
+
+################
+
+
+class TestSerializer(serializers.HyperlinkedModelSerializer):
+
+  class Meta:
+    model = Test
+    fields = '__all__'
+
+
+class TestViewset(viewsets.ModelViewSet):
+  serializer_class = TestSerializer
+  queryset = Test.objects.all()
