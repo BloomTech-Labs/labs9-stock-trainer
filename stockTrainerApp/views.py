@@ -1,5 +1,12 @@
 from django.shortcuts import render
 
+from functools import wraps
+
+from rest_framework.decorators import api_view
+from django.http import JsonResponse
+from jose import jwt
+
+
 # Create your views here.
 
 # Auth0 check for granted scopes from access_token
@@ -32,3 +39,11 @@ def requires_scope(required_scope):
             return response
         return decorated
     return require_scope
+
+def public(request):
+    return JsonResponse({'message': 'Hello from a public endpoint! You don\'t need to be authenticated to see this.'})
+
+
+@api_view(['GET'])
+def private(request):
+    return JsonResponse({'message': 'Hello from a private endpoint! You need to be authenticated to see this.'})
