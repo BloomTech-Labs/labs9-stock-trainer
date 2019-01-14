@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import {
   Container,
@@ -30,9 +31,11 @@ const Landing = () => (
         molestias tenetur inventore, sit enim minima aspernatur doloribus
         tempore quos molestiae distinctio sint! Quae, reiciendis saepe!
       </p>
-      <Button basic color="grey">
-        Demo now!
-      </Button>
+      <Link to="/dashboard">
+        <Button onClick="" basic color="grey">
+          Demo now!
+        </Button>
+      </Link>
     </Container>
     {/* Add demo/way for users to see how the app functions */}
   </Container>
