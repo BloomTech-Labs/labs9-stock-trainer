@@ -42,5 +42,9 @@ All setting for Netlify are to be set with the netlify.toml which is located in 
 * [React Router ](https://reacttraining.com/react-router/) - Routing
 * [Semantic UI React](https://react.semantic-ui.com/) - UI Component Framework
 * [Stripe](https://stripe.com/docs) - Payment Processor
-* [Auth0](https://auth0.com/) - Authentication Library 
+* [Auth0](https://auth0.com/) - Authentication Library
+
+## License
+
+TODO
 
