@@ -36,10 +36,10 @@ def charge(request):
             description="It's just stuff... Don't worry about it...",
             source=token
         )
+        print(charge)
         print("status:", charge['status'])
         # we can change our jsonresponse depending on the error from stripe, or the status of the charge
         return JsonResponse({
-            'ok': True,
             'message': 'The payment has been successful'
         })
 
