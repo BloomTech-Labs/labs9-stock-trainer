@@ -11,11 +11,25 @@ import {
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { complete: false };
+    this.state = {
+      complete: false,
+      error: false,
+      cardNumber: false,
+      cvc: false,
+      expiry: false,
+      zip: false
+    };
   }
 
   handleSubmit = async event => {
     event.preventDefault();
+    const { cardNumber, cvc, expiry, zip } = this.state;
+    if (!cardNumber || !cvc || !expiry || !zip) {
+      console.log("need all fields");
+      this.setState({ error: true });
+      return;
+    }
+
     const { stripe } = this.props;
     const { token } = await stripe.createToken({ name: "Name" }); // can add more userinfo here
     const url = "http://localhost:8000/charge/"; // "django_url/charge/"
@@ -40,21 +54,38 @@ class CheckoutForm extends Component {
       });
   };
 
+  stripeElementChange = (element, name) => {
+    if (!element.empty && element.complete) {
+      this.setState({ [name]: true });
+    }
+  };
+
   render() {
-    const { complete } = this.state;
+    const { complete, error } = this.state;
     if (complete === true) return <h1>Purchase Complete</h1>;
     return (
       <div className="checkout">
         <p>$9.99/month</p>
         <form onSubmit={this.handleSubmit}>
           <p>Card number</p>
-          <CardNumberElement />
+          <CardNumberElement
+            onChange={element =>
+              this.stripeElementChange(element, "cardNumber")
+            }
+          />
           <p>Expiration date</p>
-          <CardExpiryElement />
+          <CardExpiryElement
+            onChange={element => this.stripeElementChange(element, "expiry")}
+          />
           <p>CVC</p>
-          <CardCVCElement />
+          <CardCVCElement
+            onChange={element => this.stripeElementChange(element, "cvc")}
+          />
           <p>Zip code</p>
-          <PostalCodeElement />
+          <PostalCodeElement
+            onChange={element => this.stripeElementChange(element, "zip")}
+          />
+          {error ? <p>Please make sure every field is filled in</p> : null}
           <button type="submit">Pay</button>
         </form>
         <p>
