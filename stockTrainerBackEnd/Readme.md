@@ -4,32 +4,59 @@
 
 ### Prerequisites
 
-You will need Django installed for this project. Please see https://www.djangoproject.com/download/ for a guide to installing it on your system.
+You will need Django installed for this project. Please see https://www.djangoproject.com/download/ for a guide to installing it on your syst
 
 This project uses PEP8 as a style guide via VSCode.
 
 ### Installing
 
-Most Django projects live within a virtual environment. The choices mainly are VirtualEnv and Pipenv. This project uses Pipenv. Invoke it by navigatign to the appropriate folder and typing:
+Most Django projects live within a virtual environment. The choices are typically, VirtualEnv or Pipenv. This project uses Pipenv. Invoke it by navigating to your project root folder (where manage.py is) and typing:
 
 ```pipenv shell```
 
-To install and run:
+To install Django:
 
 ```pip install Django>2.0```
 
-for fresh projects. For an existing project, simply type:```
+for fresh projects. For an existing project, simply type:
 
 ```pipenv install```
 
 This will download all dependencies already installed.
 
-### .env file fields
-TODO 
+To be able to log in to the admin interface:
 
-### Code Style
+```python manage.py createsuperuser```
 
-All styling is to match the [AirBnB style guidelines](https://github.com/airbnb/javascript). This should be automatically enforced via combination of ESlint and Prettier. Please ensure you have this combination working before pushing.
+and follow the prompts. To scaffold the structure of tables, within Models.py, on the DB:
+
+```python manage.py makemigrations```
+
+To actually make the tables and DB:
+
+```python manage.py migrate```
+
+To run the server and see your project on local host:
+
+```python manage.py runserver```
+
+This will 'publish' the project on your local browser at '127.0.0.1/8000'. To log in and view your DB just append '/admin'
+
+
+
+This is what the models and consequently, the DB is structured as, for this project:
+
+```
+User Model:
+    username -       Character field for the Username adopted by the user
+    firstname  -     Chatacter field for the First name of the user
+    lastname -       Chatacter field for the Last name of the user
+    study_name -     Character field for the name of the study that user has saved
+    portfolio_name - Character filed for the name of the Portfolio saved by user. This holds all the user's studies.
+```
+
+
+
 
 ## Deployment
 
