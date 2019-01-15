@@ -82,8 +82,8 @@ Stock Model:
 
 ```
 Indicator Model:
-indicator_name -   Character field for the name of the indicator
-Indicator_params - Numeric field for the Indicator parameters. WIP
+    indicator_name -   Character field for the name of the indicator
+    Indicator_params - Numeric field for the Indicator parameters. WIP
 ```
 
 
@@ -91,18 +91,8 @@ Indicator_params - Numeric field for the Indicator parameters. WIP
 
 ## Deployment
 
-The front end is deployed via [Netlify](https://www.netlify.com/) from the master branch automatically. All pull requests are also automatically built under a test URL by Netlify. If the build is successful it will be recorded in the PR. Please do not approve code that does not pass these checks. 
-
-All setting for Netlify are to be set with the netlify.toml which is located in the root of this repository. 
-
 ## Built With
-
-* [React](https://reactjs.org/) - Framework
-* [React Router ](https://reacttraining.com/react-router/) - Routing
-* [Semantic UI React](https://react.semantic-ui.com/) - UI Component Framework
-* [Stripe](https://stripe.com/docs) - Payment Processor
-* [Auth0](https://auth0.com/) - Authentication Library
 
 ## License
 
-TODO
+
