@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import TopBar from "./components/topbar/TopBar";
@@ -14,13 +15,16 @@ import UserInfo from "./components/userinfo/UserInfo";
 import Dashboard from "./components/dashboard/Dashboard";
 
 import Callback from "./Auth/Callback";
+import TestRequest from "./components/TestRequest";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       signedIn: false,
-      currentUser: "test user"
+      currentUser: "test user",
+      jwt: "TESTESTEST",
+      stockData: {}
     };
   }
 
@@ -40,8 +44,41 @@ class App extends Component {
     });
   };
 
+  retrieveStock = (nameOfStock, startDate, endDate) => {
+    const { jwt, stockData } = this.state;
+    const paramSettings = {
+      NAME: nameOfStock
+    };
+    if (startDate) {
+      paramSettings.STARTDATE = startDate;
+    }
+    if (endDate) {
+      paramSettings.ENDDATE = endDate;
+    }
+    axios
+      .request({
+        method: "get",
+        baseURL: `${process.env.REACT_APP_BACKEND_URL}/stock`,
+        headers: {
+          Authorization: `Bearer ${jwt}`
+        },
+        params: paramSettings
+      })
+      .then(res => {
+        const newState = { ...stockData };
+        newState[res.data.symbol] = {
+          symbol: res.data.symbol,
+          name: res.data.name,
+          price: res.data.price
+        };
+        this.setState({
+          stockData: newState
+        });
+      });
+  };
+
   render() {
-    const { currentUser, signedIn } = this.state;
+    const { currentUser, signedIn, stockData } = this.state;
     return (
       <div className="App">
         <TopBar
@@ -109,6 +146,19 @@ class App extends Component {
               <div className="lowerPageLayout">
                 <SideBar {...props} />
                 <Dashboard />
+              </div>
+            )}
+          />
+          <Route
+            exact
+            path="/testrequest"
+            render={props => (
+              <div className="lowerPageLayout">
+                <SideBar {...props} />
+                <TestRequest
+                  retrieveStock={this.retrieveStock}
+                  stockData={stockData}
+                />
               </div>
             )}
           />
