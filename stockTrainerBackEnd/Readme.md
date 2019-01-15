@@ -15,14 +15,14 @@ Most Django projects live within a virtual environment. The choices mainly are V
 ```pipenv shell```
 
 To install and run:
-```
-pip install Django>2.0
-```
-for fresh projects, For an existing project, simply type:```
+
+```pip install Django>2.0```
+
+for fresh projects. For an existing project, simply type:```
 
 ```pipenv install```
 
-This will launch a devolpment server on 127.0.0.1/8000.
+This will download all dependencies already installed.
 
 ### .env file fields
 TODO 
