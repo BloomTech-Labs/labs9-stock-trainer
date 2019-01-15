@@ -71,6 +71,22 @@ Study Model:
 Portfolio Model:
     portfolio_name - Character field for the name of the portfolio
     study_name -     Character field for the name of the study (in portfolio)
+```
+
+```
+Stock Model:
+    symbol - Character field to store the symbol for the Stock. E.g AMZN
+    name -   Character field to store the name of the stock. E.g Amazon
+    price -  Numric field. Currently only stores the closing price. WIP
+```
+
+```
+Indicator Model:
+indicator_name -   Character field for the name of the indicator
+Indicator_params - Numeric field for the Indicator parameters. WIP
+```
+
+
 
 
 ## Deployment
