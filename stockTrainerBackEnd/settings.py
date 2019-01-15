@@ -40,7 +40,6 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(',')
 # Application definition
 
 INSTALLED_APPS = [
-    'stockTrainerApp',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,7 +47,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+
+    # Local
+    'stockTrainerApp',
 ]
 
 MIDDLEWARE = [
@@ -79,7 +81,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        # TODO: see if this can route the react app index to the front page.
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -175,6 +178,14 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = (
     'localhost:3000'
 )
+
+
+# Stripe API Key
+# STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
+# STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
+
+STRIPE_SECRET_TEST_KEY = config('STRIPE_SECRET_TEST_KEY')
+STRIPE_PUBLISHABLE_TEST_KEY = config('STRIPE_PUBLISHABLE_TEST_KEY')
 
 # JWKS for Auth0 
 jsonurl = request.urlopen("https://stock-trainer.auth0.com/.well-kown/jwks.json")
