@@ -19,8 +19,8 @@ import os
 import json 
 from six.moves.urllib import request
 
-from cryptograpy.x509 import load_pem_x509_certificate
-from cryptograpy.haxmat.backends import default_backend 
+from cryptography.x509 import load_pem_x509_certificate
+from cryptography.hazmat.backends import default_backend
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -139,17 +139,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Configuring the JWK 
-
-JWT_AUTH = {
-    'JWT_PAYLOAD_GET_USERNAME_HANDLER':
-        'auth0authorization.user.jwt_get_username_from_payload_handler',
-    'JWT_PUBLIC_KEY': publickkey,
-    'JWT_ALGORITHM': 'RS256',
-    'JWT_AUDIENCE': 'https://stock-trainer.auth0.com/api/v2/',
-    'JWT_ISSUER': 'https://stock-trainer.auth0.com',
-    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -188,9 +177,21 @@ STRIPE_SECRET_TEST_KEY = config('STRIPE_SECRET_TEST_KEY')
 STRIPE_PUBLISHABLE_TEST_KEY = config('STRIPE_PUBLISHABLE_TEST_KEY')
 
 # JWKS for Auth0 
-jsonurl = request.urlopen("https://stock-trainer.auth0.com/.well-kown/jwks.json")
+jsonurl = request.urlopen("https://stock-trainer.auth0.com/.well-known/jwks.json")
 jwks = json.loads(jsonurl.read())
-cert = '-----BEGIN CERTIFICATE-----\n' + jwks['keys'][0]['x5c'][0] + '\n-----END'
+cert = '-----BEGIN CERTIFICATE-----\n' + jwks['keys'][0]['x5c'][0] + '\n-----END CERTIFICATE-----'
 
 certificate = load_pem_x509_certificate(str.encode(cert), default_backend())
-publickkey = certificate.public_key()
+publickey = certificate.public_key()
+
+# Configuring the JWK
+
+JWT_AUTH = {
+    'JWT_PAYLOAD_GET_USERNAME_HANDLER':
+        'auth0authorization.user.jwt_get_username_from_payload_handler',
+    'JWT_PUBLIC_KEY': publickey,
+    'JWT_ALGORITHM': 'RS256',
+    'JWT_AUDIENCE': 'https://stock-trainer.auth0.com/api/v2/',
+    'JWT_ISSUER': 'https://stock-trainer.auth0.com',
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+}

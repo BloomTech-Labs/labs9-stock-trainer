@@ -22,7 +22,8 @@ cryptography = "*"
 pyjwt = "*"
 python-dotenv = "*"
 stripe = "*"
-
+quandl = "*"
+python-jose = "*"
 
 [requires]
 python_version = "3.6"

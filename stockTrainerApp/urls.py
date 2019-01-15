@@ -11,3 +11,4 @@ urlpatterns = [
     # Temp home page
     path('', views.HomePageView.as_view(), name='home'),
     path('charge/', views.charge, name='charge')
+]
