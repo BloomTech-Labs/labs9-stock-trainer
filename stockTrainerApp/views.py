@@ -25,8 +25,11 @@ class HomePageView(TemplateView):
 
 def charge(request):
     if request.method == 'POST':
+        # body of request is parsed by the loads function
         body = json.loads(request.body)
-        token = body['body']
+        print(body)
+        # currently we're looking at the token only, but there we can add more to the body to id the user
+        token = body['token']
         charge = stripe.Charge.create(
             amount=500,
             currency='usd',
@@ -34,6 +37,7 @@ def charge(request):
             source=token
         )
         print("status:", charge['status'])
+        # we can change our jsonresponse depending on the error from stripe, or the status of the charge
         return JsonResponse({
             'ok': True,
             'message': 'The payment has been successful'

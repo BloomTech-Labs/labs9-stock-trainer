@@ -11,5 +11,5 @@ urlpatterns = [
   
     # Temp home page
     path('', views.HomePageView.as_view(), name='home'),
-    path('charge/', csrf_exempt(views.charge), name='charge')
+    path('charge/', csrf_exempt(views.charge), name='charge')  # for now, we're disabling csrf requirements for charging
 ]
