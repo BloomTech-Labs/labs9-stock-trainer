@@ -52,10 +52,12 @@ User Model:
     firstname  -     Chatacter field for the First name of the user
     lastname -       Chatacter field for the Last name of the user
     study_name -     Character field for the name of the study that user has saved
-    portfolio_name - Character filed for the name of the Portfolio saved by user. A portfolio holds the user's studies.
+    portfolio_name - Character filed for the name of the Portfolio saved by user.
+    A portfolio holds the user's studies.
 ```
 
-```Study Model:
+```
+Study Model:
     (A study is a combination of a Stock name, a date range and indicators with their attendant parameters.)
 
     study_name -     Character field for the name of the study that user has saved
