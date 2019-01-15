@@ -7,7 +7,7 @@ class Auth {
       domain: "stock-trainer.auth0.com",
       audience: "https://stock-trainer.auth0.com/userinfo",
       clientID: "90QRusJ6F6LjsgmUA97iEc2rXfDANPqa",
-      redirectUri: "https://stock-trainer.netlify.com/callback",
+      redirectUri: "https://stock-trainer.netlify.com/dashboard",
       responseType: "id_token",
       scope: "openid profile"
     });
