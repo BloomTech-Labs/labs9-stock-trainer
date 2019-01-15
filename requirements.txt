@@ -1,4 +1,0 @@
-djangorestframework-jwt
-cryptography
-pyjwt
-python-dotenv

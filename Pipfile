@@ -18,6 +18,9 @@ gunicorn = "*"
 dj-database-url = "*"
 whitenoise = "*"
 djangorestframework-jwt = "*"
+cryptography = "*"
+pyjwt = "*"
+python-dotenv = "*"
 stripe = "*"
 
 
