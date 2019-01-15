@@ -4,7 +4,7 @@
 
 ### Prerequisites
 
-You will need Django installed for this project. Please see (here)[https://www.djangoproject.com/download/] for a guide to installing it on your system.
+You will need Django installed for this project. Please see https://www.djangoproject.com/download/ for a guide to installing it on your system.
 
 This project uses PEP8 as a style guide via VSCode.
 
@@ -12,7 +12,7 @@ This project uses PEP8 as a style guide via VSCode.
 
 Most Django projects live within a virtual environment. The choices mainly are VirtualEnv and Pipenv. This project uses Pipenv. Invoke it by navigatign to the appropriate folder and typing:
 
-pipenv shell
+```pipenv shell```
 
 To install and run:
 ```
