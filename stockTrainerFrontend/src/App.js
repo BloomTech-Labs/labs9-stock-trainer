@@ -14,6 +14,9 @@ import UserInfo from "./components/userinfo/UserInfo";
 import Dashboard from "./components/dashboard/Dashboard";
 
 import Callback from "./Auth/Callback";
+import Auth from "./Auth/Auth";
+
+const auth = new Auth();
 
 class App extends Component {
   constructor(props) {
@@ -35,9 +38,18 @@ class App extends Component {
   };
 
   signIn = () => {
-    this.setState({
-      signedIn: true
-    });
+    auth.signIn();
+    // this.setState({
+    //   signedIn: true
+    // });
+
+    // eslint-disable-next-line no-undef
+    // handleAuthentication = nextState => {
+    //   if (/access_token|id_token|error/.test(nextState.location.hash)) {
+    //     // eslint-disable-next-line no-undef
+    //     auth.handleAuthentication();
+    //   }
+    // };
   };
 
   render() {
@@ -113,7 +125,15 @@ class App extends Component {
             )}
           />
           <Route exact path="/" render={props => <Landing {...props} />} />
-          <Route exact path="/callback" Component={Callback} />
+          <Route
+            exact
+            path="/callback"
+            render={props => {
+              // eslint-disable-next-line no-undef
+              handleAuthentication(props);
+              return <Callback {...props} />;
+            }}
+          />
         </Switch>
       </div>
     );

@@ -1,29 +1,18 @@
 import React from "react";
 import { Button } from "semantic-ui-react";
-import auth0Client from "../../Auth/Auth";
 
-class SignInContainer extends React.Component {
-  signIn = () => {
-    auth0Client.signIn();
-    // eslint-disable-next-line react/destructuring-assignment
-    this.props.history.replace("/");
-  };
-
-  render() {
-    return (
-      <div>
-        {/* I don't think we need the Register button. */}
-        {/* <Button onClick={auth0Client.signIn} size="big" primary>
-          Register
-        </Button> */}
-        {!auth0Client.isAuthenticated() && (
-          <Button onClick={auth0Client.signIn} size="big" secondary>
-            Sign In
-          </Button>
-        )}
-      </div>
-    );
-  }
-}
+const SignInContainer = props => {
+  const { signInFunc } = props;
+  return (
+    <div>
+      {/* <Button onClick={register} size="big" primary>
+        Register
+      </Button> */}
+      <Button onClick={signInFunc} size="big" secondary>
+        Sign In
+      </Button>
+    </div>
+  );
+};
 
 export default SignInContainer;
