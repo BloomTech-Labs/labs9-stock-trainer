@@ -1,9 +1,9 @@
 import stripe
 from functools import wraps
 from jose import jwt
+import json
 from rest_framework.decorators import api_view
 
-from django.shortcuts import render
 from django.conf import settings
 from django.views.generic.base import TemplateView
 from django.http import JsonResponse
@@ -25,13 +25,19 @@ class HomePageView(TemplateView):
 
 def charge(request):
     if request.method == 'POST':
+        body = json.loads(request.body)
+        token = body['body']
         charge = stripe.Charge.create(
             amount=500,
             currency='usd',
             description="It's just stuff... Don't worry about it...",
-            source=request.POST['stripeToken']
+            source=token
         )
-        return render(request, 'charge.html')
+        print("status:", charge['status'])
+        return JsonResponse({
+            'ok': True,
+            'message': 'The payment has been successful'
+        })
 
 # Auth0 check for granted scopes from access_token
 

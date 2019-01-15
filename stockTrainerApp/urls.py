@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from django.urls import path
+from django.views.decorators.csrf import csrf_exempt
 
 from . import views
 
@@ -10,5 +11,5 @@ urlpatterns = [
   
     # Temp home page
     path('', views.HomePageView.as_view(), name='home'),
-    path('charge/', views.charge, name='charge')
+    path('charge/', csrf_exempt(views.charge), name='charge')
 ]

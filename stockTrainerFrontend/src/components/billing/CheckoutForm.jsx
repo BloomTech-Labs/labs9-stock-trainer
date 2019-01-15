@@ -14,22 +14,23 @@ class CheckoutForm extends Component {
     this.state = { complete: false };
   }
 
-  handleSubmit(event) {
+  handleSubmit = async event => {
     event.preventDefault();
     const { stripe } = this.props;
-    const { token } = { stripe }.createToken({ name: "Name" });
-    const url = "http://localhost:3000/billing";
+    const { token } = await stripe.createToken({ name: "Name" });
+    const url = "http://localhost:8000/charge/"; // "django_url/charge"
 
     axios
       .post(`${url}`, {
         headers: { "Content-Type": "text/plain" },
+        mode: "no-cors",
         body: token.id
       })
       .then(response => {
-        if (response.ok) this.setState({ complete: true });
+        if (response.status === 200) this.setState({ complete: true });
         console.log(response);
       });
-  }
+  };
 
   render() {
     const { complete } = this.state;
@@ -46,7 +47,7 @@ class CheckoutForm extends Component {
           <CardCVCElement />
           <p>Zip code</p>
           <PostalCodeElement />
-          <button type="button">Pay</button>
+          <button type="submit">Pay</button>
         </form>
         <p>
           Your subscription will automatically renew every month. You will be

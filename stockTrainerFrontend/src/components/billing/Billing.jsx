@@ -11,7 +11,7 @@ const UpgradeUser = () => (
       <p>Look at all 5 of our fancy indicators</p>
       <p>We help you find stocks</p>
     </div>
-    <StripeProvider apiKey="pk_test_rY8prrYy1Hij91qrNdI5zpYu">
+    <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PUBLISHABLE_TEST_KEY}>
       <div className="checkoutForm">
         <Elements>
           <CheckoutForm />
