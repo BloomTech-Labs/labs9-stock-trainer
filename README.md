@@ -21,11 +21,23 @@ Welcome to our application that teaches and guides you on trading stocks.
     - [Semantic UI](#semantic-ui)
     - [Victory](#victory)
     - [React Slick](#react-slick)
+    - [Auth0](#auth0)
   - [Front-End Dependencies (Development)](#front-end-dependencies-development)
     - [ESLint](#eslint)
+    - [Prettier](#prettier)
   - [Back-End Dependencies (Production)](#back-end-dependencies-production)
     - [Django](#django)
     - [Django Coverage](#django-coverage)
+    - [Python-decouple](#python-decouple)
+    - [Djangorestframework](#djangorestframework)
+    - [Django-cors-headers](#djangocorsheaders)
+    - [Whitenoise](#whitenoise)
+    - [Gunicorn](#gunicorn)
+    - [Pyjwt](#pyjwt)
+    - [Python-jose](#python-jose)
+    - [Psycopg2-binary](#psycopg2-binary)
+    - [Dj-database-url](#dj-database-url)
+    - [Cryptography](#cryptography)
   - [Back-End Dependencies (Development)](#back-end-dependencies-development)
     - [pylint](#pylint)
     - [autopep8](#autopep8)
@@ -57,15 +69,39 @@ The Python code follows [Pep 8 Style Guide](https://www.python.org/dev/peps/pep-
 
 ### React Slick
 
+### Auth0
+
 ## Front-End Dependencies Development
 
 ### ESLint
+
+### Prettier
 
 ## Back-End Dependencies Production
 
 ### Django
 
 ### Django Coverage
+
+### Python-decouple
+
+### Djangorestframework
+
+### Django-cors-headers
+
+### Whitenoise
+
+### Gunicorn
+
+### Pyjwt
+
+### Python-jose
+
+### Psycopg2-binary
+
+### Dj-database-url
+
+### Cryptography
 
 ## Back-End Dependencies Development
 
@@ -80,7 +116,3 @@ The Python code follows [Pep 8 Style Guide](https://www.python.org/dev/peps/pep-
 ### Stripe
 
 ### Quantopian
-
-## Backend API
-
-How to interact with our backend api here
