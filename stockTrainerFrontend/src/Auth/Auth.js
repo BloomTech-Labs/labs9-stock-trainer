@@ -15,7 +15,7 @@ export default class Auth {
       domain: "stock-trainer.auth0.com",
       audience: "https://stock-trainer.auth0.com/userinfo",
       clientID: "90QRusJ6F6LjsgmUA97iEc2rXfDANPqa",
-      redirectUri: "http://localhost:3000/callback",
+      redirectUri: `${process.env.REACT_APP_URL}callback`,
       responseType: "token id_token",
       scope: "openid profile email"
     });
