@@ -1,0 +1,19 @@
+.helpContainer {
+  width: 90%;
+  height: 85%;
+}
+.articlesDisplay {
+  height: 100%;
+}
+.helpSearch{
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+}
+.searchItem{
+  width: 98%;
+}
+.ui.list>.item{
+  padding: .4em 0 !important;
+}
