@@ -13,3 +13,25 @@ urlpatterns = [
     path('charge/', views.charge, name='charge'),
     path('stock/', views.stock, name='stock'),
 ]
+ 
+ #################################
+ # axios
+#       .request({
+#         method: "get",
+#         baseURL: `${process.env.REACT_APP_BACKEND_URL}/stock`,
+#         headers: {
+#           Authorization: `Bearer ${jwt}`
+#         },
+#         params: paramSettings
+#       })
+#       .then(res => {
+#         const newState = { ...stockData };
+#         newState[res.data.symbol] = {
+#           symbol: res.data.symbol,
+#           name: res.data.name,
+#           price: res.data.price
+#         };
+#         this.setState({
+#           stockData: newState
+#         });
+#       });
