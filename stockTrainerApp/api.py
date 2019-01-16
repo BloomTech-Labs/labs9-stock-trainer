@@ -7,20 +7,12 @@ from .models import User, Stock, Study, Indicator, Portfolio, Test
 # DL data from the Quandl API
 df = quandl.get("FRED/GDP", start_date="2001-12-31", end_date="2005-12-31")
 df1 = df.reset_index()
-print((df1))
-print('###############')
-# print(df)
-# print('###############')
+df1['Date'] = df1['Date'].apply(lambda x: str(x)[0:10])
+# df1['Date'] = str(df1['Date'])[0:10]
+print(df1)
 df_now_dict = df1.set_index('Date').to_dict()['Value']
-for k, v in df_now_dict.items():
-  k = str(k)[0:10]
-  print(k,v)
-
-  # print(Date, Value)
-  # t.save()
-  # print(t)
-  # Test.objects.create(df_now_dict)
-  
+print('####################')
+print(df_now_dict)
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
