@@ -41,12 +41,6 @@ export default class NavBar extends Component {
             as={Link}
           />
           <Menu.Item
-            name="Targets"
-            active={activeItem === "/targets"}
-            to="targets"
-            as={Link}
-          />
-          <Menu.Item
             name="Settings"
             active={activeItem === "/settings"}
             to="settings"

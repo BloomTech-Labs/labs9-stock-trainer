@@ -9,7 +9,6 @@ import AccountSettings from "./components/accountSettings/AccountSettings";
 import Landing from "./components/landing/Landing";
 
 import Reports from "./components/reports/Reports";
-import Targets from "./components/targets/Targets";
 import Billing from "./components/billing/Billing";
 import UserInfo from "./components/userinfo/UserInfo";
 import Dashboard from "./components/dashboard/Dashboard";
@@ -116,16 +115,6 @@ class App extends Component {
               <div className="lowerPageLayout">
                 <NavBar {...props} />
                 <Billing />
-              </div>
-            )}
-          />
-          <Route
-            exact
-            path="/targets"
-            render={props => (
-              <div className="lowerPageLayout">
-                <NavBar {...props} />
-                <Targets />
               </div>
             )}
           />
