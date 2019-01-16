@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { Input, Segment, Header } from "semantic-ui-react";
 
 import "./Help.css";
@@ -137,12 +137,16 @@ export default function Help(props) {
       </Header>
 
       <Segment className="articlesDisplay" attached>
-        <Route
-          exact
-          path={match.path}
-          render={() => <Helpmain articles={articles} />}
-        />
-        <Route path={`${match.path}/test`} component={Test} />
+        <Switch>
+          <Route
+            exact
+            path={match.path}
+            render={() => <Helpmain articles={articles} />}
+          />
+          <Route path={`${match.path}/test`} component={Test} />
+          <Redirect to="/" />
+
+        </Switch>
       </Segment>
     </div>
   );

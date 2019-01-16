@@ -7,7 +7,7 @@ function Helpmain(props) {
   return (
     <List className="helpSearch" divided>
       {articles.map(e => (
-        <List.Item className="searchItem">
+        <List.Item key={e.title} className="searchItem">
           <Link to={e.link}>
             <Segment>
               <List.Header as="h2">{e.title}</List.Header>
