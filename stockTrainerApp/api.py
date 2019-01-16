@@ -1,21 +1,26 @@
 from rest_framework import serializers, viewsets
 import quandl
 import pandas as pd
-import io
+# import json
 from .models import User, Stock, Study, Indicator, Portfolio, Test
 
 # DL data from the Quandl API
 df = quandl.get("FRED/GDP", start_date="2001-12-31", end_date="2005-12-31")
 df1 = df.reset_index()
-df1['Date'] = pd.to_datetime(df1['Date']).apply(lambda x: x.date())
-# df1['Date'] = df1['Date'].to_pydatetime()
-df_now_dict = df1.set_index("Date").to_dict()['Value']
-print(df_now_dict)
+print((df1))
+print('###############')
+# print(df)
+# print('###############')
+df_now_dict = df1.set_index('Date').to_dict()['Value']
+for k, v in df_now_dict.items():
+  k = str(k)[0:10]
+  print(k,v)
 
-
-# df_now_dicts = df1.to_dict()
-# df2 = df1.set_index('Date')['Value'].to_dict()
-# df2['Date'] = df2['Date'].to_pydatetime
+  # print(Date, Value)
+  # t.save()
+  # print(t)
+  # Test.objects.create(df_now_dict)
+  
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):

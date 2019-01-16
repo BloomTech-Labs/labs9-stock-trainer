@@ -41,6 +41,6 @@ class Indicator(models.Model):
 
 
 class Test(models.Model):
-    # Date = models.DateField(blank=False, null=False)
+    Date = models.DateField(default="2099-09-09")
     value = models.FloatField(default=0) 
 
