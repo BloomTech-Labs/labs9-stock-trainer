@@ -26,9 +26,11 @@ This will launch a devolpment server on port 3000.
 ### .env file fields
 Create an .env file in the same level as this README
 ```
+REACT_APP_URL=http://localhost:3000/
 REACT_APP_BACKEND_URL=http://127.0.0.1:8000/
 ```
-Substitute the part after the equal sign with the url and port of your backend.
+
+Substitute the part after the equal sign on the second line with the url and port of your backend.
 
 
 ### Code Style
