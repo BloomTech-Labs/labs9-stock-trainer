@@ -53,8 +53,9 @@ class App extends Component {
     }));
   };
 
-  signIn = props => {
-    props.auth.signIn();
+  signIn = () => {
+    const { auth } = this.props;
+    auth.signIn();
     // this.setState({
     //   signedIn: true
     // });
