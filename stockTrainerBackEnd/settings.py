@@ -82,8 +82,9 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # TODO: see if this can route the react app index to the front page.
-        'DIRS': ['templates'],
+        # 'DIRS': ['templates'],
         'APP_DIRS': True,
+        'DIRS': [os.path.join(BASE_DIR, "templates"), ],
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -111,6 +112,7 @@ DATABASES['default'] = dj_database_url.config(
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
         'rest_framework.permissions.IsAuthenticated',
     ),

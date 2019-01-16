@@ -1,4 +1,7 @@
 import stripe
+import quandl
+import json
+import pandas as pd
 from functools import wraps
 from jose import jwt
 from rest_framework.decorators import api_view
@@ -13,6 +16,22 @@ from django.http import JsonResponse
 stripe.api_key = settings.STRIPE_SECRET_TEST_KEY
 
 # Create your views here.
+
+def stock(request):
+    # DL data from the Quandl API
+    df = quandl.get("FRED/GDP", start_date="2001-12-31", end_date="2005-12-31")
+    # below we turn the date index into a column
+    df1 = df.reset_index()
+    df2 = df1.set_index('Date').to_dict()['Value']
+    values = str(df2.values())
+    print(type(values))
+    # vals = str(df2.values())
+    
+    return render(request, 'stock.html', {'values': values})
+
+
+
+
 
 class HomePageView(TemplateView):
     template_name = 'index.html'

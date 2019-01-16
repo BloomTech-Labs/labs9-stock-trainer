@@ -1,6 +1,6 @@
 from django.conf.urls import url
+# from django.config import admin
 from django.urls import path
-
 from . import views
 
 urlpatterns = [
@@ -10,5 +10,6 @@ urlpatterns = [
   
     # Temp home page
     path('', views.HomePageView.as_view(), name='home'),
-    path('charge/', views.charge, name='charge')
+    path('charge/', views.charge, name='charge'),
+    path('stock/', views.stock, name='stock'),
 ]
