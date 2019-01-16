@@ -39,8 +39,9 @@ class App extends Component {
     });
   };
 
-  switchSignInState = props => {
-    const { tokenPayload } = props.auth.idTokenPayload;
+  switchSignInState = () => {
+    const { auth } = this.props;
+    const tokenPayload = auth.idTokenPayload;
     let nameToSet = "";
     if (tokenPayload.name.length > 0) {
       nameToSet = tokenPayload.name;
