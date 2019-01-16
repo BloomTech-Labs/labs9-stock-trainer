@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Modal, Icon } from "semantic-ui-react";
 import "./SignoutContainer.css";
-import auth0Client from "../../Auth/Auth";
+import Auth from "../../Auth/Auth";
 
 class SignedOutContainer extends React.Component {
   constructor(props) {
@@ -15,9 +15,8 @@ class SignedOutContainer extends React.Component {
 
   handleOpen = () => this.setState({ modalOpen: true });
 
-  signOut = () => {
-    auth0Client.signOut();
-    // eslint-disable-next-line no-undef
+  signOut = props => {
+    Auth.signOut();
     props.history.replace("/");
   };
 
