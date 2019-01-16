@@ -22,7 +22,7 @@ def stock(request):
     quandl.ApiConfig.api_key = 'SX5vBsMh7ovP9Pyqp-w7'
     df = quandl.get("WIKI/AAPL", start_date="2001-12-31", end_date="2002-01-31")
     df_r= df.reset_index()
-    df1 = df_r['Close']
+    df1 = df_r['Open']
     print('##############')
     dfl = df1.tolist()
     dfl = str(dfl)
