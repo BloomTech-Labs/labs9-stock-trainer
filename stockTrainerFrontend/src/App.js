@@ -12,6 +12,7 @@ import Reports from "./components/reports/Reports";
 import Billing from "./components/billing/Billing";
 import UserInfo from "./components/userinfo/UserInfo";
 import Dashboard from "./components/dashboard/Dashboard";
+import Help from "./components/help/Help";
 
 import Callback from "./Auth/Callback";
 import TestRequest from "./components/TestRequest";
@@ -88,6 +89,15 @@ class App extends Component {
           register={this.register}
         />
         <Switch>
+          <Route
+            path="/help"
+            render={props => (
+              <div className="lowerPageLayout">
+                <NavBar {...props} />
+                <Help {...props} />
+              </div>
+            )}
+          />
           <Route
             exact
             path="/userinfo"
