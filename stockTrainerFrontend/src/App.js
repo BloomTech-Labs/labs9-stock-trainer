@@ -202,7 +202,7 @@ class App extends Component {
 
               <Callback
                 signinchange={this.switchSignInState}
-                auth={this.props.auth}
+                auth={props.auth}
                 {...props}
               />
             )}
