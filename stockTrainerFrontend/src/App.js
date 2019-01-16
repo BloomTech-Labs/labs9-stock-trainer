@@ -109,6 +109,7 @@ class App extends Component {
   };
 
   render() {
+    const { auth } = this.props;
     const { currentUser, signedIn, stockData } = this.state;
     return (
       <div className="App">
@@ -203,7 +204,7 @@ class App extends Component {
 
               <Callback
                 signinchange={this.switchSignInState}
-                auth={props.auth}
+                auth={auth}
                 {...props}
               />
             )}
