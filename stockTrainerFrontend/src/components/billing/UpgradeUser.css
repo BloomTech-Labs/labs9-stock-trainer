@@ -1,6 +1,7 @@
 .upgradePage {
     display: flex;
     flex-direction: column;
+    
 }
 input,
 .StripeElement {

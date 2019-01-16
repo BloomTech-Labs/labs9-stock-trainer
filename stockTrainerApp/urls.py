@@ -1,6 +1,8 @@
 from django.conf.urls import url
 # from django.config import admin
 from django.urls import path
+from django.views.decorators.csrf import csrf_exempt
+
 from . import views
 
 urlpatterns = [
@@ -12,6 +14,7 @@ urlpatterns = [
     path('', views.HomePageView.as_view(), name='home'),
     path('charge/', views.charge, name='charge'),
     path('stock/', views.stock, name='stock'),
+    path('charge/', csrf_exempt(views.charge), name='charge')  # for now, we're disabling csrf requirements for charging
 ]
  
  #################################
