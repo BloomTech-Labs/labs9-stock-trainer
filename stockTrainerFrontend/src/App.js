@@ -14,13 +14,11 @@ import UserInfo from "./components/userinfo/UserInfo";
 import Dashboard from "./components/dashboard/Dashboard";
 
 import Callback from "./Auth/Callback";
-import Auth from "./Auth/Auth";
-
-const auth = new Auth();
 
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       signedIn: false,
       currentUser: "test user"
@@ -37,8 +35,14 @@ class App extends Component {
     });
   };
 
+  switchSignInState = () => {
+    this.setState({
+      signedIn: !this.state.signedIn
+    });
+  };
+
   signIn = () => {
-    auth.signIn();
+    this.props.auth.signIn();
     // this.setState({
     //   signedIn: true
     // });
@@ -52,15 +56,15 @@ class App extends Component {
     // };
   };
 
-  handleAuthentication = (nextState, replace) => {
-    if (/access_token|id_token|error/.test(nextState.location.hash)) {
-      auth.handleAuthentication();
-    }
-  };
+  // handleAuthentication = (nextState, replace) => {
+  //   if (/access_token|id_token|error/.test(nextState.location.hash)) {
+  //     this.auth.handleAuthentication();
+  //   }
+  // };
 
   render() {
     const { currentUser, signedIn } = this.state;
-    console.log(auth.isAuthenticated());
+    console.log(this.props.auth.getIdToken(), this.props.auth.getAccessToken());
     return (
       <div className="App">
         <TopBar
@@ -135,12 +139,16 @@ class App extends Component {
           <Route
             exact
             path="/callback"
-            render={props => {
+            render={props => (
               // eslint-disable-next-line no-undef
-              this.handleAuthentication(props);
+              // this.handleAuthentication(props);
 
-              return <Callback {...props} />;
-            }}
+              <Callback
+                signinchange={this.switchSignInState}
+                auth={this.props.auth}
+                {...props}
+              />
+            )}
           />
         </Switch>
       </div>

@@ -29,16 +29,16 @@ export default class Auth {
   }
 
   handleAuthentication() {
-    this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
+    return new Promise((resolve, reject) => {
+      this.auth0.parseHash((err, authResult) => {
+        if (err) return reject(err);
+        console.log(authResult);
+        if (!authResult || !authResult.idToken) {
+          return reject(err);
+        }
         this.setSession(authResult);
-      } else if (err) {
-        history.replace("/");
-        // eslint-disable-next-line no-console
-        console.log(err);
-        // eslint-disable-next-line no-alert
-        alert(`Error: ${err.error}. Check the console for further details.`);
-      }
+        resolve();
+      });
     });
   }
 
@@ -61,7 +61,6 @@ export default class Auth {
     this.expiresAt = expiresAt;
     // navigate to the home route
     console.log(this);
-    history.replace("/dashboard");
   }
 
   renewSession() {

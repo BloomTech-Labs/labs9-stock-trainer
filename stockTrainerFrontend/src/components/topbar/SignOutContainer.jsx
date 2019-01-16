@@ -47,17 +47,16 @@ class SignedOutContainer extends React.Component {
               <Button onClick={this.handleClose} color="red" inverted>
                 <Icon name="remove" /> No
               </Button>
-              {auth0Client.isAuthenticated() && (
-                <Button
-                  onClick={() => {
-                    signOut();
-                  }}
-                  color="green"
-                  inverted
-                >
-                  <Icon name="checkmark" /> Yes
-                </Button>
-              )}
+
+              <Button
+                onClick={() => {
+                  signOut();
+                }}
+                color="green"
+                inverted
+              >
+                <Icon name="checkmark" /> Yes
+              </Button>
             </Modal.Actions>
           </Modal>
         </div>
