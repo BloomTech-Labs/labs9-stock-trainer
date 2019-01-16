@@ -47,10 +47,10 @@ class App extends Component {
     } else {
       nameToSet = tokenPayload.nickname;
     }
-    this.setState(prevState => {
-      !this.signIn,
+    this.setState(prevState => ({
+      signIn: !prevState.signIn,
       currentUser: nameToSet
-    });
+    }));
   };
 
   signIn = props => {
