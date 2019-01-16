@@ -21,7 +21,7 @@ class App extends Component {
 
     this.state = {
       signedIn: false,
-      currentUser: "test user"
+      currentUser: ""
     };
   }
 
@@ -36,8 +36,17 @@ class App extends Component {
   };
 
   switchSignInState = () => {
+    const tokenPayload = this.props.auth.idTokenPayload;
+    let nameToSet = "";
+    console.log(tokenPayload);
+    if (tokenPayload.name.length > 0) {
+      nameToSet = tokenPayload.name;
+    } else {
+      nameToSet = tokenPayload.nickname;
+    }
     this.setState({
-      signedIn: !this.state.signedIn
+      signedIn: !this.state.signedIn,
+      currentUser: nameToSet
     });
   };
 
@@ -64,7 +73,7 @@ class App extends Component {
 
   render() {
     const { currentUser, signedIn } = this.state;
-    console.log(this.props.auth.getIdToken(), this.props.auth.getAccessToken());
+
     return (
       <div className="App">
         <TopBar

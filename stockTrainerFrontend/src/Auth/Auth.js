@@ -1,5 +1,4 @@
 import auth0 from "auth0-js";
-import history from "./history";
 
 export default class Auth {
   accessToken;
@@ -7,6 +6,8 @@ export default class Auth {
   idToken;
 
   expiresAt;
+
+  idTokenPayload;
 
   constructor() {
     this.auth0 = new auth0.WebAuth({
@@ -16,7 +17,7 @@ export default class Auth {
       clientID: "90QRusJ6F6LjsgmUA97iEc2rXfDANPqa",
       redirectUri: "http://localhost:3000/callback",
       responseType: "token id_token",
-      scope: "openid profile"
+      scope: "openid profile email"
     });
 
     this.signIn = this.signIn.bind(this);
@@ -26,6 +27,7 @@ export default class Auth {
     this.getAccessToken = this.getAccessToken.bind(this);
     this.getIdToken = this.getIdToken.bind(this);
     this.renewSession = this.renewSession.bind(this);
+    this.getIdTokenPayload = this.getIdTokenPayload.bind(this);
   }
 
   handleAuthentication() {
@@ -50,6 +52,10 @@ export default class Auth {
     return this.idToken;
   }
 
+  getIdTokenPayload() {
+    return this.idTokenPayload;
+  }
+
   setSession(authResult) {
     // Set isLoggedIn flag in localStorage
     localStorage.setItem("isLoggedIn", "true");
@@ -59,8 +65,7 @@ export default class Auth {
     this.accessToken = authResult.accessToken;
     this.idToken = authResult.idToken;
     this.expiresAt = expiresAt;
-    // navigate to the home route
-    console.log(this);
+    this.idTokenPayload = authResult.idTokenPayload;
   }
 
   renewSession() {
@@ -93,7 +98,6 @@ export default class Auth {
     localStorage.removeItem("isLoggedIn");
 
     // navigate to the home route
-    history.replace("/");
   }
 
   isAuthenticated() {
