@@ -22,15 +22,16 @@ class App extends Component {
     super(props);
 
     this.state = {
-      signedIn: false,
+      signIn: false,
       currentUser: "",
       jwt: "TESTESTEST",
       stockData: {}
     };
   }
 
-  signOut = () => {
-    this.setState({ signedIn: false });
+  signOut = props => {
+    props.auth.signOut();
+    this.setState({ signIn: false });
   };
 
   switchSignInState = () => {
@@ -51,9 +52,9 @@ class App extends Component {
   signIn = () => {
     const { auth } = this.props;
     auth.signIn();
-    this.setState({
-      signedIn: true
-    });
+    // this.setState({
+    //   signedIn: true
+    // });
 
     // eslint-disable-next-line no-undef
     // handleAuthentication = nextState => {
@@ -105,12 +106,12 @@ class App extends Component {
 
   render() {
     const { auth } = this.props;
-    const { currentUser, signedIn, stockData } = this.state;
+    const { currentUser, signIn, stockData } = this.state;
     return (
       <div className="App">
         <TopBar
           currentUser={currentUser}
-          signedInState={signedIn}
+          signedInState={signIn}
           signOutFunc={this.signOut}
           signInFunc={this.signIn}
           register={this.register}
