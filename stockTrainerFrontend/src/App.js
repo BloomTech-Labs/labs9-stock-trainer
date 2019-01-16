@@ -3,16 +3,16 @@ import axios from "axios";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import TopBar from "./components/topbar/TopBar";
-import SideBar from "./components/sidebar/SideBar";
+import NavBar from "./components/navbar/NavBar";
 
 import AccountSettings from "./components/accountSettings/AccountSettings";
 import Landing from "./components/landing/Landing";
 
 import Reports from "./components/reports/Reports";
-import Targets from "./components/targets/Targets";
 import Billing from "./components/billing/Billing";
 import UserInfo from "./components/userinfo/UserInfo";
 import Dashboard from "./components/dashboard/Dashboard";
+import Help from "./components/help/Help";
 
 import Callback from "./Auth/Callback";
 import TestRequest from "./components/TestRequest";
@@ -118,11 +118,20 @@ class App extends Component {
         />
         <Switch>
           <Route
+            path="/help"
+            render={props => (
+              <div className="lowerPageLayout">
+                <NavBar {...props} />
+                <Help {...props} />
+              </div>
+            )}
+          />
+          <Route
             exact
             path="/userinfo"
             render={props => (
               <div className="lowerPageLayout">
-                <SideBar {...props} />
+                <NavBar {...props} />
                 <UserInfo />
               </div>
             )}
@@ -132,7 +141,7 @@ class App extends Component {
             path="/settings"
             render={props => (
               <div className="lowerPageLayout">
-                <SideBar {...props} />
+                <NavBar {...props} />
                 <AccountSettings />
               </div>
             )}
@@ -142,18 +151,8 @@ class App extends Component {
             path="/billing"
             render={props => (
               <div className="lowerPageLayout">
-                <SideBar {...props} />
+                <NavBar {...props} />
                 <Billing />
-              </div>
-            )}
-          />
-          <Route
-            exact
-            path="/targets"
-            render={props => (
-              <div className="lowerPageLayout">
-                <SideBar {...props} />
-                <Targets />
               </div>
             )}
           />
@@ -162,7 +161,7 @@ class App extends Component {
             path="/reports"
             render={props => (
               <div className="lowerPageLayout">
-                <SideBar {...props} />
+                <NavBar {...props} />
                 <Reports />
               </div>
             )}
@@ -172,7 +171,7 @@ class App extends Component {
             path="/dashboard"
             render={props => (
               <div className="lowerPageLayout">
-                <SideBar {...props} />
+                <NavBar {...props} />
                 <Dashboard />
               </div>
             )}
@@ -182,7 +181,7 @@ class App extends Component {
             path="/testrequest"
             render={props => (
               <div className="lowerPageLayout">
-                <SideBar {...props} />
+                <NavBar {...props} />
                 <TestRequest
                   retrieveStock={this.retrieveStock}
                   stockData={stockData}

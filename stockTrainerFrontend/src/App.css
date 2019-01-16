@@ -1,8 +1,8 @@
-html, body, #root, .App {
-  height: 100%;
-}
+
 .lowerPageLayout {
   display: flex;
   height: 90%;
+  flex-direction: column;
+  align-items: center;
 }
 

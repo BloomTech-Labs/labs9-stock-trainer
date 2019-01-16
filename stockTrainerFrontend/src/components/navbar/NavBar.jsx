@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Menu } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import "./SideBar.css";
+import "./NavBar.css";
 
-export default class SideBar extends Component {
+export default class NavBar extends Component {
   constructor(props) {
     super(props);
     this.state = { activeItem: "" };
@@ -26,36 +26,37 @@ export default class SideBar extends Component {
     const { activeItem } = this.state;
 
     return (
-      <div className="SideBar">
-        <Menu vertical fluid size="massive">
+      <div className="NavBar">
+        <Menu stackable inverted fluid size="massive">
           <Menu.Item
             name="Dashboard"
             active={activeItem === "/dashboard"}
-            to="dashboard"
+            // you need this / in the to field or this will break on the help page!
+            to="/dashboard"
             as={Link}
           />
           <Menu.Item
             name="Reports"
             active={activeItem === "/reports"}
-            to="reports"
+            to="/reports"
             as={Link}
           />
           <Menu.Item
-            name="Targets"
-            active={activeItem === "/targets"}
-            to="targets"
+            name="Help"
+            active={activeItem === "/help"}
+            to="/help"
             as={Link}
           />
           <Menu.Item
             name="Settings"
             active={activeItem === "/settings"}
-            to="settings"
+            to="/settings"
             as={Link}
           />
           <Menu.Item
             name="Billing"
             active={activeItem === "/billing"}
-            to="billing"
+            to="/billing"
             as={Link}
           />
         </Menu>
