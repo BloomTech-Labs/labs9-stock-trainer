@@ -2,7 +2,8 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 
 const Callback = props => {
-  props.auth.handleAuthentication().then(() => {
+  const { auth } = props;
+  auth.handleAuthentication().then(() => {
     props.history.push("/dashboard");
     props.signinchange();
   });

@@ -39,23 +39,22 @@ class App extends Component {
     });
   };
 
-  switchSignInState = () => {
-    const tokenPayload = this.props.auth.idTokenPayload;
+  switchSignInState = props => {
+    const { tokenPayload } = props.auth.idTokenPayload;
     let nameToSet = "";
-    console.log(tokenPayload);
     if (tokenPayload.name.length > 0) {
       nameToSet = tokenPayload.name;
     } else {
       nameToSet = tokenPayload.nickname;
     }
-    this.setState({
-      signedIn: !this.state.signedIn,
+    this.setState(prevState => {
+      !this.signIn,
       currentUser: nameToSet
     });
   };
 
-  signIn = () => {
-    this.props.auth.signIn();
+  signIn = props => {
+    props.auth.signIn();
     // this.setState({
     //   signedIn: true
     // });

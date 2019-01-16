@@ -32,9 +32,9 @@ export default class Auth {
 
   handleAuthentication() {
     return new Promise((resolve, reject) => {
+      // eslint-disable-next-line consistent-return
       this.auth0.parseHash((err, authResult) => {
         if (err) return reject(err);
-        console.log(authResult);
         if (!authResult || !authResult.idToken) {
           return reject(err);
         }
