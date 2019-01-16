@@ -6,13 +6,15 @@ from .models import User, Stock, Study, Indicator, Portfolio, Test
 
 # DL data from the Quandl API
 df = quandl.get("FRED/GDP", start_date="2001-12-31", end_date="2005-12-31")
+# below we turn the date index into a column
 df1 = df.reset_index()
+# below we trim and turn date into str
 df1['Date'] = df1['Date'].apply(lambda x: str(x)[0:10])
-# df1['Date'] = str(df1['Date'])[0:10]
-print(df1)
+# print(df1)
+# below we convert dataframe to dict for easy storage
 df_now_dict = df1.set_index('Date').to_dict()['Value']
-print('####################')
-print(df_now_dict)
+# print('####################')
+print(type(df_now_dict))
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
