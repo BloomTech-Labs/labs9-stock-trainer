@@ -33,12 +33,6 @@ class App extends Component {
     this.setState({ signedIn: false });
   };
 
-  register = () => {
-    this.setState({ currentUser: Math.floor(Math.random() * 10) }, () => {
-      this.signIn();
-    });
-  };
-
   switchSignInState = () => {
     const { auth } = this.props;
     const tokenPayload = auth.idTokenPayload;
@@ -57,9 +51,9 @@ class App extends Component {
   signIn = () => {
     const { auth } = this.props;
     auth.signIn();
-    // this.setState({
-    //   signedIn: true
-    // });
+    this.setState({
+      signedIn: true
+    });
 
     // eslint-disable-next-line no-undef
     // handleAuthentication = nextState => {
