@@ -14,8 +14,8 @@ export default class Auth {
       domain: "stock-trainer.auth0.com",
       audience: "https://stock-trainer.auth0.com/userinfo",
       clientID: "90QRusJ6F6LjsgmUA97iEc2rXfDANPqa",
-      redirectUri: "https://stock-trainer.netlify.com/dashboard",
-      responseType: "id_token",
+      redirectUri: "http://localhost:3000/callback",
+      responseType: "token id_token",
       scope: "openid profile"
     });
 
@@ -59,8 +59,8 @@ export default class Auth {
     this.accessToken = authResult.accessToken;
     this.idToken = authResult.idToken;
     this.expiresAt = expiresAt;
-
     // navigate to the home route
+    console.log(this);
     history.replace("/dashboard");
   }
 

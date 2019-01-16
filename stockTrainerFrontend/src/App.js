@@ -52,8 +52,15 @@ class App extends Component {
     // };
   };
 
+  handleAuthentication = (nextState, replace) => {
+    if (/access_token|id_token|error/.test(nextState.location.hash)) {
+      auth.handleAuthentication();
+    }
+  };
+
   render() {
     const { currentUser, signedIn } = this.state;
+    console.log(auth.isAuthenticated());
     return (
       <div className="App">
         <TopBar
@@ -130,7 +137,8 @@ class App extends Component {
             path="/callback"
             render={props => {
               // eslint-disable-next-line no-undef
-              handleAuthentication(props);
+              this.handleAuthentication(props);
+
               return <Callback {...props} />;
             }}
           />
