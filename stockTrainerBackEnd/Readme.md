@@ -6,7 +6,7 @@
 
 You will need Django installed for this project. Please see https://www.djangoproject.com/download/ for a guide to installing it on your syst
 
-This project uses PEP8 as a style guide via VSCode.
+This project uses PEP8 as a style guide.
 
 ### Installing
 
@@ -16,7 +16,7 @@ Most Django projects live within a virtual environment. The choices are typicall
 
 To install Django:
 
-```pip install Django>2.0```
+```pipenv install Django>2.0```
 
 for fresh projects. For an existing project, simply type:
 
@@ -77,7 +77,7 @@ Portfolio Model:
 Stock Model:
     symbol - Character field to store the symbol for the Stock. E.g AMZN
     name -   Character field to store the name of the stock. E.g Amazon
-    price -  Numric field. Currently only stores the closing price. WIP
+    price -  Numeric field. Currently only stores the closing price. WIP
 ```
 
 ```
@@ -86,12 +86,22 @@ Indicator Model:
     Indicator_params - Numeric field for the Indicator parameters. WIP
 ```
 
+### Code Style
 
+Our project uses the [PEP 8 Style Guide](https://www.python.org/dev/peps/pep-0008/). Please make sure your code follows
+the guidelines by using an environment such as Pycharm, or using a plugin such as Pylint for VSCode.
 
 
 ## Deployment
 
+The back-end is deployed via [Heroku](https://backend-stock-trainer.herokuapp.com/) and is continuously deployed from the master branch.
+Our Heroku server uses a PostgreSQL database, whereas locally, for development, we are using SQLite3. Please don't forget
+the environment/config variables while setting up for deployment.
+
 ## Built With
+
+* [Django](https://www.djangoproject.com/) - Framework
+* [Stripe](https://stripe.com/docs) - Payment Processor
 
 ## License
 
