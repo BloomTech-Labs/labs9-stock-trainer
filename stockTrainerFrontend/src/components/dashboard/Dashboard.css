@@ -1,7 +1,8 @@
 .gridContainer {
   width: 90%;
+  height: 100%;
   display: grid;
-  grid-template-columns: 45% 45%;
+  grid-template-columns: 49% 49%;
   grid-column-gap: 2%;
   grid-template-rows: 30% 68%;
   grid-row-gap: 2%;

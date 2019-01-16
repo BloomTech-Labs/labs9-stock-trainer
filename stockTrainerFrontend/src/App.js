@@ -3,7 +3,7 @@ import axios from "axios";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import TopBar from "./components/topbar/TopBar";
-import SideBar from "./components/sidebar/SideBar";
+import NavBar from "./components/navbar/NavBar";
 
 import AccountSettings from "./components/accountSettings/AccountSettings";
 import Landing from "./components/landing/Landing";
@@ -94,7 +94,7 @@ class App extends Component {
             path="/userinfo"
             render={props => (
               <div className="lowerPageLayout">
-                <SideBar {...props} />
+                <NavBar {...props} />
                 <UserInfo />
               </div>
             )}
@@ -104,7 +104,7 @@ class App extends Component {
             path="/settings"
             render={props => (
               <div className="lowerPageLayout">
-                <SideBar {...props} />
+                <NavBar {...props} />
                 <AccountSettings />
               </div>
             )}
@@ -114,7 +114,7 @@ class App extends Component {
             path="/billing"
             render={props => (
               <div className="lowerPageLayout">
-                <SideBar {...props} />
+                <NavBar {...props} />
                 <Billing />
               </div>
             )}
@@ -124,7 +124,7 @@ class App extends Component {
             path="/targets"
             render={props => (
               <div className="lowerPageLayout">
-                <SideBar {...props} />
+                <NavBar {...props} />
                 <Targets />
               </div>
             )}
@@ -134,7 +134,7 @@ class App extends Component {
             path="/reports"
             render={props => (
               <div className="lowerPageLayout">
-                <SideBar {...props} />
+                <NavBar {...props} />
                 <Reports />
               </div>
             )}
@@ -144,7 +144,7 @@ class App extends Component {
             path="/dashboard"
             render={props => (
               <div className="lowerPageLayout">
-                <SideBar {...props} />
+                <NavBar {...props} />
                 <Dashboard />
               </div>
             )}
@@ -154,7 +154,7 @@ class App extends Component {
             path="/testrequest"
             render={props => (
               <div className="lowerPageLayout">
-                <SideBar {...props} />
+                <NavBar {...props} />
                 <TestRequest
                   retrieveStock={this.retrieveStock}
                   stockData={stockData}
