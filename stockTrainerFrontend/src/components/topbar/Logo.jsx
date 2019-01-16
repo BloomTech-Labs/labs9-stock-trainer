@@ -3,9 +3,7 @@ import "./Logo.css";
 
 const Logo = () => (
   <div className="logoContainer">
-    <div className="logoText">
-      <h1>Stock Trainer</h1>
-    </div>
+    <div className="logoText">Stock Trainer</div>
   </div>
 );
 
