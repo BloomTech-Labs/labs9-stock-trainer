@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Menu } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import "./SideBar.css";
+import "./NavBar.css";
 
-export default class SideBar extends Component {
+export default class NavBar extends Component {
   constructor(props) {
     super(props);
     this.state = { activeItem: "" };
@@ -26,8 +26,8 @@ export default class SideBar extends Component {
     const { activeItem } = this.state;
 
     return (
-      <div className="SideBar">
-        <Menu vertical fluid size="massive">
+      <div className="NavBar">
+        <Menu stackable inverted fluid size="massive">
           <Menu.Item
             name="Dashboard"
             active={activeItem === "/dashboard"}

@@ -1,5 +1,6 @@
 .gridContainer {
   width: 90%;
+  height: 100%;
   display: grid;
   grid-template-columns: 45% 45%;
   grid-column-gap: 2%;
