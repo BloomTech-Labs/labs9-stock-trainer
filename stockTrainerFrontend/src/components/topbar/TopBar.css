@@ -1,6 +1,7 @@
 .topBarContainer{
   display:flex;
   justify-content: space-between;
+  align-items: center;
   padding: .5rem;
   background-color: #63D471;
 }
