@@ -14,9 +14,9 @@ import dj_database_url
 
 import os
 
-#Auth0 configuration 
+# Auth0 configuration
 
-import json 
+import json
 from six.moves.urllib import request
 
 from cryptography.x509 import load_pem_x509_certificate
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_jwt',
     'corsheaders',
 
     # Local
@@ -67,7 +68,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware'
 ]
 
-# Auth0 configuration 
+# Auth0 configuration
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -108,15 +109,14 @@ DATABASES['default'] = dj_database_url.config(
     default=config('DATABASE_URL'), conn_max_age=600)
 
 # Django REST framework settings
-# Django REST authentication framework 
+# Django REST authentication framework
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
         'rest_framework.permissions.IsAuthenticated',
     ),
-    'DEFAULTH_AUTHENTICATION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
@@ -178,22 +178,6 @@ CORS_ORIGIN_WHITELIST = (
 STRIPE_SECRET_TEST_KEY = config('STRIPE_SECRET_TEST_KEY')
 STRIPE_PUBLISHABLE_TEST_KEY = config('STRIPE_PUBLISHABLE_TEST_KEY')
 
-# JWKS for Auth0 
-jsonurl = request.urlopen("https://stock-trainer.auth0.com/.well-known/jwks.json")
-jwks = json.loads(jsonurl.read())
-cert = '-----BEGIN CERTIFICATE-----\n' + jwks['keys'][0]['x5c'][0] + '\n-----END CERTIFICATE-----'
-
-certificate = load_pem_x509_certificate(str.encode(cert), default_backend())
-publickey = certificate.public_key()
-
-# Configuring the JWK
-
 JWT_AUTH = {
-    'JWT_PAYLOAD_GET_USERNAME_HANDLER':
-        'auth0authorization.user.jwt_get_username_from_payload_handler',
-    'JWT_PUBLIC_KEY': publickey,
-    'JWT_ALGORITHM': 'RS256',
-    'JWT_AUDIENCE': 'https://stock-trainer.auth0.com/api/v2/',
-    'JWT_ISSUER': 'https://stock-trainer.auth0.com',
-    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'stockTrainerBackEnd.utils.my_jwt_response_handler'
 }
