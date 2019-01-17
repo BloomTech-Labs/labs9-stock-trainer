@@ -1,0 +1,23 @@
+.stockName {
+  grid-area: stockname;
+}
+.favoriteIcon {
+  grid-area: favoriteStar;
+}
+.reportsSearch {
+  grid-area: search;
+}
+.leftColumnInfobox {
+  grid-area: leftInfoColumn;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  height: 100%;
+}
+.rightColumnInfobox {
+  grid-area: rightInfoColumn;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  height: 100%;
+}
