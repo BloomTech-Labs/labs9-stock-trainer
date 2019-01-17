@@ -86,7 +86,7 @@ class App extends Component {
     axios
       .request({
         method: "get",
-        baseURL: `${process.env.REACT_APP_BACKEND_URL}/stock`,
+        baseURL: `${process.env.REACT_APP_BACKEND_URL}stock/`,
         headers: {
           Authorization: `Bearer ${jwt}`
         },
@@ -96,19 +96,20 @@ class App extends Component {
         const newState = { ...stockData };
         newState[res.data.symbol] = {
           symbol: res.data.symbol,
-          name: res.data.name,
           price: res.data.price
         };
         this.setState({
           stockData: newState
         });
+      })
+      .catch(err => {
+        console.log(err);
       });
   };
 
   render() {
     const { auth } = this.props;
     const { currentUser, signIn, stockData } = this.state;
-    console.log(process.env.REACT_APP_URL);
     return (
       <div className="App">
         <TopBar
