@@ -1,7 +1,12 @@
 import stripe
+import quandl
+import json
+import pandas as pd
 from functools import wraps
 from jose import jwt
 import json
+from rest_framework.decorators import api_view
+from django.shortcuts import render
 
 from rest_framework.decorators import api_view
 from django.conf import settings
@@ -19,6 +24,21 @@ from .serializers import UserSerializer, UserSerializerWithToken
 stripe.api_key = settings.STRIPE_SECRET_TEST_KEY
 
 # Create your views here.
+
+def stock(request):
+    # DL data from the Quandl API
+    quandl.ApiConfig.api_key = 'SX5vBsMh7ovP9Pyqp-w7'
+    df = quandl.get("WIKI/GOOGL", start_date="2001-12-31", end_date="2002-01-31")
+    df_r= df.reset_index()
+    df1 = df_r['Open']
+    dfl = df1.tolist()
+    dfl = str(dfl)
+    
+    
+    return render(request, 'stock.html', {'dfl': dfl})
+
+
+
 
 
 class HomePageView(TemplateView):
