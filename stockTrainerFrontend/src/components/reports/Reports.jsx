@@ -35,34 +35,25 @@ const panes = [
 ];
 
 const Reports = () => (
-  <div className="reportsContainer">
-    <Segment>
-      <Header className="stockName" as="h1">
-        Stock Name
-      </Header>
-    </Segment>
+  <Segment className="reportsContainer">
+    <Header className="stockName" as="h1">
+      Stock Name
+    </Header>
     <Icon className="favoriteIcon" name="star outline" size="big" />
     <Input className="reportsSearch" placeholder="Search..." />
     <div className="leftColumnInfobox">
-      <Segment>
-        <div className="upperRowInfobox">Price: $148.40</div>
-        <div className="lowerRowInfobox">Volume: 43.28M</div>
-      </Segment>
+      <div className="upperRowInfobox">Price: $148.40</div>
+      <div className="lowerRowInfobox">Volume: 43.28M</div>
     </div>
     <div className="rightColumnInfobox">
-      <Segment>
-        <div className="upperRowInfobox">Change: 6.07</div>
-        <div className="lowerRowInfobox">Change %: +4.27</div>
-      </Segment>
+      <div className="upperRowInfobox">Change: 6.07</div>
+      <div className="lowerRowInfobox">Change %: +4.27</div>
     </div>
     <div className="rightInfobox">
-      <Segment>
-        <Header as="h3">Target Score:</Header>
-        <div className="targetScoreResult">15</div>
-      </Segment>
+      <Header as="h3">Target Score:</Header>
+      <div className="targetScoreResult">15</div>
     </div>
-
     <Tab className="chart" panes={panes} />
-  </div>
+  </Segment>
 );
 export default Reports;
