@@ -8,7 +8,7 @@ const Callback = props => {
     props.signinchange();
   });
 
-  return <p>Loading profile...</p>;
+  return <h1>Loading profile...</h1>;
 };
 
 export default withRouter(Callback);

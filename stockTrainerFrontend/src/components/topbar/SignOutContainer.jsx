@@ -15,9 +15,10 @@ class SignedOutContainer extends React.Component {
 
   handleOpen = () => this.setState({ modalOpen: true });
 
-  signOut = props => {
+  signOut = () => {
+    const { signOutFunc } = this.props;
     this.handleClose();
-    props.signOutFunc();
+    signOutFunc();
   };
 
   render() {
