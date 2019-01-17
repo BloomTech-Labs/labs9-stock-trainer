@@ -11,9 +11,9 @@ class TestRequest extends Component {
     };
   }
 
-  async componentDidMount() {
-    axios.get("localhost:8000/quandl.get(["NSE/OIL.1", "WIKI/AAPL.4"]))
-  }
+  // async componentDidMount() {
+  //   axios.get("localhost:8000/quandl.get(["NSE/OIL.1", "WIKI/AAPL.4"]))
+  // }
 
   searchStock = () => {
     const { retrieveStock } = this.props;
