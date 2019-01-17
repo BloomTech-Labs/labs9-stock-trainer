@@ -4,6 +4,10 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
+*/*/*/__pycache__/
+*/*/__pycache__/
+*/__pycache__/
 
 # dependencies
 /node_modules
