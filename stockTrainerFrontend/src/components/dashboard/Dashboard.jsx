@@ -1,7 +1,10 @@
 import React from "react";
-import { Segment, Placeholder, Input, List } from "semantic-ui-react";
+import { Segment, Input } from "semantic-ui-react";
 import "./Dashboard.css";
 import Indicators from "./Indicators";
+import Stock from "../stock/Stock";
+
+const dummyData = [{ name: "Apple" }, { name: "Amazon" }];
 
 const Dashboard = () => (
   <div className="gridContainer">
@@ -10,40 +13,18 @@ const Dashboard = () => (
     </Segment>
     <Segment className="leftColumn">
       <Input placeholder="Search..." className="stockSearch" />
-      <Placeholder>
-        <List divided>
-          <List.Item className="listItem">
-            <Placeholder.Header>
-              <Placeholder.Line />
-              <Placeholder.Line />
-            </Placeholder.Header>
-          </List.Item>
-          <List.Item className="listItem">
-            <Placeholder.Header>
-              <Placeholder.Line />
-              <Placeholder.Line />
-            </Placeholder.Header>
-          </List.Item>
-        </List>
-      </Placeholder>
+      {dummyData.map(stock => (
+        <div className="stockContainer" key={stock.name}>
+          <Stock name={stock.name} />
+        </div>
+      ))}
     </Segment>
-    <Segment>
-      <Placeholder>
-        <List divided>
-          <List.Item className="listItem">
-            <Placeholder.Header>
-              <Placeholder.Line />
-              <Placeholder.Line />
-            </Placeholder.Header>
-          </List.Item>
-          <List.Item className="listItem">
-            <Placeholder.Header>
-              <Placeholder.Line />
-              <Placeholder.Line />
-            </Placeholder.Header>
-          </List.Item>
-        </List>
-      </Placeholder>
+    <Segment className="userStocks">
+      {dummyData.map(stock => (
+        <div className="stockContainer" key={stock.name}>
+          <Stock name={stock.name} />
+        </div>
+      ))}
     </Segment>
   </div>
 );

@@ -1,8 +1,0 @@
-.stock {
-  width: 20%;
-}
-
-.stock .info {
-  display: flex;
-  justify-content: space-between;
-}

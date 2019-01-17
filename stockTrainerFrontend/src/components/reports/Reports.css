@@ -37,49 +37,34 @@ i.icon {
 .leftColumnInfobox {
   width: 10rem;
 } */
-
-.stockName {
-  grid-area: stockname;
-}
-.favoriteIcon {
-  grid-area: favoriteStar;
-}
 .reportsSearch {
   grid-area: search;
-}
-.leftColumnInfobox {
-  grid-area: leftInfoColumn;
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-  height: 100%;
-}
-.rightColumnInfobox {
-  grid-area: rightInfoColumn;
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-  height: 100%;
 }
 .rightInfobox {
   grid-area: targetScore;
   font-size: 45px;
-  margin-top: 10px;
+  height:100%;
+  display:flex;
+  justify-content: center;
+  flex-direction: column;
 }
 .chart {
   grid-area: tabbedChart;
   align-self: end;
-  
 }
 .reportsContainer {
   width: 85%;
   height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 10% 10% 70%;
-  grid-template-areas:
+  grid-template-rows: 10% 10% 80%;
+  /* grid-template-areas:
     "stockname favoriteStar search . ."
     "leftInfoColumn rightInfoColumn . . targetScore"
+    "tabbedChart tabbedChart tabbedChart tabbedChart tabbedChart"; */
+  grid-template-areas:
+    "stock stock search . ."
+    "stock stock . . targetScore"
     "tabbedChart tabbedChart tabbedChart tabbedChart tabbedChart";
   align-items: center;
 }
