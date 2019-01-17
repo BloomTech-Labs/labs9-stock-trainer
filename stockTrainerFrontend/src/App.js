@@ -20,29 +20,56 @@ import TestRequest from "./components/TestRequest";
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      signedIn: false,
-      currentUser: "test user",
+      signIn: false,
+      currentUser: "",
       jwt: "TESTESTEST",
       stockData: {}
     };
   }
 
-  signOut = () => {
-    this.setState({ signedIn: false });
+  signOut = props => {
+    props.auth.signOut();
+    this.setState({ signIn: false });
   };
 
-  register = () => {
-    this.setState({ currentUser: Math.floor(Math.random() * 10) }, () => {
-      this.signIn();
-    });
+  switchSignInState = () => {
+    const { auth } = this.props;
+    const tokenPayload = auth.idTokenPayload;
+    let nameToSet = "";
+    if (tokenPayload.name.length > 0) {
+      nameToSet = tokenPayload.name;
+    } else {
+      nameToSet = tokenPayload.nickname;
+    }
+    this.setState(prevState => ({
+      signIn: !prevState.signIn,
+      currentUser: nameToSet
+    }));
   };
 
   signIn = () => {
-    this.setState({
-      signedIn: true
-    });
+    const { auth } = this.props;
+    auth.signIn();
+    // this.setState({
+    //   signedIn: true
+    // });
+
+    // eslint-disable-next-line no-undef
+    // handleAuthentication = nextState => {
+    //   if (/access_token|id_token|error/.test(nextState.location.hash)) {
+    //     // eslint-disable-next-line no-undef
+    //     auth.handleAuthentication();
+    //   }
+    // };
   };
+
+  // handleAuthentication = (nextState, replace) => {
+  //   if (/access_token|id_token|error/.test(nextState.location.hash)) {
+  //     this.auth.handleAuthentication();
+  //   }
+  // };
 
   retrieveStock = (nameOfStock, startDate, endDate) => {
     const { jwt, stockData } = this.state;
@@ -78,12 +105,13 @@ class App extends Component {
   };
 
   render() {
-    const { currentUser, signedIn, stockData } = this.state;
+    const { auth } = this.props;
+    const { currentUser, signIn, stockData } = this.state;
     return (
       <div className="App">
         <TopBar
           currentUser={currentUser}
-          signedInState={signedIn}
+          signedInState={signIn}
           signOutFunc={this.signOut}
           signInFunc={this.signIn}
           register={this.register}
@@ -162,7 +190,20 @@ class App extends Component {
             )}
           />
           <Route exact path="/" render={props => <Landing {...props} />} />
-          <Route exact path="/callback" Component={Callback} />
+          <Route
+            exact
+            path="/callback"
+            render={props => (
+              // eslint-disable-next-line no-undef
+              // this.handleAuthentication(props);
+
+              <Callback
+                signinchange={this.switchSignInState}
+                auth={auth}
+                {...props}
+              />
+            )}
+          />
         </Switch>
       </div>
     );
