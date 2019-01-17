@@ -1,6 +1,7 @@
 import stripe
 import quandl
 import json
+import datetime
 import pandas as pd
 from functools import wraps
 from jose import jwt
@@ -22,6 +23,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .serializers import UserSerializer, UserSerializerWithToken
+
 
 
 
@@ -47,21 +49,51 @@ class TestListCreate(generics.ListCreateAPIView):
     serializer_class = TestSerializer
 
 
+
 def stock(request):
+    if request.method != 'GET':
+        return JsonResponse(status=405, data={
+            'error': 'Please use get request'
+        })
+
+    stockName = request.GET.get('NAME', '')
+    print(stockName)
+    # if stockName == '':
+    #     return JsonResponse(status=400, data={
+    #         'error': 'Please include stock name'
+    #     })
+
+    # for use when date fields are implimented
+
+    # startDate = request.GET.get('STARTDATE', datetime.datetime.today().strftime('%Y-%m-%d')
+    #                             )
+    # try:
+    #     datetime.datetime.strptime(startDate, '%Y-%m-%d')
+    # except ValueError:
+    #      return JsonResponse(status=400, data={
+    #         'error': 'Please include a valid date in the format YYYY-MM-DD'
+    #     })
+    # endDate = request.GET.get('ENDDATE', datetime.datetime.today().strftime('%Y-%m-%d')
+    #                             )
+    # try:
+    #     datetime.datetime.strptime(endDate, '%Y-%m-%d')
+    # except ValueError:
+    #      return JsonResponse(status=400, data={
+    #         'error': 'Please include a valid date in the format YYYY-MM-DD'
+    #     })
     # DL data from the Quandl API
     quandl.ApiConfig.api_key = 'SX5vBsMh7ovP9Pyqp-w7'
-    df = quandl.get("WIKI/GOOGL", start_date="2001-12-31", end_date="2002-01-31")
-    df_r= df.reset_index()
+    df = quandl.get(f"WIKI/{stockName}", start_date="2018-03-01",
+                    end_date="2018-03-01")
+    print(df)
+    df_r = df.reset_index()
     df1 = df_r['Open']
     dfl = df1.tolist()
-    dfl = str(dfl)
-    
-    
-    return render(request, 'stock.html', {'dfl': dfl})
 
-
-
-
+    return JsonResponse(status=200, data={
+            'symbol': stockName,
+            'price': dfl[0]
+        })
 
 class HomePageView(TemplateView):
     template_name = 'index.html'
