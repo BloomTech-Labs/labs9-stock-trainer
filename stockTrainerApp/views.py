@@ -6,6 +6,7 @@ from functools import wraps
 from jose import jwt
 import json
 from rest_framework.decorators import api_view
+from django.shortcuts import render
 
 from django.conf import settings
 from django.views.generic.base import TemplateView
@@ -20,13 +21,13 @@ stripe.api_key = settings.STRIPE_SECRET_TEST_KEY
 def stock(request):
     # DL data from the Quandl API
     quandl.ApiConfig.api_key = 'SX5vBsMh7ovP9Pyqp-w7'
-    df = quandl.get("WIKI/AAPL", start_date="2001-12-31", end_date="2002-01-31")
+    df = quandl.get("WIKI/GOOGL", start_date="2001-12-31", end_date="2002-01-31")
     df_r= df.reset_index()
     df1 = df_r['Open']
     print('##############')
     dfl = df1.tolist()
     dfl = str(dfl)
-    print(type(dfl))
+    # print(type(dfl))
     # below we turn the date index into a column
     # df1 = df.reset_index()
     # df2 = df1.set_index('Date').to_dict()['Value']    

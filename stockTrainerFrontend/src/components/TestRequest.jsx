@@ -1,5 +1,7 @@
 import { Input } from "semantic-ui-react";
 import React, { Component } from "react";
+import axios from "axios";
+
 
 class TestRequest extends Component {
   constructor(props) {
@@ -7,6 +9,10 @@ class TestRequest extends Component {
     this.state = {
       textbox: ""
     };
+  }
+
+  async componentDidMount() {
+    axios.get("localhost:8000/quandl.get(["NSE/OIL.1", "WIKI/AAPL.4"]))
   }
 
   searchStock = () => {
