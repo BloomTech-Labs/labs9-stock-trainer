@@ -14,8 +14,15 @@
 }
 
 .leftColumn {
-  grid-row-start:1;
-  grid-row-end:3;
-  grid-column-start:2;
-  grid-column-end:3;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+
+.userStocks {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 22% 22% 22% 22%;
+  grid-row-gap: 4%;
 }

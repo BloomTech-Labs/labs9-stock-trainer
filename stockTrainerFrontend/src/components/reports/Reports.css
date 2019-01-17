@@ -38,6 +38,9 @@ i.icon {
   width: 10rem;
 } */
 
+.reportsSearch {
+  grid-area: search;
+}
 .rightInfobox {
   grid-area: targetScore;
   font-size: 45px;
@@ -53,9 +56,13 @@ i.icon {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 10% 10% 70%;
-  grid-template-areas:
+  /* grid-template-areas:
     "stockname favoriteStar search . ."
     "leftInfoColumn rightInfoColumn . . targetScore"
+    "tabbedChart tabbedChart tabbedChart tabbedChart tabbedChart"; */
+  grid-template-areas:
+    "stock stock search . ."
+    "stock stock . . targetScore"
     "tabbedChart tabbedChart tabbedChart tabbedChart tabbedChart";
   align-items: center;
 }

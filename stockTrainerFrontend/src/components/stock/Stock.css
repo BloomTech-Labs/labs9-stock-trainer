@@ -4,9 +4,7 @@
 .favoriteIcon {
   grid-area: favoriteStar;
 }
-.reportsSearch {
-  grid-area: search;
-}
+
 .leftColumnInfobox {
   grid-area: leftInfoColumn;
   display: flex;
@@ -20,4 +18,15 @@
   justify-content: space-around;
   flex-direction: column;
   height: 100%;
+}
+
+.stock {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 50% 50%;
+  grid-template-areas:
+    "stockname favoriteStar"
+    "leftInfoColumn rightInfoColumn";
+  grid-area: stock;
 }
