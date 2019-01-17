@@ -29,8 +29,9 @@ class App extends Component {
     };
   }
 
-  signOut = props => {
-    props.auth.signOut();
+  signOut = () => {
+    const { auth } = this.props;
+    auth.signOut();
     this.setState({ signIn: false });
   };
 
@@ -107,6 +108,7 @@ class App extends Component {
   render() {
     const { auth } = this.props;
     const { currentUser, signIn, stockData } = this.state;
+    console.log(process.env.REACT_APP_URL);
     return (
       <div className="App">
         <TopBar

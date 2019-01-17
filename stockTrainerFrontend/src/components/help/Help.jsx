@@ -145,7 +145,6 @@ export default function Help(props) {
           />
           <Route path={`${match.path}/test`} component={Test} />
           <Redirect to="/" />
-
         </Switch>
       </Segment>
     </div>
