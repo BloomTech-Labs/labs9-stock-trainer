@@ -16,6 +16,7 @@ import Help from "./components/help/Help";
 
 import Callback from "./Auth/Callback";
 import TestRequest from "./components/TestRequest";
+import TestSearch from "./components/TestSearch";
 
 class App extends Component {
   constructor(props) {
@@ -189,6 +190,16 @@ class App extends Component {
                   retrieveStock={this.retrieveStock}
                   stockData={stockData}
                 />
+              </div>
+            )}
+          />
+          <Route
+            exact
+            path="/testsearch"
+            render={props => (
+              <div className="lowerPageLayout">
+                <NavBar {...props} />
+                <TestSearch />
               </div>
             )}
           />
