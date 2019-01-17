@@ -167,4 +167,12 @@ Allows for consistent styling in code contributed by different team members.
 
 Payment toolkit that allows for secure payments for users. | [View API](https://stripe.com/)
 
+##### Implementation:
+
+The front-end uses the Stripe element and components to get user info, and then the Stripe 
+component creates a secure token that is sent to the back-end. The back-end receives this
+token, and sends a request to the Stripe server for payment. Depending on the result of the
+payment, user account status may be upgraded, or there may be further steps to complete
+payment. 
+
 ### Quantopian
