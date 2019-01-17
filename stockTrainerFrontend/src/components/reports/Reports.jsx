@@ -1,13 +1,15 @@
 import React from "react";
-import { Header, Icon, Input, Tab, Placeholder } from "semantic-ui-react";
+import { Header, Icon, Input, Tab, Placeholder, Segment } from "semantic-ui-react";
 import "./Reports.css";
 
 const placeholderPane = (
-  <Tab.Pane>
-    <Placeholder style={{ height: "30rem", width: "100%", maxWidth: "100%" }}>
-      <Placeholder.Image />
-    </Placeholder>
-  </Tab.Pane>
+  <Segment>
+    <Tab.Pane>
+      <Placeholder style={{ height: "30rem", width: "100%", maxWidth: "100%" }}>
+        <Placeholder.Image />
+      </Placeholder>
+    </Tab.Pane>
+  </Segment>
 );
 const panes = [
   {
@@ -15,7 +17,7 @@ const panes = [
     render: () => placeholderPane
   },
   {
-    menuItem: "Average Trie Range",
+    menuItem: "Average True Range",
     render: () => placeholderPane
   },
   {
@@ -34,22 +36,30 @@ const panes = [
 
 const Reports = () => (
   <div className="reportsContainer">
-    <Header className="stockName" as="h1">
-      Stock Name
-    </Header>
+    <Segment>
+      <Header className="stockName" as="h1">
+        Stock Name
+      </Header>
+    </Segment>
     <Icon className="favoriteIcon" name="star outline" size="big" />
     <Input className="reportsSearch" placeholder="Search..." />
     <div className="leftColumnInfobox">
-      <div className="upperRowInfobox">Price: $148.40</div>
-      <div className="lowerRowInfobox">Volume: 43.28M</div>
+      <Segment>
+        <div className="upperRowInfobox">Price: $148.40</div>
+        <div className="lowerRowInfobox">Volume: 43.28M</div>
+      </Segment>
     </div>
     <div className="rightColumnInfobox">
-      <div className="upperRowInfobox">Change: 6.07</div>
-      <div className="lowerRowInfobox">Change %: +4.27</div>
+      <Segment>
+        <div className="upperRowInfobox">Change: 6.07</div>
+        <div className="lowerRowInfobox">Change %: +4.27</div>
+      </Segment>
     </div>
     <div className="rightInfobox">
-      <Header as="h3">Target Score:</Header>
-      <div className="targetScoreResult">15</div>
+      <Segment>
+        <Header as="h3">Target Score:</Header>
+        <div className="targetScoreResult">15</div>
+      </Segment>
     </div>
 
     <Tab className="chart" panes={panes} />
