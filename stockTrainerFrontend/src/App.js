@@ -55,6 +55,25 @@ class App extends Component {
     auth.signIn();
   };
 
+  retrieveUser = props => {
+    axios
+      .request({
+        method: "get", // I think this should be a get?
+        baseURL: `${process.env.REACT_APP_BACKEND_URL}User/`, // so basically replace stock/ with whatever you need to hit. tthe first / is in the env file
+        headers: {
+          Authorization: `Bearer ${props.auth.accessToken}` // I'm pretty sure this is right, make sure it is before using it
+        }
+      })
+      .then(res => {
+        // your response is going to see the res here, including http code and whatever. res.data normally has whatever is given back to you
+        res.data();
+      })
+      .catch(err => {
+        // eslint-disable-next-line no-console
+        console.log(err); // for errors
+      });
+  };
+
   retrieveStock = (nameOfStock, startDate, endDate) => {
     const { jwt, stockData } = this.state;
     const paramSettings = {
