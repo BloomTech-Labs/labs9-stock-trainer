@@ -1,5 +1,6 @@
 .stockName {
   grid-area: stockname;
+  margin-bottom:0px;
 }
 .favoriteIcon {
   grid-area: favoriteStar;
@@ -23,6 +24,7 @@
 .stock {
   display: grid;
   height: 100%;
+  align-items: center;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 50% 50%;
   grid-template-areas:

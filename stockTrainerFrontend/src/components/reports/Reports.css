@@ -37,14 +37,16 @@ i.icon {
 .leftColumnInfobox {
   width: 10rem;
 } */
-
 .reportsSearch {
   grid-area: search;
 }
 .rightInfobox {
   grid-area: targetScore;
   font-size: 45px;
-  margin-top: 10px;
+  height:100%;
+  display:flex;
+  justify-content: center;
+  flex-direction: column;
 }
 .chart {
   grid-area: tabbedChart;
