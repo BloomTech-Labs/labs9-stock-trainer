@@ -53,24 +53,7 @@ class App extends Component {
   signIn = () => {
     const { auth } = this.props;
     auth.signIn();
-    // this.setState({
-    //   signedIn: true
-    // });
-
-    // eslint-disable-next-line no-undef
-    // handleAuthentication = nextState => {
-    //   if (/access_token|id_token|error/.test(nextState.location.hash)) {
-    //     // eslint-disable-next-line no-undef
-    //     auth.handleAuthentication();
-    //   }
-    // };
   };
-
-  // handleAuthentication = (nextState, replace) => {
-  //   if (/access_token|id_token|error/.test(nextState.location.hash)) {
-  //     this.auth.handleAuthentication();
-  //   }
-  // };
 
   retrieveStock = (nameOfStock, startDate, endDate) => {
     const { jwt, stockData } = this.state;
