@@ -14,8 +14,8 @@ for i, row in enumerate(reader):
     if i == 0:
       continue
     test = {}
-    test['Symbol'] = row['Symbol']
-    test['Name'] = row['Name']
+    test['name'] = row['Name']
+    test['symbol'] = row['Symbol']
     json_list.append(test)
 
 jsonfile.write(json.dumps(json_list))
