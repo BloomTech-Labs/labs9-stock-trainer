@@ -1,0 +1,34 @@
+.stockName {
+  grid-area: stockname;
+  margin-bottom:0px;
+}
+.favoriteIcon {
+  grid-area: favoriteStar;
+}
+
+.leftColumnInfobox {
+  grid-area: leftInfoColumn;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  height: 100%;
+}
+.rightColumnInfobox {
+  grid-area: rightInfoColumn;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  height: 100%;
+}
+
+.stock {
+  display: grid;
+  height: 100%;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 50% 50%;
+  grid-template-areas:
+    "stockname favoriteStar"
+    "leftInfoColumn rightInfoColumn";
+  grid-area: stock;
+}

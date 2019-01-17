@@ -32,9 +32,7 @@ const Landing = () => (
         tempore quos molestiae distinctio sint! Quae, reiciendis saepe!
       </p>
       <Link to="/dashboard">
-        <Button onClick="" basic color="grey">
-          Demo now!
-        </Button>
+        <Button secondary>Demo now!</Button>
       </Link>
     </Container>
     {/* Add demo/way for users to see how the app functions */}
