@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Icon, Input, Tab, Placeholder, Segment } from "semantic-ui-react";
+import { Header, Input, Tab, Placeholder, Segment } from "semantic-ui-react";
 import "./Reports.css";
 import Stock from "../stock/Stock";
 
@@ -37,10 +37,7 @@ const panes = [
 
 const Reports = () => (
   <Segment className="reportsContainer">
-    <Header className="stockName" as="h1">
-      Stock Name
-    </Header>
-    <Icon className="favoriteIcon" name="star outline" size="big" />
+    <Stock name="Stock name here" />
     <Input className="reportsSearch" placeholder="Search..." />
     <div className="rightInfobox">
       <Header as="h3">Target Score:</Header>

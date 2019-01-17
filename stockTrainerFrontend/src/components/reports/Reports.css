@@ -57,7 +57,7 @@ i.icon {
   height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 10% 10% 70%;
+  grid-template-rows: 10% 10% 80%;
   /* grid-template-areas:
     "stockname favoriteStar search . ."
     "leftInfoColumn rightInfoColumn . . targetScore"
