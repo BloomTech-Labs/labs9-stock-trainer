@@ -1,14 +1,16 @@
 import React from "react";
-import { Header, Tab, Placeholder, Input } from "semantic-ui-react";
+import { Header, Input, Tab, Placeholder, Segment } from "semantic-ui-react";
 import "./Reports.css";
 import Stock from "../stock/Stock";
 
 const placeholderPane = (
-  <Tab.Pane>
-    <Placeholder style={{ height: "30rem", width: "100%", maxWidth: "100%" }}>
-      <Placeholder.Image />
-    </Placeholder>
-  </Tab.Pane>
+  <Segment>
+    <Tab.Pane>
+      <Placeholder style={{ height: "30rem", width: "100%", maxWidth: "100%" }}>
+        <Placeholder.Image />
+      </Placeholder>
+    </Tab.Pane>
+  </Segment>
 );
 const panes = [
   {
@@ -16,7 +18,7 @@ const panes = [
     render: () => placeholderPane
   },
   {
-    menuItem: "Average Trie Range",
+    menuItem: "Average True Range",
     render: () => placeholderPane
   },
   {
@@ -34,7 +36,7 @@ const panes = [
 ];
 
 const Reports = () => (
-  <div className="reportsContainer">
+  <Segment className="reportsContainer">
     <Stock name="Stock name here" />
     <Input className="reportsSearch" placeholder="Search..." />
     <div className="rightInfobox">
@@ -42,6 +44,6 @@ const Reports = () => (
       <div className="targetScoreResult">15</div>
     </div>
     <Tab className="chart" panes={panes} />
-  </div>
+  </Segment>
 );
 export default Reports;
