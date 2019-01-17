@@ -108,7 +108,6 @@ class App extends Component {
   render() {
     const { auth } = this.props;
     const { currentUser, signIn, stockData } = this.state;
-    console.log(process.env.REACT_APP_URL);
     return (
       <div className="App">
         <TopBar
