@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Modal, Icon } from "semantic-ui-react";
 import "./SignoutContainer.css";
-import auth0Client from "../../Auth/Auth";
+// import Auth from "../../Auth/Auth";
 
 class SignedOutContainer extends React.Component {
   constructor(props) {
@@ -16,13 +16,13 @@ class SignedOutContainer extends React.Component {
   handleOpen = () => this.setState({ modalOpen: true });
 
   signOut = () => {
-    auth0Client.signOut();
-    // eslint-disable-next-line no-undef
-    props.history.replace("/");
+    const { signOutFunc } = this.props;
+    this.handleClose();
+    signOutFunc();
   };
 
   render() {
-    const { currentUser, signOut } = this.props;
+    const { currentUser } = this.props;
     const { modalOpen } = this.state;
     return (
       <div className="signoutContainer">
@@ -47,17 +47,10 @@ class SignedOutContainer extends React.Component {
               <Button onClick={this.handleClose} color="red" inverted>
                 <Icon name="remove" /> No
               </Button>
-              {auth0Client.isAuthenticated() && (
-                <Button
-                  onClick={() => {
-                    signOut();
-                  }}
-                  color="green"
-                  inverted
-                >
-                  <Icon name="checkmark" /> Yes
-                </Button>
-              )}
+
+              <Button onClick={this.signOut} color="green" inverted>
+                <Icon name="checkmark" /> Yes
+              </Button>
             </Modal.Actions>
           </Modal>
         </div>

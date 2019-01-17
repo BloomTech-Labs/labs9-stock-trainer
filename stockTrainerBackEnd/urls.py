@@ -18,6 +18,8 @@ from django.contrib import admin
 from rest_framework import routers
 from django.urls import path, include
 
+from rest_framework_jwt.views import obtain_jwt_token
+
 from stockTrainerApp.api import UserViewset, StockViewset, StudyViewset, IndicatorViewset, PortfolioViewset, TestViewset
 
 
@@ -36,4 +38,8 @@ urlpatterns = [
     path('', include('stockTrainerApp.urls')),
     
     url(r'^', include('stockTrainerApp.urls')),
+    url(r'^auth/token', obtain_jwt_token),
+
+    # Local
+    path('stockTrainer/', include('stockTrainerApp.urls'))
 ]

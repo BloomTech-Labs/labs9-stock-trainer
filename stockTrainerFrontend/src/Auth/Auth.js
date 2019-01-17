@@ -1,38 +1,33 @@
 import auth0 from "auth0-js";
 
-class Auth {
+export default class Auth {
+  accessToken;
+
+  idToken;
+
+  expiresAt;
+
+  idTokenPayload;
+
   constructor() {
     this.auth0 = new auth0.WebAuth({
       // the following three lines MUST be updated
       domain: "stock-trainer.auth0.com",
       audience: "https://stock-trainer.auth0.com/userinfo",
       clientID: "90QRusJ6F6LjsgmUA97iEc2rXfDANPqa",
-      redirectUri: "https://stock-trainer.netlify.com/callback",
-      responseType: "id_token",
-      scope: "openid profile"
+      redirectUri: `${process.env.REACT_APP_URL}callback`,
+      responseType: "token id_token",
+      scope: "openid profile email"
     });
 
-    this.getProfile = this.getProfile.bind(this);
-    this.handleAuthentication = this.handleAuthentication.bind(this);
-    this.isAuthenticated = this.isAuthenticated.bind(this);
     this.signIn = this.signIn.bind(this);
     this.signOut = this.signOut.bind(this);
-  }
-
-  getProfile() {
-    return this.profile;
-  }
-
-  getIdToken() {
-    return this.idToken;
-  }
-
-  isAuthenticated() {
-    return new Date().getTime() < this.expiresAt;
-  }
-
-  signIn() {
-    this.auth0.authorize();
+    this.handleAuthentication = this.handleAuthentication.bind(this);
+    this.isAuthenticated = this.isAuthenticated.bind(this);
+    this.getAccessToken = this.getAccessToken.bind(this);
+    this.getIdToken = this.getIdToken.bind(this);
+    this.renewSession = this.renewSession.bind(this);
+    this.getIdTokenPayload = this.getIdTokenPayload.bind(this);
   }
 
   handleAuthentication() {
@@ -43,23 +38,77 @@ class Auth {
         if (!authResult || !authResult.idToken) {
           return reject(err);
         }
-        this.idToken = authResult.idToken;
-        this.profile = authResult.idTokenPayload;
-        // set the time that the id token will expire at
-        this.expiresAt = authResult.idTokenPayload.exp * 1000;
+        this.setSession(authResult);
         resolve();
       });
     });
   }
 
+  getAccessToken() {
+    return this.accessToken;
+  }
+
+  getIdToken() {
+    return this.idToken;
+  }
+
+  getIdTokenPayload() {
+    return this.idTokenPayload;
+  }
+
+  setSession(authResult) {
+    // Set isLoggedIn flag in localStorage
+    localStorage.setItem("isLoggedIn", "true");
+
+    // Set the time that the access token will expire at
+    const expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
+    this.accessToken = authResult.accessToken;
+    this.idToken = authResult.idToken;
+    this.expiresAt = expiresAt;
+    this.idTokenPayload = authResult.idTokenPayload;
+  }
+
+  renewSession() {
+    this.auth0.checkSession({}, (err, authResult) => {
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        this.setSession(authResult);
+      } else if (err) {
+        this.signOut();
+        // eslint-disable-next-line no-console
+        console.log(err);
+        // eslint-disable-next-line no-alert
+        alert(
+          `Could not get a new token (${err.error}: ${err.error_description}).`
+        );
+      }
+    });
+  }
+
+  signIn() {
+    this.auth0.authorize();
+  }
+
   signOut() {
-    // clear id token, profile, and expiration
+    // Remove tokens and expiry time
     this.idToken = null;
-    this.profile = null;
-    this.expiresAt = null;
+    this.accessToken = null;
+    this.expiresAt = 0;
+
+    // Remove isLoggedIn flag from localStorage
+    localStorage.removeItem("isLoggedIn");
+
+    // navigate to the home route
+  }
+
+  isAuthenticated() {
+    // Check whether the current time is past the
+    // access token's expiry time
+    // eslint-disable-next-line prefer-destructuring
+    const expiresAt = this.expiresAt;
+    return new Date().getTime() < expiresAt;
   }
 }
 
-const auth0Client = new Auth();
+// const auth0Client = new Auth();
 
-export default auth0Client;
+// export default auth0Client;

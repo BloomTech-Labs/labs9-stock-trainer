@@ -5,10 +5,13 @@ import "./index.css";
 import "semantic-ui-css/semantic.min.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import Auth from "./Auth/Auth";
+
+const auth = new Auth();
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <App auth={auth} />
   </BrowserRouter>,
   document.getElementById("root")
 );
