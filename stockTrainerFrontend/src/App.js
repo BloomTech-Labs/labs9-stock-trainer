@@ -115,7 +115,6 @@ class App extends Component {
           signedInState={signIn}
           signOutFunc={this.signOut}
           signInFunc={this.signIn}
-          register={this.register}
         />
         <Switch>
           <Route
