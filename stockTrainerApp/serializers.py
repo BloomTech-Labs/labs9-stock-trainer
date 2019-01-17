@@ -12,6 +12,8 @@ class TestSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+
+
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:

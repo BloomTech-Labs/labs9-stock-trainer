@@ -42,3 +42,5 @@ yarn-error.log*
 
 .python-version
 *.sqlite3
+
+__pycache__

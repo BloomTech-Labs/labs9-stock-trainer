@@ -36,6 +36,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('', include('stockTrainerApp.urls')),
+    
     url(r'^', include('stockTrainerApp.urls')),
     url(r'^auth/token', obtain_jwt_token),
 

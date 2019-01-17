@@ -7,6 +7,9 @@ from functools import wraps
 from jose import jwt
 import json
 from rest_framework.decorators import api_view
+from . models import Test
+from . serializers import TestSerializer
+from rest_framework import generics
 from django.shortcuts import render
 
 from rest_framework.decorators import api_view
@@ -27,6 +30,24 @@ from .serializers import UserSerializer, UserSerializerWithToken
 stripe.api_key = settings.STRIPE_SECRET_TEST_KEY
 
 # Create your views here.
+def stock(request):
+    # DL data from the Quandl API
+    
+    quandl.ApiConfig.api_key = config('QUANDL_API_KEY')
+    df = quandl.get("WIKI/GOOGL", start_date="2001-12-31", end_date="2002-01-31")
+    df_r= df.reset_index()
+    df1 = df_r['Open']
+    dfl = df1.tolist()
+    dfl = str(dfl)
+    
+    return render(request, 'stock.html', {'dfl': dfl})
+
+
+
+class TestListCreate(generics.ListCreateAPIView):
+    queryset = Test.objects.all()
+    serializer_class = TestSerializer
+
 
 
 def stock(request):
