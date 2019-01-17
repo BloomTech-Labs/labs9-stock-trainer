@@ -93,7 +93,6 @@ class App extends Component {
         params: paramSettings
       })
       .then(res => {
-        console.log(res);
         const newState = { ...stockData };
         newState[res.data.symbol] = {
           symbol: res.data.symbol,
@@ -111,7 +110,6 @@ class App extends Component {
   render() {
     const { auth } = this.props;
     const { currentUser, signIn, stockData } = this.state;
-    console.log(process.env.REACT_APP_URL);
     return (
       <div className="App">
         <TopBar
