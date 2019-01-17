@@ -37,6 +37,8 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('', include('stockTrainerApp.urls')),
     url(r'^', include('stockTrainerApp.urls')),
-    url(r'^auth/token', obtain_jwt_token)
-]
+    url(r'^auth/token', obtain_jwt_token),
 
+    # Local
+    path('stockTrainer/', include('stockTrainerApp.urls'))
+]

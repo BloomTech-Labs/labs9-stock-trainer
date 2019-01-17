@@ -14,9 +14,9 @@ import dj_database_url
 
 import os
 
-#Auth0 configuration 
+# Auth0 configuration
 
-import json 
+import json
 from six.moves.urllib import request
 
 from cryptography.x509 import load_pem_x509_certificate
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_jwt',
     'corsheaders',
 
     # Local
@@ -67,7 +68,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware'
 ]
 
-# Auth0 configuration 
+# Auth0 configuration
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -107,7 +108,7 @@ DATABASES['default'] = dj_database_url.config(
     default=config('DATABASE_URL'), conn_max_age=600)
 
 # Django REST framework settings
-# Django REST authentication framework 
+# Django REST authentication framework
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -176,4 +177,6 @@ CORS_ORIGIN_WHITELIST = (
 STRIPE_SECRET_TEST_KEY = config('STRIPE_SECRET_TEST_KEY')
 STRIPE_PUBLISHABLE_TEST_KEY = config('STRIPE_PUBLISHABLE_TEST_KEY')
 
-#
+JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'stockTrainerBackEnd.utils.my_jwt_response_handler'
+}
