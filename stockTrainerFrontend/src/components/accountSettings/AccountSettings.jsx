@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { Button, Form, Checkbox } from "semantic-ui-react";
+import { Button, Form, Checkbox, Accordion, Icon } from "semantic-ui-react";
 import "./AccountSettings.css";
+
+import UpgradeUser from "../billing/Billing";
 
 class AccountSettings extends Component {
   state = {
@@ -9,7 +11,8 @@ class AccountSettings extends Component {
     emailCheck: false,
     textCheck: false,
     oldPassword: "",
-    newPassword: ""
+    newPassword: "",
+    activeIndex: 0
   };
 
   handleSubmit = () => {
@@ -27,6 +30,14 @@ class AccountSettings extends Component {
       console.log(email, phone, emailCheck, textCheck);
       // post request goes here
     }
+  };
+
+  handleClick = (e, titleProps) => {
+    const { index } = titleProps;
+    const { activeIndex } = this.state;
+    const newIndex = activeIndex === index ? -1 : index;
+
+    this.setState({ activeIndex: newIndex });
   };
 
   handleChange = e => {
@@ -52,72 +63,97 @@ class AccountSettings extends Component {
       emailCheck,
       textCheck,
       oldPassword,
-      newPassword
+      newPassword,
+      activeIndex
     } = this.state;
     return (
-      <Form size="large" style={{ width: "25%" }} onSubmit={this.handleSubmit}>
-        <Form.Field>
-          <label htmlFor="email">
-            Email
-            <input
-              id="email"
-              name="email"
-              value={email}
-              onChange={this.handleChange}
-              type="email"
-            />
-          </label>
-        </Form.Field>
-        <Form.Field>
-          <label htmlFor="phone">
-            Phone
-            <input
-              id="phone"
-              name="phone"
-              value={phone}
-              onChange={this.handleChange}
-            />
-          </label>
-        </Form.Field>
-        <Form.Field>
-          <Checkbox
-            label="Emails are permitted!"
-            checked={emailCheck}
-            onChange={this.toggleEmail}
-          />
-        </Form.Field>
-        <Form.Field>
-          <Checkbox
-            label="Texts are permitted!"
-            checked={textCheck}
-            onChange={this.toggleText}
-          />
-        </Form.Field>
-        <Form.Field>
-          <label htmlFor="oldPassword">
-            Old Password
-            <input
-              id="oldPassword"
-              name="oldPassword"
-              value={oldPassword}
-              onChange={this.handleChange}
-              type="password"
-            />
-          </label>
-        </Form.Field>
-        <Form.Field>
-          <label htmlFor="newPassword">
-            New Password
-            <input
-              name="newPassword"
-              value={newPassword}
-              onChange={this.handleChange}
-              type="password"
-            />
-          </label>
-        </Form.Field>
-        <Button type="submit">Submit</Button>
-      </Form>
+      <Accordion styled className="settingsAccordion">
+        <Accordion.Title
+          active={activeIndex === 0}
+          index={0}
+          onClick={this.handleClick}
+        >
+          <Icon name="dropdown" />
+          Settings
+        </Accordion.Title>
+        <Accordion.Content active={activeIndex === 0}>
+          <Form size="large" onSubmit={this.handleSubmit}>
+            <Form.Field>
+              <label htmlFor="email">
+                Email
+                <input
+                  id="email"
+                  name="email"
+                  value={email}
+                  onChange={this.handleChange}
+                  type="email"
+                />
+              </label>
+            </Form.Field>
+            <Form.Field>
+              <label htmlFor="phone">
+                Phone
+                <input
+                  id="phone"
+                  name="phone"
+                  value={phone}
+                  onChange={this.handleChange}
+                />
+              </label>
+            </Form.Field>
+            <Form.Field>
+              <Checkbox
+                label="Emails are permitted!"
+                checked={emailCheck}
+                onChange={this.toggleEmail}
+              />
+            </Form.Field>
+            <Form.Field>
+              <Checkbox
+                label="Texts are permitted!"
+                checked={textCheck}
+                onChange={this.toggleText}
+              />
+            </Form.Field>
+            <Form.Field>
+              <label htmlFor="oldPassword">
+                Old Password
+                <input
+                  id="oldPassword"
+                  name="oldPassword"
+                  value={oldPassword}
+                  onChange={this.handleChange}
+                  type="password"
+                />
+              </label>
+            </Form.Field>
+            <Form.Field>
+              <label htmlFor="newPassword">
+                New Password
+                <input
+                  name="newPassword"
+                  value={newPassword}
+                  onChange={this.handleChange}
+                  type="password"
+                />
+              </label>
+            </Form.Field>
+            <Button type="submit">Submit</Button>
+          </Form>
+        </Accordion.Content>
+
+        <Accordion.Title
+          active={activeIndex === 1}
+          index={1}
+          onClick={this.handleClick}
+        >
+          <Icon name="dropdown" />
+          Billing
+        </Accordion.Title>
+        <Accordion.Content active={activeIndex === 1}>
+          <UpgradeUser />
+        </Accordion.Content>
+      </Accordion>
     );
   }
 }

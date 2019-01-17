@@ -53,12 +53,6 @@ export default class NavBar extends Component {
             to="/settings"
             as={Link}
           />
-          <Menu.Item
-            name="Billing"
-            active={activeItem === "/billing"}
-            to="/billing"
-            as={Link}
-          />
         </Menu>
       </div>
     );

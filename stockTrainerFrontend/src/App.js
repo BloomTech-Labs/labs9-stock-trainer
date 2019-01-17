@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
+
 import TopBar from "./components/topbar/TopBar";
 import NavBar from "./components/navbar/NavBar";
 
@@ -9,7 +10,6 @@ import AccountSettings from "./components/accountSettings/AccountSettings";
 import Landing from "./components/landing/Landing";
 
 import Reports from "./components/reports/Reports";
-import Billing from "./components/billing/Billing";
 import UserInfo from "./components/userinfo/UserInfo";
 import Dashboard from "./components/dashboard/Dashboard";
 import Help from "./components/help/Help";
@@ -145,16 +145,6 @@ class App extends Component {
               <div className="lowerPageLayout">
                 <NavBar {...props} />
                 <AccountSettings />
-              </div>
-            )}
-          />
-          <Route
-            exact
-            path="/billing"
-            render={props => (
-              <div className="lowerPageLayout">
-                <NavBar {...props} />
-                <Billing />
               </div>
             )}
           />
