@@ -1,14 +1,8 @@
 from rest_framework import serializers, viewsets
 import quandl
 import pandas as pd
-import io
+# import json
 from .models import User, Stock, Study, Indicator, Portfolio, Test
-
-# DL data from the Quandl API
-df = quandl.get("FRED/GDP", start_date="2001-12-31", end_date="2005-12-31")
-# convert date and value columns into dicts
-date_col = df.reset_index().to_dict()
-value_col = df['Value'].to_dict()
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):

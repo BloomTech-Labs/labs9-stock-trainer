@@ -83,8 +83,9 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # TODO: see if this can route the react app index to the front page.
-        'DIRS': ['templates'],
+        # 'DIRS': ['templates'],
         'APP_DIRS': True,
+        'DIRS': [os.path.join(BASE_DIR, "templates"), ],
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',

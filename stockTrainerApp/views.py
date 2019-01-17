@@ -1,4 +1,7 @@
 import stripe
+import quandl
+import json
+import pandas as pd
 from functools import wraps
 from jose import jwt
 import json
@@ -6,6 +9,7 @@ from rest_framework.decorators import api_view
 from . models import Test
 from . serializers import TestSerializer
 from rest_framework import generics
+from django.shortcuts import render
 
 from rest_framework.decorators import api_view
 from django.conf import settings
@@ -41,6 +45,21 @@ def stock(request):
 class TestListCreate(generics.ListCreateAPIView):
     queryset = Test.objects.all()
     serializer_class = TestSerializer
+
+
+def stock(request):
+    # DL data from the Quandl API
+    quandl.ApiConfig.api_key = 'SX5vBsMh7ovP9Pyqp-w7'
+    df = quandl.get("WIKI/GOOGL", start_date="2001-12-31", end_date="2002-01-31")
+    df_r= df.reset_index()
+    df1 = df_r['Open']
+    dfl = df1.tolist()
+    dfl = str(dfl)
+    
+    
+    return render(request, 'stock.html', {'dfl': dfl})
+
+
 
 
 
