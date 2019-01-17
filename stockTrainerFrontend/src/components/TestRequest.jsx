@@ -22,7 +22,12 @@ class TestRequest extends Component {
     const { stockData } = this.props;
     const { textbox } = this.state;
     return (
-      <div>
+      <div
+        style={{
+          height: "100%",
+          fontSize: "36px"
+        }}
+      >
         <Input
           placeholder="Enter a stock symbol"
           value={textbox}
@@ -32,13 +37,26 @@ class TestRequest extends Component {
             onClick: this.searchStock
           }}
         />
-        {Object.keys(stockData).map(key => (
-          <div className="resultHolder">
-            <div className="stockSymbol">{stockData[key].symbol}</div>
-            <div className="stockName">{stockData[key].name}</div>
-            <div className="stockPrice">{stockData[key].price}</div>
-          </div>
-        ))}
+        <div
+          className="resultsList"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100%"
+          }}
+        >
+          {Object.keys(stockData).map(key => (
+            <div key={key} className="resultHolder">
+              <div className="stockSymbol" style={{ margin: "2rem" }}>
+                Stock symbol: {stockData[key].symbol}
+              </div>
+              {/* <div className="stockName">{stockData[key].name}</div> */}
+              <div className="stockPrice" style={{ margin: "2rem" }}>
+                Closing price: {stockData[key].price}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
