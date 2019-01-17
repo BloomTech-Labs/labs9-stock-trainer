@@ -4,7 +4,6 @@ import json
 # super simple + janky script to take a csv file from NASDAQ and take the symbol/name
 
 # probably should read from the command line
-# probably need to implement a way to read multiple files and write once
 csvfile = open('companylist.csv', 'r')
 jsonfile = open('test.json', 'w')
 
