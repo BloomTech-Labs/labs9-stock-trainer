@@ -13,7 +13,7 @@ import Billing from "./components/billing/Billing";
 import UserInfo from "./components/userinfo/UserInfo";
 import Dashboard from "./components/dashboard/Dashboard";
 import Help from "./components/help/Help";
-
+import NoMatch from "./components/nomatch/NoMatch";
 import Callback from "./Auth/Callback";
 import TestRequest from "./components/TestRequest";
 
@@ -197,14 +197,19 @@ class App extends Component {
             exact
             path="/callback"
             render={props => (
-              // eslint-disable-next-line no-undef
-              // this.handleAuthentication(props);
-
               <Callback
                 signinchange={this.switchSignInState}
                 auth={auth}
                 {...props}
               />
+            )}
+          />
+          <Route
+            render={props => (
+              <div className="lowerPageLayout">
+                <NavBar {...props} />
+                <NoMatch />
+              </div>
             )}
           />
         </Switch>
