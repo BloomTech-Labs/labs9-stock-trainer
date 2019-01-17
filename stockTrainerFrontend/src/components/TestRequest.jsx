@@ -40,7 +40,6 @@ class TestRequest extends Component {
         <div
           className="resultsList"
           style={{
-            
             display: "flex",
             flexDirection: "column",
             height: "100%"
