@@ -4,14 +4,16 @@ import json
 # super simple + janky script to take a csv file from NASDAQ and take the symbol/name
 
 # probably should read from the command line
-csvfile = open('companylist.csv', 'r')
 # probably need to implement a way to read multiple files and write once
+csvfile = open('companylist.csv', 'r')
 jsonfile = open('test.json', 'w')
 
 fieldnames = ("Symbol", "Name")
 reader = csv.DictReader(csvfile, fieldnames)
 json_list = []
-for row in reader:
+for i, row in enumerate(reader):
+    if i == 0:
+      continue
     test = {}
     test['Symbol'] = row['Symbol']
     test['Name'] = row['Name']
