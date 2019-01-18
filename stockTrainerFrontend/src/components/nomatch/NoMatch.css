@@ -1,0 +1,19 @@
+.warning{
+  width: 85%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: 'Abril Fatface', cursive !important;
+
+}
+.four{
+  font-size: 200px;
+  line-height: 1em;
+}
+.sorryMessage{
+  margin-top: 1em;
+  font-size: 42px;
+
+}
