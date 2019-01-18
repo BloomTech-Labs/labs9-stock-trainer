@@ -12,7 +12,7 @@ const UpgradeUser = () => (
       <p>We help you find stocks</p>
     </div>
     {/* make sure to have your stripe api key set */}
-    <StripeProvider apiKey="process.env.STRIPE_PUBLISHABLE_TEST_KEY">
+    <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PUBLISHABLE_TEST_KEY}>
       <div className="checkoutForm">
         <Elements>
           <CheckoutForm />
