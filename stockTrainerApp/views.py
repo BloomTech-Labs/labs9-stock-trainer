@@ -25,29 +25,12 @@ from rest_framework.views import APIView
 from .serializers import UserSerializer, UserSerializerWithToken
 
 
-
-
 stripe.api_key = settings.STRIPE_SECRET_TEST_KEY
-
-# Create your views here.
-def stock(request):
-    # DL data from the Quandl API
-    
-    quandl.ApiConfig.api_key = config('QUANDL_API_KEY')
-    df = quandl.get("WIKI/GOOGL", start_date="2001-12-31", end_date="2002-01-31")
-    df_r= df.reset_index()
-    df1 = df_r['Open']
-    dfl = df1.tolist()
-    dfl = str(dfl)
-    
-    return render(request, 'stock.html', {'dfl': dfl})
-
 
 
 class TestListCreate(generics.ListCreateAPIView):
     queryset = Test.objects.all()
     serializer_class = TestSerializer
-
 
 
 def stock(request):
@@ -57,43 +40,84 @@ def stock(request):
         })
 
     stockName = request.GET.get('NAME', '')
-    print(stockName)
-    # if stockName == '':
-    #     return JsonResponse(status=400, data={
-    #         'error': 'Please include stock name'
-    #     })
+    if stockName == '':
+        return JsonResponse(status=400, data={
+            'error': 'Please include stock name'
+        })
 
     # for use when date fields are implimented
 
-    # startDate = request.GET.get('STARTDATE', datetime.datetime.today().strftime('%Y-%m-%d')
-    #                             )
-    # try:
-    #     datetime.datetime.strptime(startDate, '%Y-%m-%d')
-    # except ValueError:
-    #      return JsonResponse(status=400, data={
-    #         'error': 'Please include a valid date in the format YYYY-MM-DD'
-    #     })
-    # endDate = request.GET.get('ENDDATE', datetime.datetime.today().strftime('%Y-%m-%d')
-    #                             )
-    # try:
-    #     datetime.datetime.strptime(endDate, '%Y-%m-%d')
-    # except ValueError:
-    #      return JsonResponse(status=400, data={
-    #         'error': 'Please include a valid date in the format YYYY-MM-DD'
-    #     })
+    startDate = request.GET.get('STARTDATE', "2018-01-01"
+                                )
+    try:
+        datetime.datetime.strptime(startDate, '%Y-%m-%d')
+    except ValueError:
+        return JsonResponse(status=400, data={
+            'error': 'Please include a valid date in the format YYYY-MM-DD'
+        })
+    endDate = request.GET.get('ENDDATE', "2018-01-02"
+                              )
+    try:
+        datetime.datetime.strptime(endDate, '%Y-%m-%d')
+    except ValueError:
+        return JsonResponse(status=400, data={
+            'error': 'Please include a valid date in the format YYYY-MM-DD'
+        })
+
+    fields = request.GET.get('FIELDS', ["Close"]).upper().split(',')
+
     # DL data from the Quandl API
     quandl.ApiConfig.api_key = 'SX5vBsMh7ovP9Pyqp-w7'
-    df = quandl.get(f"WIKI/{stockName}", start_date="2018-03-01",
-                    end_date="2018-03-01")
-    print(df)
-    df_r = df.reset_index()
-    df1 = df_r['Open']
-    dfl = df1.tolist()
-
-    return JsonResponse(status=200, data={
-            'symbol': stockName,
-            'price': dfl[0]
+    try:
+        df = quandl.get(f"WIKI/{stockName}", start_date=startDate,
+                        end_date=endDate)
+    except:
+        print("Query error: please change your inputs (possibly invaild NAME, STARTDATE, ENDDATE) or check your API key.")
+        return JsonResponse(status=500, data={
+            'error': 'query error'
         })
+    if df.empty:
+        return JsonResponse(status=404, data={
+            'error': 'Data was not found for this stock, please verify that the dates and stock symbol are valid and try again'
+        })
+
+    returnObj = {'symbol': stockName, 'startDate': startDate,
+                 'endDate': endDate, 'data': []}
+
+    df_r = df.reset_index().astype(str)
+
+    for index, row in df_r.iterrows():
+        rowObj = {'date': row['Date']}
+
+        if 'OPEN' in fields:
+            rowObj['open'] = row['Open']
+        if 'CLOSE' in fields:
+            rowObj['close'] = row['Close']
+        if 'LOW' in fields:
+            rowObj['low'] = row['Low']
+        if 'HIGH' in fields:
+            rowObj['high'] = row['High']
+        if 'EXDIVIDEND' in fields:
+            rowObj['exdividend'] = row['Ex-Dividend']
+        if 'VOLUME' in fields:
+            rowObj['volume'] = row['Volume']
+        if 'SPLITRATIO' in fields:
+            rowObj['splitRatio'] = row['Split Ratio']
+        if 'ADJHIGH' in fields:
+            rowObj['adjHigh'] = row['Adj. High']
+        if 'ADJOPEN' in fields:
+            rowObj['adjOpen'] = row['Adj. Open']
+        if 'ADJCLOSE' in fields:
+            rowObj['adjClose'] = row['Adj. Close']
+        if 'ADJLOW' in fields:
+            rowObj['adjLow'] = row['Adj. Low']
+        if 'ADJVOLUME' in fields:
+            rowObj['adjVolume'] = row['Adj. Volume']
+
+        returnObj["data"].append(rowObj)
+
+    return JsonResponse(status=200, data=returnObj)
+
 
 class HomePageView(TemplateView):
     template_name = 'index.html'
