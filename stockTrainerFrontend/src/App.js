@@ -98,8 +98,7 @@ class App extends Component {
       .then(res => {
         const newState = { ...stockData };
         newState[res.data.symbol] = {
-          symbol: res.data.symbol,
-          price: res.data.price
+          ...res.data
         };
         this.setState({
           stockData: newState
