@@ -86,6 +86,69 @@ Indicator Model:
     Indicator_params - Numeric field for the Indicator parameters. WIP
 ```
 
+### Endpoints
+
+`/stocks/`
+
+##### Authentication
+
+This is gonna require a JWT at some point but does not at present
+
+##### Parameters
+
+`NAME` - Name allows you to specify a stock to request as a stock symbol. This must be a string, must be all caps and it must be a valid stock symbol.
+
+`STARTDATE` - Allows you to pick the start time of your stock information request. Must be in the format of a string in the YYYY-MM-DD format. If you only need one day of data set STARTDATE and ENDDATE to one day apart. It will give you data for ENDDATE's date.  **WARNING**: This will not work for any time after about 3-01-18, which is also the default if a start date is not specified. Putting a start time later then an end time will end in a query error. There seems to be some weirdness when you use the same start and end date. It sometimes will give you that days data (see 03-01-18) but other times won't (see 01-01-17).
+
+`ENDDATE` - Allows you to pick the start time of your stock information request. Must be in the format of a string in the YYYY-MM-DD format. If you only need one day of data set STARTDATE and ENDDATE to one day apart. . It will give you data for ENDDATE's date.  **WARNING**: This will not work for any time after about 3-01-18, which is also the default if a start date is not specified. Putting a start time later then an end time will end in a query error. There seems to be some weirdness when you use the same start and end date. It sometimes will give you that days data (see 03-01-18) but other times won't (see 01-01-17).
+
+`FIELDS` - This allows you to request data for return. There an option for everything the api provides by default. All options must be in a comma seperated string. **NOT AN ARRAY**. 
+
+Capitalization is irrelevent for options, they will all be converted to uppercase server side. 
+
+Options are: 
+- open
+- close
+- low
+- high
+- volume
+- exdividend
+- splitratio
+- adjhigh
+- adjlow
+- adjopen
+- adjclose
+- adjvolume
+
+##### Return Format
+Data will be returned with a status code 200, in a json format.
+Example:
+```
+{
+    "symbol": "GOOG",
+    "startDate": "2018-01-01",
+    "endDate": "2018-01-02",
+    "data": [
+        {
+            "date": "2018-01-02",
+            "open": "1048.34",
+            "close": "1065.0",
+            "low": "1045.23",
+            "high": "1066.94",
+            "exdividend": "0.0",
+            "volume": "1223114.0",
+            "splitRatio": "1.0",
+            "adjHigh": "1066.94",
+            "adjOpen": "1048.34",
+            "adjClose": "1065.0",
+            "adjLow": "1045.23",
+            "adjVolume": "1223114.0"
+        }
+    ]
+}
+```
+
+
 ### Code Style
 
 Our project uses the [PEP 8 Style Guide](https://www.python.org/dev/peps/pep-0008/). Please make sure your code follows
