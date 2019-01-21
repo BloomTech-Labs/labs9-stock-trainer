@@ -123,7 +123,7 @@ class TestRequest extends Component {
               </div>
               {/* <div className="stockName">{stockData[key].name}</div> */}
               <div className="stockPrice" style={{ margin: "2rem" }}>
-                Closing price: {stockData[key].price}
+                Closing price: {stockData[key].data[0].close}
               </div>
             </div>
           ))}

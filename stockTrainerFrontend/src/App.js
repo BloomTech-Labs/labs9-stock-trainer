@@ -73,7 +73,9 @@ class App extends Component {
   // };
 
   retrieveStock = (nameOfStock, startDate, endDate, fields) => {
+    // this jwt is not actually where this is stored, it's a placeholder
     const { jwt, stockData } = this.state;
+    // setting up for what we're grabbing from the backend, the ifs make it so those are optional. Defaults on the backend are currently 01-01-18 for date, and closing price
     const paramSettings = {
       NAME: nameOfStock
     };
@@ -96,7 +98,7 @@ class App extends Component {
         params: paramSettings
       })
       .then(res => {
-        // res.data ex
+        // res.data example
         //   {
         //     "symbol": "GOOG",
         //     "startDate": "2018-01-01",
@@ -120,6 +122,7 @@ class App extends Component {
         //     ]
         // }
         const newState = { ...stockData };
+        // Unsure if I should make this add on if the symbol already excists or just wipe it like it does here
         newState[res.data.symbol] = {
           symbol: res.data.symbol,
           data: res.data.data
