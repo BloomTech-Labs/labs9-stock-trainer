@@ -72,7 +72,7 @@ class App extends Component {
   //   }
   // };
 
-  retrieveStock = (nameOfStock, startDate, endDate) => {
+  retrieveStock = (nameOfStock, startDate, endDate, fields) => {
     const { jwt, stockData } = this.state;
     const paramSettings = {
       NAME: nameOfStock
@@ -82,6 +82,9 @@ class App extends Component {
     }
     if (endDate) {
       paramSettings.ENDDATE = endDate;
+    }
+    if (fields) {
+      paramSettings.FIELDS = fields;
     }
     axios
       .request({
