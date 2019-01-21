@@ -96,6 +96,29 @@ class App extends Component {
         params: paramSettings
       })
       .then(res => {
+        // res.data ex
+        //   {
+        //     "symbol": "GOOG",
+        //     "startDate": "2018-01-01",
+        //     "endDate": "2018-01-02",
+        //     "data": [
+        //         {
+        //             "date": "2018-01-02",
+        //             "open": "1048.34",
+        //             "close": "1065.0",
+        //             "low": "1045.23",
+        //             "high": "1066.94",
+        //             "exdividend": "0.0",
+        //             "volume": "1223114.0",
+        //             "splitRatio": "1.0",
+        //             "adjHigh": "1066.94",
+        //             "adjOpen": "1048.34",
+        //             "adjClose": "1065.0",
+        //             "adjLow": "1045.23",
+        //             "adjVolume": "1223114.0"
+        //         }
+        //     ]
+        // }
         const newState = { ...stockData };
         newState[res.data.symbol] = {
           symbol: res.data.symbol,
