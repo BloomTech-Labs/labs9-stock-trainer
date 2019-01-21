@@ -34,19 +34,20 @@ class TestListCreate(generics.ListCreateAPIView):
 
 
 def stock(request):
+    
     if request.method != 'GET':
         return JsonResponse(status=405, data={
             'error': 'Please use get request'
         })
 
     stockName = request.GET.get('NAME', '')
+    # without a name, hard to know what to request
     if stockName == '':
         return JsonResponse(status=400, data={
-            'error': 'Please include stock name'
+            'error': 'Please include stock symbol'
         })
 
-    # for use when date fields are implimented
-
+    #the "2018-01-01" is the default value if STARTDATE isn't set
     startDate = request.GET.get('STARTDATE', "2018-01-01"
                                 )
     try:
@@ -64,6 +65,7 @@ def stock(request):
             'error': 'Please include a valid date in the format YYYY-MM-DD'
         })
 
+    #gets FIELDS, converts to uppercase, then splits into an array
     fields = request.GET.get('FIELDS', ["Close"]).upper().split(',')
 
     # DL data from the Quandl API
@@ -72,10 +74,12 @@ def stock(request):
         df = quandl.get(f"WIKI/{stockName}", start_date=startDate,
                         end_date=endDate)
     except:
+        #This might need to get changed to a more generic answer
         print("Query error: please change your inputs (possibly invaild NAME, STARTDATE, ENDDATE) or check your API key.")
         return JsonResponse(status=500, data={
             'error': 'query error'
         })
+    #frustratingly enough is quandl doesn't have data due to something be impossible it won't error, it'll just return an empty dataframe. For example requesting google stock from 1999, before they went public. This won't pop if the dates are set wrong, but sometimes will if they're set to the same day.
     if df.empty:
         return JsonResponse(status=404, data={
             'error': 'Data was not found for this stock, please verify that the dates and stock symbol are valid and try again'
@@ -84,8 +88,10 @@ def stock(request):
     returnObj = {'symbol': stockName, 'startDate': startDate,
                  'endDate': endDate, 'data': []}
 
+    #this moves the date from being a row key, to another column, then converts the whole dataframe to strings. Even all the numbers. This is to avoid problems with handling the date
     df_r = df.reset_index().astype(str)
 
+    #this preps the return value by iterating over all the df rows then shoving them inside the data array in returnObj. I was unsure if I should use an object instead of an array but using a date as a key seemed much messier then letting an array preserve order
     for index, row in df_r.iterrows():
         rowObj = {'date': row['Date']}
 
