@@ -1,6 +1,5 @@
 import { Button } from "semantic-ui-react";
 import React, { Component } from "react";
-//import axios from "axios";
 
 import Autosuggest from "react-autosuggest";
 import data from "../util/test.json";
