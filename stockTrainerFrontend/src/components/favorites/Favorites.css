@@ -1,6 +1,4 @@
 .favoritesDisplay {
-  height:80%;
-  box-sizing: border-box;
   box-sizing: border-box;
   overflow-y: auto;
   overflow-x: hidden;
@@ -13,6 +11,8 @@
 }
 .favoritesHolder{
   height:100%;
+  display:flex;
+  flex-direction: column;
 }
 .favoritesItem{
   margin-right: 1em !important;
