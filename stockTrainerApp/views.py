@@ -8,7 +8,7 @@ from jose import jwt
 from decouple import config
 import json
 from rest_framework.decorators import api_view
-from . models import Test, Stock, User
+from . models import Test, Stock, User, Portfolio
 from . serializers import TestSerializer
 from rest_framework import generics
 from django.shortcuts import render
@@ -129,6 +129,7 @@ def charge(request):
 
 
 # Oauth cert
+# this was attempted to add to .env, but didn't work
 OAUTH_CERT = """-----BEGIN CERTIFICATE-----
 MIIDCTCCAfGgAwIBAgIJAhJkZiOLoPxpMA0GCSqGSIb3DQEBCwUAMCIxIDAeBgNVBAMTF3N0b2NrLXRyYWluZXIuYXV0aDAuY29tMB4XDTE5MDExMDIxMjMzNVoXDTMyMDkxODIxMjMzNVowIjEgMB4GA1UEAxMXc3RvY2stdHJhaW5lci5hdXRoMC5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC8f5amxse1EMu0Thu8SBKmblU1W
 ADJf2GIoxF7DnNR95R10kbsaXdTPjpTkTcFlUesnp6RKyCfnGMZ8OOLs2IXciuZ1TXSbTM0SF8OUN0HEy4PGkzFhdmqEBBQptMdAr2m1IOUMXH/muQzgqA5UjfI8tCu5TMqYKhCN4JRVjflKIZQ+/Deta6AHz9J50Z7amtaaPclT3qw6Ime8p6XXfoLVs2h0kPPUEB45iYYCBjyAdgbYUzj8Zgux+DNtklLsRTdrBnbIx4ZZRmgaJV6vwOXtfYnNVNFN1
@@ -139,12 +140,12 @@ WPEEToVjaAN0lDkyGaEPeTfUc5fMhFJBdF1RdRwzSk8z9CN3hzTtUr9MOI+RKA2HyxWrX7qI8+NAne2D
 
 
 # @api_view(['GET'])
-# Checks current logged in user's token and loads related static user data
 def current_user(request):
     """
     Determine the current user by their token, and return their data
     """
     def get_username():
+        # gets username from the token, should be something like github.asdfasdf or google-oauth2.asdfasdf
         token = jwt.decode(get_token_auth_header(request), OAUTH_CERT, algorithms=['RS256'],
                            audience='https://stock-trainer.auth0.com/api/v2/')
         username = token.get('sub').replace('|', '.')
@@ -152,12 +153,20 @@ def current_user(request):
 
     username = get_username()
 
-    user = User.objects.all().filter(username=username).values('portfolio_name_id', 'study_name_id')
+    user = User.objects.all().filter(username=username).values('portfolio_id_id')
     if user:
         return JsonResponse({'data': list(user)})
     else:
+        # creates new user and portfolio if user does not exist.
         new_user = User.objects.create_user(username=username)
-        return JsonResponse({'data': list(new_user.values('portfolio_name_id', 'study_name_id'))})
+        new_user.save()
+        new_portfolio = Portfolio.objects.create()
+        new_portfolio.save()
+        new_portfolio.user_set.add(new_user)
+        # for some reason, new_user is just a string, need to requery for now, but there should be a more elegant
+        # implementation for that
+        user = User.objects.all().filter(username=username).values('portfolio_id_id')
+        return JsonResponse({'data': list(user)})
 
 
 class UserList(APIView):
