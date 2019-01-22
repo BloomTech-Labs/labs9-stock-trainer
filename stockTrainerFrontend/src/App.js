@@ -25,7 +25,8 @@ class App extends Component {
       signIn: false,
       currentUser: "",
       jwt: "TESTESTEST",
-      stockData: {}
+      stockData: {},
+      favorites: [] // eslint-disable-line react/no-unused-state
     };
   }
 
@@ -75,6 +76,9 @@ class App extends Component {
         // this.switchSignInState({
         //   name: res.data.UserInfo
         // });
+        this.setState({
+          favorites: res.data.portfolio // eslint-disable-line react/no-unused-state
+        });
       })
       .catch(err => {
         // eslint-disable-next-line no-console
