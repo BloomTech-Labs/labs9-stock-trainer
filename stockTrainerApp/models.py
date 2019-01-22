@@ -11,13 +11,14 @@ class User(AbstractUser):
 
 class Study(models.Model):
     stock_name = models.ForeignKey('Stock', on_delete=models.CASCADE, null=True)
-    indicator_id = models.ForeignKey('Indicator_parameter', on_delete=models.CASCADE, null=True)
+    parameter_id = models.ForeignKey('Parameter', on_delete=models.CASCADE, null=True)
+    portfolio_id = models.ForeignKey('Portfolio', on_delete=models.CASCADE, null=True)
     start_date = models.DateField(blank=False, null=False)
     end_date = models.DateField(blank=False, null=False)
     
 
 class Portfolio(models.Model):
-    study_id = models.ForeignKey(Study, on_delete=models.CASCADE, null=True)
+    temp = models.CharField(max_length=25, default="abcd", null=True)
 
 
 class Stock(models.Model):
@@ -30,7 +31,7 @@ class Indicator(models.Model):
     indicator_name = models.CharField(primary_key=True, max_length=25)
 
 
-class Indicator_parameter(models.Model):
+class Parameter(models.Model):
     indicator_name = models.ForeignKey(Indicator, on_delete=models.CASCADE)
     indicator_parameters = models.IntegerField
 

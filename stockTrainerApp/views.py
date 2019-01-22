@@ -8,7 +8,7 @@ from jose import jwt
 from decouple import config
 import json
 from rest_framework.decorators import api_view
-from . models import Test, Stock, User, Portfolio
+from . models import Test, Stock, User, Portfolio, Study
 from . serializers import TestSerializer
 from rest_framework import generics
 from django.shortcuts import render
@@ -67,8 +67,9 @@ def stock(request):
             'error': 'Please include a valid date in the format YYYY-MM-DD'
         })
 
+
     #gets FIELDS, converts to uppercase, then splits into an array
-    fields = request.GET.get('FIELDS', ["Close"]).upper().split(',')
+    fields = request.GET.get('FIELDS', "Close").upper().split(',')
 
     # DL data from the Quandl API
     quandl.ApiConfig.api_key = 'SX5vBsMh7ovP9Pyqp-w7'
@@ -183,9 +184,17 @@ def current_user(request):
 
     username = get_username()
 
-    user = User.objects.all().filter(username=username).values('portfolio_id_id')
+    user = User.objects.all().filter(username=username)
+    # Can DRY this up probably
     if user:
-        return JsonResponse({'data': list(user)})
+        portfolio_id_iter = user.values('portfolio_id_id')
+        portfolio_id = 0
+        for portfolio in portfolio_id_iter:
+            portfolio_id = portfolio.get('portfolio_id_id')
+        print(portfolio_id)
+        studies = Study.objects.all().filter(portfolio_id=portfolio_id).values()
+        print(studies)
+        return JsonResponse({'portfolio': list(studies)})
     else:
         # creates new user and portfolio if user does not exist.
         new_user = User.objects.create_user(username=username)
@@ -195,8 +204,13 @@ def current_user(request):
         new_portfolio.user_set.add(new_user)
         # for some reason, new_user is just a string, need to requery for now, but there should be a more elegant
         # implementation for that
-        user = User.objects.all().filter(username=username).values('portfolio_id_id')
-        return JsonResponse({'data': list(user)})
+        user = User.objects.all().filter(username=username)
+        portfolio_id_iter = user.values('portfolio_id_id')
+        portfolio_id = 0
+        for portfolio in portfolio_id_iter:
+            portfolio_id = portfolio.get('portfolio_id_id')
+        studies = Study.objects.all().filter(portfolio_id=portfolio_id).values()
+        return JsonResponse({'portfolio': list(studies)})
 
 
 class UserList(APIView):
