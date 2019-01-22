@@ -38,6 +38,7 @@ class App extends Component {
   };
 
   switchSignInState = () => {
+    this.retrieveUser();
     const { auth } = this.props;
     const tokenPayload = auth.idTokenPayload;
     let nameToSet = "";
