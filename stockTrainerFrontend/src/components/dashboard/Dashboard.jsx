@@ -12,12 +12,7 @@ const Dashboard = () => (
       <Indicators />
     </Segment>
     <Segment className="leftColumn">
-      <Input placeholder="Search..." className="stockSearch" />
-      {dummyData.map(stock => (
-        <div className="stockContainer" key={stock.name}>
-          <Stock symbol="test" name={stock.name} />
-        </div>
-      ))}
+     "test"
     </Segment>
     <Segment className="userStocks">
       {dummyData.map(stock => (
