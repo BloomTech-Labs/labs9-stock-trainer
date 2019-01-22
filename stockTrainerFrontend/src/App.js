@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 
 import TopBar from "./components/topbar/TopBar";
 import NavBar from "./components/navbar/NavBar";
@@ -30,9 +30,11 @@ class App extends Component {
   }
 
   signOut = () => {
-    const { auth } = this.props;
+    const { auth, history } = this.props;
     auth.signOut();
-    this.setState({ signIn: false });
+    this.setState({ signIn: false }, () => {
+      history.push("/");
+    });
   };
 
   switchSignInState = () => {
@@ -44,10 +46,10 @@ class App extends Component {
     } else {
       nameToSet = tokenPayload.nickname;
     }
-    this.setState(prevState => ({
-      signIn: !prevState.signIn,
+    this.setState({
+      signIn: true,
       currentUser: nameToSet
-    }));
+    });
   };
 
   signIn = () => {
@@ -237,4 +239,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
