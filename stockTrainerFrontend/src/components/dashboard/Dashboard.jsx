@@ -15,7 +15,7 @@ const Dashboard = () => (
       <Input placeholder="Search..." className="stockSearch" />
       {dummyData.map(stock => (
         <div className="stockContainer" key={stock.name}>
-          <Stock name={stock.name} />
+          <Stock symbol="test" name={stock.name} />
         </div>
       ))}
     </Segment>
