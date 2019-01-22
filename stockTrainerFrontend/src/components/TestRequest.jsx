@@ -1,6 +1,5 @@
 import { Button } from "semantic-ui-react";
 import React, { Component } from "react";
-//import axios from "axios";
 
 import Autosuggest from "react-autosuggest";
 import data from "../util/test.json";
@@ -123,7 +122,7 @@ class TestRequest extends Component {
               </div>
               {/* <div className="stockName">{stockData[key].name}</div> */}
               <div className="stockPrice" style={{ margin: "2rem" }}>
-                Closing price: {stockData[key].price}
+                Closing price: {stockData[key].data[0].close}
               </div>
             </div>
           ))}

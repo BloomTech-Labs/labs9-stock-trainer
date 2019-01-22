@@ -72,8 +72,10 @@ class App extends Component {
   //   }
   // };
 
-  retrieveStock = (nameOfStock, startDate, endDate) => {
+  retrieveStock = (nameOfStock, startDate, endDate, fields) => {
+    // this jwt is not actually where this is stored, it's a placeholder
     const { jwt, stockData } = this.state;
+    // setting up for what we're grabbing from the backend, the ifs make it so those are optional. Defaults on the backend are currently 01-01-18 for date, and closing price
     const paramSettings = {
       NAME: nameOfStock
     };
@@ -82,6 +84,9 @@ class App extends Component {
     }
     if (endDate) {
       paramSettings.ENDDATE = endDate;
+    }
+    if (fields) {
+      paramSettings.FIELDS = fields;
     }
     axios
       .request({
@@ -93,10 +98,34 @@ class App extends Component {
         params: paramSettings
       })
       .then(res => {
+        // res.data example
+        //   {
+        //     "symbol": "GOOG",
+        //     "startDate": "2018-01-01",
+        //     "endDate": "2018-01-02",
+        //     "data": [
+        //         {
+        //             "date": "2018-01-02",
+        //             "open": "1048.34",
+        //             "close": "1065.0",
+        //             "low": "1045.23",
+        //             "high": "1066.94",
+        //             "exdividend": "0.0",
+        //             "volume": "1223114.0",
+        //             "splitRatio": "1.0",
+        //             "adjHigh": "1066.94",
+        //             "adjOpen": "1048.34",
+        //             "adjClose": "1065.0",
+        //             "adjLow": "1045.23",
+        //             "adjVolume": "1223114.0"
+        //         }
+        //     ]
+        // }
         const newState = { ...stockData };
+        // Unsure if I should make this add on if the symbol already excists or just wipe it like it does here
         newState[res.data.symbol] = {
           symbol: res.data.symbol,
-          price: res.data.price
+          data: res.data.data
         };
         this.setState({
           stockData: newState
