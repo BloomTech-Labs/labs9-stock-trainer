@@ -146,10 +146,12 @@ def get_username(request):
     return username
 
 
+# look into protecting this route, so that only logged in and users in DB can actually be charged
 def charge(request):
     if request.method == 'POST':
-        # body of request is parsed by the loads function
+        # username is taken from the request header
         username = get_username(request)
+        # body of request is parsed by the loads function
         body = json.loads(request.body)
         # currently we're looking at the token only, but there we can add more to the body to id the user
         token = body['token']
@@ -162,8 +164,9 @@ def charge(request):
         print(charge)
         print("status:", charge['status'])
         # we can change our jsonresponse depending on the error from stripe, or the status of the charge
-        if charge['status'] == 'succeeded':
+        if charge['status'] == 'succeeded': # hard coded for now, there are WAY better ways to check for this and errors
             print('payment success')
+            # currently, whether a user is premium or not is a boolean, but should be updated to be an expiration date
             User.objects.all().filter(username=username).update(premium=True)
             return JsonResponse({
                 'message': 'The payment has been successful'
@@ -183,7 +186,6 @@ ADJf2GIoxF7DnNR95R10kbsaXdTPjpTkTcFlUesnp6RKyCfnGMZ8OOLs2IXciuZ1TXSbTM0SF8OUN0HE
 4F+ns512XwTiydvnnNdiros9K7SicOXf/gF2NoebrvjdVSuODC6LDdAgMBAAGjQjBAMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFBvMhts6Gw+hFLqujhfpAJCTcEBjMA4GA1UdDwEB/wQEAwIChDANBgkqhkiG9w0BAQsFAAOCAQEAuXpXc4yD7ugwSjYoWeSvMeKqIiWdp1jRlxl5FCjnwMIQPdoCTQKmSbLhnl7LSkuD87GO1HVw/vgL3njnKm8
 WPEEToVjaAN0lDkyGaEPeTfUc5fMhFJBdF1RdRwzSk8z9CN3hzTtUr9MOI+RKA2HyxWrX7qI8+NAne2DrPcFqSx42jhgh25s+af9LHpVHRIQBM6LiJr4Nrahf86BBocVfZN1W/COuev5I8cquZxh5Gd1KwHkZZPH3OqHfZmYkWgE8xi5M//p1ibRVUWo0H3nV+Ix1tSTc+kS1CZuUvds/BuNJFSe6KVoK8NPM5his2zbIOWD13PmkjcLnvTQlArodxw==
 -----END CERTIFICATE-----"""
-
 
 
 # @api_view(['GET'])

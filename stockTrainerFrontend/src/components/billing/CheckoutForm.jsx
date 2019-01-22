@@ -37,6 +37,8 @@ class CheckoutForm extends Component {
     // our post request currently sends the token and name to our backend
     // we can change what user info we send to our backend to connect user to payment
     // token contains card information, and the stripe call is done on the backend
+    // header contains the user token, which allows our backend to identify the user
+    // within the database. This is not protected for now, but should be implemented
     const headers = {
       "Content-Type": "text/plain",
       Authorization: `Bearer ${accessToken}`
