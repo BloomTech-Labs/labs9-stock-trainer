@@ -5,9 +5,10 @@ import datetime
 import pandas as pd
 from functools import wraps
 from jose import jwt
+from decouple import config
 import json
 from rest_framework.decorators import api_view
-from . models import Test
+from . models import Test, Stock, User, Portfolio
 from . serializers import TestSerializer
 from rest_framework import generics
 from django.shortcuts import render
@@ -17,12 +18,13 @@ from django.conf import settings
 from django.views.generic.base import TemplateView
 from django.http import JsonResponse
 from django.http import HttpResponseRedirect
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .serializers import UserSerializer, UserSerializerWithToken
+
 
 
 stripe.api_key = settings.STRIPE_SECRET_TEST_KEY
@@ -156,15 +158,45 @@ def charge(request):
         })
 
 
-@api_view(['GET'])
-# Checks current logged in user's token and loads related static user data
+# Oauth cert
+# this was attempted to add to .env, but didn't work
+OAUTH_CERT = """-----BEGIN CERTIFICATE-----
+MIIDCTCCAfGgAwIBAgIJAhJkZiOLoPxpMA0GCSqGSIb3DQEBCwUAMCIxIDAeBgNVBAMTF3N0b2NrLXRyYWluZXIuYXV0aDAuY29tMB4XDTE5MDExMDIxMjMzNVoXDTMyMDkxODIxMjMzNVowIjEgMB4GA1UEAxMXc3RvY2stdHJhaW5lci5hdXRoMC5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC8f5amxse1EMu0Thu8SBKmblU1W
+ADJf2GIoxF7DnNR95R10kbsaXdTPjpTkTcFlUesnp6RKyCfnGMZ8OOLs2IXciuZ1TXSbTM0SF8OUN0HEy4PGkzFhdmqEBBQptMdAr2m1IOUMXH/muQzgqA5UjfI8tCu5TMqYKhCN4JRVjflKIZQ+/Deta6AHz9J50Z7amtaaPclT3qw6Ime8p6XXfoLVs2h0kPPUEB45iYYCBjyAdgbYUzj8Zgux+DNtklLsRTdrBnbIx4ZZRmgaJV6vwOXtfYnNVNFN1
+4F+ns512XwTiydvnnNdiros9K7SicOXf/gF2NoebrvjdVSuODC6LDdAgMBAAGjQjBAMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFBvMhts6Gw+hFLqujhfpAJCTcEBjMA4GA1UdDwEB/wQEAwIChDANBgkqhkiG9w0BAQsFAAOCAQEAuXpXc4yD7ugwSjYoWeSvMeKqIiWdp1jRlxl5FCjnwMIQPdoCTQKmSbLhnl7LSkuD87GO1HVw/vgL3njnKm8
+WPEEToVjaAN0lDkyGaEPeTfUc5fMhFJBdF1RdRwzSk8z9CN3hzTtUr9MOI+RKA2HyxWrX7qI8+NAne2DrPcFqSx42jhgh25s+af9LHpVHRIQBM6LiJr4Nrahf86BBocVfZN1W/COuev5I8cquZxh5Gd1KwHkZZPH3OqHfZmYkWgE8xi5M//p1ibRVUWo0H3nV+Ix1tSTc+kS1CZuUvds/BuNJFSe6KVoK8NPM5his2zbIOWD13PmkjcLnvTQlArodxw==
+-----END CERTIFICATE-----"""
+
+
+
+# @api_view(['GET'])
 def current_user(request):
     """
     Determine the current user by their token, and return their data
     """
+    def get_username():
+        # gets username from the token, should be something like github.asdfasdf or google-oauth2.asdfasdf
+        token = jwt.decode(get_token_auth_header(request), OAUTH_CERT, algorithms=['RS256'],
+                           audience='https://stock-trainer.auth0.com/api/v2/')
+        username = token.get('sub').replace('|', '.')
+        return username
 
-    serializer = UserSerializer(request.user)
-    return Response(serializer.data)
+    username = get_username()
+
+    user = User.objects.all().filter(username=username).values('portfolio_id_id')
+    if user:
+        return JsonResponse({'data': list(user)})
+    else:
+        # creates new user and portfolio if user does not exist.
+        new_user = User.objects.create_user(username=username)
+        new_user.save()
+        new_portfolio = Portfolio.objects.create()
+        new_portfolio.save()
+        new_portfolio.user_set.add(new_user)
+        # for some reason, new_user is just a string, need to requery for now, but there should be a more elegant
+        # implementation for that
+        user = User.objects.all().filter(username=username).values('portfolio_id_id')
+        return JsonResponse({'data': list(user)})
 
 
 class UserList(APIView):
