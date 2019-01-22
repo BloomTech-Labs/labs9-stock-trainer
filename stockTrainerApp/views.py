@@ -27,23 +27,7 @@ from .serializers import UserSerializer, UserSerializerWithToken
 
 
 
-
-
 stripe.api_key = settings.STRIPE_SECRET_TEST_KEY
-
-# Create your views here.
-def stock(request):
-    # DL data from the Quandl API
-    
-    quandl.ApiConfig.api_key = config('QUANDL_API_KEY')
-    df = quandl.get("WIKI/GOOGL", start_date="2001-12-31", end_date="2002-01-31")
-    df_r= df.reset_index()
-    df1 = df_r['Open']
-    dfl = df1.tolist()
-    dfl = str(dfl)
-    
-    return render(request, 'stock.html', {'dfl': dfl})
-
 
 
 class TestListCreate(generics.ListCreateAPIView):
@@ -51,51 +35,97 @@ class TestListCreate(generics.ListCreateAPIView):
     serializer_class = TestSerializer
 
 
-
 def stock(request):
+    
     if request.method != 'GET':
         return JsonResponse(status=405, data={
             'error': 'Please use get request'
         })
 
     stockName = request.GET.get('NAME', '')
-    print(stockName)
-    # if stockName == '':
-    #     return JsonResponse(status=400, data={
-    #         'error': 'Please include stock name'
-    #     })
+    # without a name, hard to know what to request
+    if stockName == '':
+        return JsonResponse(status=400, data={
+            'error': 'Please include stock symbol'
+        })
 
-    # for use when date fields are implimented
+    #the "2018-01-01" is the default value if STARTDATE isn't set
+    startDate = request.GET.get('STARTDATE', "2018-01-01"
+                                )
+    try:
+        datetime.datetime.strptime(startDate, '%Y-%m-%d')
+    except ValueError:
+        return JsonResponse(status=400, data={
+            'error': 'Please include a valid date in the format YYYY-MM-DD'
+        })
+    endDate = request.GET.get('ENDDATE', "2018-01-02"
+                              )
+    try:
+        datetime.datetime.strptime(endDate, '%Y-%m-%d')
+    except ValueError:
+        return JsonResponse(status=400, data={
+            'error': 'Please include a valid date in the format YYYY-MM-DD'
+        })
 
-    # startDate = request.GET.get('STARTDATE', datetime.datetime.today().strftime('%Y-%m-%d')
-    #                             )
-    # try:
-    #     datetime.datetime.strptime(startDate, '%Y-%m-%d')
-    # except ValueError:
-    #      return JsonResponse(status=400, data={
-    #         'error': 'Please include a valid date in the format YYYY-MM-DD'
-    #     })
-    # endDate = request.GET.get('ENDDATE', datetime.datetime.today().strftime('%Y-%m-%d')
-    #                             )
-    # try:
-    #     datetime.datetime.strptime(endDate, '%Y-%m-%d')
-    # except ValueError:
-    #      return JsonResponse(status=400, data={
-    #         'error': 'Please include a valid date in the format YYYY-MM-DD'
-    #     })
+    #gets FIELDS, converts to uppercase, then splits into an array
+    fields = request.GET.get('FIELDS', ["Close"]).upper().split(',')
+
     # DL data from the Quandl API
     quandl.ApiConfig.api_key = 'SX5vBsMh7ovP9Pyqp-w7'
-    df = quandl.get(f"WIKI/{stockName}", start_date="2018-03-01",
-                    end_date="2018-03-01")
-    print(df)
-    df_r = df.reset_index()
-    df1 = df_r['Open']
-    dfl = df1.tolist()
-
-    return JsonResponse(status=200, data={
-            'symbol': stockName,
-            'price': dfl[0]
+    try:
+        df = quandl.get(f"WIKI/{stockName}", start_date=startDate,
+                        end_date=endDate)
+    except:
+        #This might need to get changed to a more generic answer
+        print("Query error: please change your inputs (possibly invaild NAME, STARTDATE, ENDDATE) or check your API key.")
+        return JsonResponse(status=500, data={
+            'error': 'query error'
         })
+    #frustratingly enough is quandl doesn't have data due to something be impossible it won't error, it'll just return an empty dataframe. For example requesting google stock from 1999, before they went public. This won't pop if the dates are set wrong, but sometimes will if they're set to the same day.
+    if df.empty:
+        return JsonResponse(status=404, data={
+            'error': 'Data was not found for this stock, please verify that the dates and stock symbol are valid and try again'
+        })
+
+    returnObj = {'symbol': stockName, 'startDate': startDate,
+                 'endDate': endDate, 'data': []}
+
+    #this moves the date from being a row key, to another column, then converts the whole dataframe to strings. Even all the numbers. This is to avoid problems with handling the date
+    df_r = df.reset_index().astype(str)
+
+    #this preps the return value by iterating over all the df rows then shoving them inside the data array in returnObj. I was unsure if I should use an object instead of an array but using a date as a key seemed much messier then letting an array preserve order
+    for index, row in df_r.iterrows():
+        rowObj = {'date': row['Date']}
+
+        if 'OPEN' in fields:
+            rowObj['open'] = row['Open']
+        if 'CLOSE' in fields:
+            rowObj['close'] = row['Close']
+        if 'LOW' in fields:
+            rowObj['low'] = row['Low']
+        if 'HIGH' in fields:
+            rowObj['high'] = row['High']
+        if 'EXDIVIDEND' in fields:
+            rowObj['exdividend'] = row['Ex-Dividend']
+        if 'VOLUME' in fields:
+            rowObj['volume'] = row['Volume']
+        if 'SPLITRATIO' in fields:
+            rowObj['splitRatio'] = row['Split Ratio']
+        if 'ADJHIGH' in fields:
+            rowObj['adjHigh'] = row['Adj. High']
+        if 'ADJOPEN' in fields:
+            rowObj['adjOpen'] = row['Adj. Open']
+        if 'ADJCLOSE' in fields:
+            rowObj['adjClose'] = row['Adj. Close']
+        if 'ADJLOW' in fields:
+            rowObj['adjLow'] = row['Adj. Low']
+        if 'ADJVOLUME' in fields:
+            rowObj['adjVolume'] = row['Adj. Volume']
+
+        returnObj["data"].append(rowObj)
+
+    return JsonResponse(status=200, data=returnObj)
+
 
 class HomePageView(TemplateView):
     template_name = 'index.html'

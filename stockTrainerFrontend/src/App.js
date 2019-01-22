@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 
 import TopBar from "./components/topbar/TopBar";
 import NavBar from "./components/navbar/NavBar";
@@ -13,7 +13,7 @@ import Reports from "./components/reports/Reports";
 import UserInfo from "./components/userinfo/UserInfo";
 import Dashboard from "./components/dashboard/Dashboard";
 import Help from "./components/help/Help";
-
+import NoMatch from "./components/nomatch/NoMatch";
 import Callback from "./Auth/Callback";
 import TestRequest from "./components/TestRequest";
 
@@ -30,9 +30,11 @@ class App extends Component {
   }
 
   signOut = () => {
-    const { auth } = this.props;
+    const { auth, history } = this.props;
     auth.signOut();
-    this.setState({ signIn: false });
+    this.setState({ signIn: false }, () => {
+      history.push("/");
+    });
   };
 
   switchSignInState = () => {
@@ -44,10 +46,10 @@ class App extends Component {
     } else {
       nameToSet = tokenPayload.nickname;
     }
-    this.setState(prevState => ({
-      signIn: !prevState.signIn,
+    this.setState({
+      signIn: true,
       currentUser: nameToSet
-    }));
+    });
   };
 
   signIn = () => {
@@ -79,8 +81,10 @@ class App extends Component {
       });
   };
 
-  retrieveStock = (nameOfStock, startDate, endDate) => {
+  retrieveStock = (nameOfStock, startDate, endDate, fields) => {
+    // this jwt is not actually where this is stored, it's a placeholder
     const { jwt, stockData } = this.state;
+    // setting up for what we're grabbing from the backend, the ifs make it so those are optional. Defaults on the backend are currently 01-01-18 for date, and closing price
     const paramSettings = {
       NAME: nameOfStock
     };
@@ -89,6 +93,9 @@ class App extends Component {
     }
     if (endDate) {
       paramSettings.ENDDATE = endDate;
+    }
+    if (fields) {
+      paramSettings.FIELDS = fields;
     }
     axios
       .request({
@@ -100,10 +107,34 @@ class App extends Component {
         params: paramSettings
       })
       .then(res => {
+        // res.data example
+        //   {
+        //     "symbol": "GOOG",
+        //     "startDate": "2018-01-01",
+        //     "endDate": "2018-01-02",
+        //     "data": [
+        //         {
+        //             "date": "2018-01-02",
+        //             "open": "1048.34",
+        //             "close": "1065.0",
+        //             "low": "1045.23",
+        //             "high": "1066.94",
+        //             "exdividend": "0.0",
+        //             "volume": "1223114.0",
+        //             "splitRatio": "1.0",
+        //             "adjHigh": "1066.94",
+        //             "adjOpen": "1048.34",
+        //             "adjClose": "1065.0",
+        //             "adjLow": "1045.23",
+        //             "adjVolume": "1223114.0"
+        //         }
+        //     ]
+        // }
         const newState = { ...stockData };
+        // Unsure if I should make this add on if the symbol already excists or just wipe it like it does here
         newState[res.data.symbol] = {
           symbol: res.data.symbol,
-          price: res.data.price
+          data: res.data.data
         };
         this.setState({
           stockData: newState
@@ -194,14 +225,19 @@ class App extends Component {
             exact
             path="/callback"
             render={props => (
-              // eslint-disable-next-line no-undef
-              // this.handleAuthentication(props);
-
               <Callback
                 signinchange={this.switchSignInState}
                 auth={auth}
                 {...props}
               />
+            )}
+          />
+          <Route
+            render={props => (
+              <div className="lowerPageLayout">
+                <NavBar {...props} />
+                <NoMatch />
+              </div>
             )}
           />
         </Switch>
@@ -210,4 +246,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

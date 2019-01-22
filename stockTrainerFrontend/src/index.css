@@ -7,6 +7,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image:url("./images/grey.png") !important;
+  /* Background pattern from Toptal Subtle Patterns */
+
+
 }
 
 html, body, #root, .App {

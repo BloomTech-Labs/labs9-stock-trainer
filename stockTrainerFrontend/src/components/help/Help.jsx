@@ -144,7 +144,7 @@ export default function Help(props) {
             render={() => <Helpmain articles={articles} />}
           />
           <Route path={`${match.path}/test`} component={Test} />
-          <Redirect to="/" />
+          <Redirect to="/404" />
         </Switch>
       </Segment>
     </div>
