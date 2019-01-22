@@ -26,6 +26,7 @@ const Favorites = props => {
   return (
     <div className="favoritesHolder">
       <Header attached="top">
+        <h2>Favorites</h2>
         <Input
           placeholder="Search for stock"
           value=""

@@ -1,5 +1,5 @@
 .favoritesDisplay {
-  height: 89%;
+  height:80%;
   box-sizing: border-box;
   box-sizing: border-box;
   overflow-y: auto;
@@ -13,4 +13,7 @@
 }
 .favoritesHolder{
   height:100%;
+}
+.favoritesItem{
+  margin-right: 1em !important;
 }

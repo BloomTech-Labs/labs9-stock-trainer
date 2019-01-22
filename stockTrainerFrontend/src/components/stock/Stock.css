@@ -4,6 +4,8 @@
 }
 .favoriteIcon {
   grid-area: favoriteStar;
+  justify-self: end;
+
 }
 
 .leftColumnInfobox {
@@ -19,6 +21,8 @@
   justify-content: space-around;
   flex-direction: column;
   height: 100%;
+  justify-self: end;
+
 }
 
 .stock {
