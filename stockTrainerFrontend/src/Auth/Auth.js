@@ -13,7 +13,7 @@ export default class Auth {
     this.auth0 = new auth0.WebAuth({
       // the following three lines MUST be updated
       domain: "stock-trainer.auth0.com",
-      audience: "https://stock-trainer.auth0.com/userinfo",
+      audience: "https://stock-trainer.auth0.com/api/v2/",
       clientID: "90QRusJ6F6LjsgmUA97iEc2rXfDANPqa",
       redirectUri: `${process.env.REACT_APP_URL}callback`,
       responseType: "token id_token",
@@ -62,6 +62,7 @@ export default class Auth {
 
     // Set the time that the access token will expire at
     const expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
+    console.log(authResult.accessToken);
     this.accessToken = authResult.accessToken;
     this.idToken = authResult.idToken;
     this.expiresAt = expiresAt;

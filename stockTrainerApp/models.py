@@ -1,43 +1,39 @@
 from django.db import models
-from django.contrib.auth.models import User
-# from uuid import uuid4
-
-
-# TODO: Create user model and other models;  django.contrib.auth.models.User allows multiple users to have accounts
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
-class User(models.Model):
-    username = models.CharField(max_length=50)
-    firstname = models.CharField(max_length=25)
-    lastname = models.CharField(max_length=25)
-    # email = models.CharField(max_length=50)
-    study_name = models.ForeignKey('Study', on_delete=models.CASCADE, default="NA")
-    portfolio_name = models.ForeignKey('Portfolio', on_delete=models.CASCADE, default="NA")
+
+class User(AbstractUser):
+    portfolio_id = models.ForeignKey('Portfolio', on_delete=models.CASCADE, null=True)
+    premium = models.BooleanField(default=False)
     
 
 class Study(models.Model):
-    study_name = models.CharField(primary_key=True, unique=True, max_length=25, help_text='Pick a name for your study', default="NA")
-    stock_name = models.ForeignKey('Stock', on_delete=models.CASCADE)
-    indicator_name = models.ForeignKey('Indicator', on_delete=models.CASCADE)
+    stock_name = models.ForeignKey('Stock', on_delete=models.CASCADE, null=True)
+    parameter_id = models.ForeignKey('Parameter', on_delete=models.CASCADE, null=True)
+    portfolio_id = models.ForeignKey('Portfolio', on_delete=models.CASCADE, null=True)
     start_date = models.DateField(blank=False, null=False)
     end_date = models.DateField(blank=False, null=False)
     
 
 class Portfolio(models.Model):
-    portfolio_name = models.CharField(primary_key=True, unique=True, max_length=25, help_text='Pick a name for your portfolio', default="NA")
-    study_name = models.ForeignKey(Study, on_delete=models.CASCADE, default="NA")
+    temp = models.CharField(max_length=25, default="abcd", null=True)
 
 
 class Stock(models.Model):
-    symbol = models.CharField(max_length=5, help_text='Enter Stock Symbol')
-    name = models.CharField(primary_key=True, max_length=25, help_text='Enter Stock Name')
+    symbol = models.CharField(primary_key=True, max_length=5)
+    name = models.CharField(max_length=25)
     price_close = models.IntegerField(default=0)
 
 
 class Indicator(models.Model):
-    indicator_name = models.CharField(primary_key=True, max_length=25, help_text='Enter Stock Name')
-    indicator_parameters = models.IntegerField # should we save a new one per parameter...?
+    indicator_name = models.CharField(primary_key=True, max_length=25)
+
+
+class Parameter(models.Model):
+    indicator_name = models.ForeignKey(Indicator, on_delete=models.CASCADE)
+    indicator_parameters = models.IntegerField
 
 
 class Test(models.Model):

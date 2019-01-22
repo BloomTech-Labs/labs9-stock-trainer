@@ -70,6 +70,8 @@ MIDDLEWARE = [
 
 # Auth0 configuration
 
+AUTH_USER_MODEL = "stockTrainerApp.User"
+
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'django.contrib.auth.backends.RemoteUserBackend'
@@ -178,6 +180,27 @@ CORS_ORIGIN_WHITELIST = (
 STRIPE_SECRET_TEST_KEY = config('STRIPE_SECRET_TEST_KEY')
 STRIPE_PUBLISHABLE_TEST_KEY = config('STRIPE_PUBLISHABLE_TEST_KEY')
 
+AUTH0_DOMAIN = 'stock-trainer.auth0.com'
+API_IDENTIFIER = 'https://stock-trainer.auth0.com/api/v2/'
+PUBLIC_KEY = None
+JWT_ISSUER = None
+
+if AUTH0_DOMAIN:
+    jsonurl = request.urlopen('https://' + AUTH0_DOMAIN + '/.well-known/jwks.json')
+    jwks = json.loads(jsonurl.read().decode('utf-8'))
+    cert = '-----BEGIN CERTIFICATE-----\n' + jwks['keys'][0]['x5c'][0] + '\n-----END CERTIFICATE-----'
+    certificate = load_pem_x509_certificate(cert.encode('utf-8'), default_backend())
+    PUBLIC_KEY = certificate.public_key()
+    JWT_ISSUER = 'https://' + AUTH0_DOMAIN + '/'
+
+def jwt_get_username_from_payload_handler(payload):
+    return payload.get('sub').replace('|', '.')
+
 JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'stockTrainerBackEnd.utils.my_jwt_response_handler'
+    'JWT_PAYLOAD_GET_USERNAME_HANDLER': jwt_get_username_from_payload_handler,
+    'JWT_PUBLIC_KEY': PUBLIC_KEY,
+    'JWT_ALGORITHM': 'RS256',
+    'JWT_AUDIENCE': API_IDENTIFIER,
+    'JWT_ISSUER': JWT_ISSUER,
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }

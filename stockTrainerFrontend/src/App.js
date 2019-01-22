@@ -25,7 +25,8 @@ class App extends Component {
       signIn: false,
       currentUser: "",
       jwt: "TESTESTEST",
-      stockData: {}
+      stockData: {},
+      favorites: [] // eslint-disable-line react/no-unused-state
     };
   }
 
@@ -38,6 +39,7 @@ class App extends Component {
   };
 
   switchSignInState = () => {
+    this.retrieveUser();
     const { auth } = this.props;
     const tokenPayload = auth.idTokenPayload;
     let nameToSet = "";
@@ -55,24 +57,34 @@ class App extends Component {
   signIn = () => {
     const { auth } = this.props;
     auth.signIn();
-    // this.setState({
-    //   signedIn: true
-    // });
-
-    // eslint-disable-next-line no-undef
-    // handleAuthentication = nextState => {
-    //   if (/access_token|id_token|error/.test(nextState.location.hash)) {
-    //     // eslint-disable-next-line no-undef
-    //     auth.handleAuthentication();
-    //   }
-    // };
   };
 
-  // handleAuthentication = (nextState, replace) => {
-  //   if (/access_token|id_token|error/.test(nextState.location.hash)) {
-  //     this.auth.handleAuthentication();
-  //   }
-  // };
+  retrieveUser = () => {
+    const { auth } = this.props;
+    axios
+      .request({
+        method: "get", // I think this should be a get?
+        baseURL: `${process.env.REACT_APP_BACKEND_URL}current_user/`, // so basically replace stock/ with whatever you need to hit. tthe first / is in the env file
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}` // I'm pretty sure this is right, make sure it is before using it
+        }
+      })
+      .then(res => {
+        // your response is going to see the res here, including http code and whatever. res.data normally has whatever is given back to you
+        // res.data();
+        console.log(res);
+        // this.switchSignInState({
+        //   name: res.data.UserInfo
+        // });
+        this.setState({
+          favorites: res.data.portfolio // eslint-disable-line react/no-unused-state
+        });
+      })
+      .catch(err => {
+        // eslint-disable-next-line no-console
+        console.log(err); // for errors
+      });
+  };
 
   retrieveStock = (nameOfStock, startDate, endDate, fields) => {
     // this jwt is not actually where this is stored, it's a placeholder
@@ -140,7 +152,7 @@ class App extends Component {
 
   render() {
     const { auth } = this.props;
-    const { currentUser, signIn, stockData } = this.state;
+    const { currentUser, signIn, stockData, favorites } = this.state;
     return (
       <div className="App">
         <TopBar
@@ -196,7 +208,7 @@ class App extends Component {
             render={props => (
               <div className="lowerPageLayout">
                 <NavBar {...props} />
-                <Dashboard />
+                <Dashboard favorites={favorites} />
               </div>
             )}
           />
