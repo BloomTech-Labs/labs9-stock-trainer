@@ -147,7 +147,7 @@ class App extends Component {
 
   render() {
     const { auth } = this.props;
-    const { currentUser, signIn, stockData } = this.state;
+    const { currentUser, signIn, stockData, favorites } = this.state;
     return (
       <div className="App">
         <TopBar
@@ -203,7 +203,7 @@ class App extends Component {
             render={props => (
               <div className="lowerPageLayout">
                 <NavBar {...props} />
-                <Dashboard />
+                <Dashboard favorites={favorites} />
               </div>
             )}
           />
