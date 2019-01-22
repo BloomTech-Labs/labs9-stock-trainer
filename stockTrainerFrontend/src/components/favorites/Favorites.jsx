@@ -1,12 +1,30 @@
 import React from "react";
-import { Input, Segment, Header } from "semantic-ui-react";
+import { Input, Segment, Header, List } from "semantic-ui-react";
 import Stock from "../stock/Stock";
+import "./Favorites.css";
 
 const Favorites = props => {
-  const { favorites } = props;
+  // let { favorites } = props;
+
+  const favorites = [
+    { name: "testTEST" },
+    { name: "testTEST" },
+    { name: "testTEST" },
+    { name: "testTEST" },
+    { name: "testTEST" },
+    { name: "testTEST" },
+    { name: "testTEST" },
+    { name: "testTEST" },
+    { name: "testTEST" },
+    { name: "testTEST" },
+    { name: "testTEST" },
+    { name: "testTEST" },
+    { name: "testTEST" },
+    { name: "testTEST" }
+  ];
 
   return (
-    <div>
+    <div className="favoritesHolder">
       <Header attached="top">
         <Input
           placeholder="Search for stock"
@@ -20,8 +38,14 @@ const Favorites = props => {
         />
       </Header>
 
-      <Segment className="articlesDisplay" attached>
-        <Stock name="test" />
+      <Segment className="favoritesDisplay" attached>
+        <List className="helpSearch" divided>
+          {favorites.map((e, i) => (
+            <List.Item key={i} className="favoritesItem">
+              <Stock name={e.name} />
+            </List.Item>
+          ))}
+        </List>
       </Segment>
     </div>
   );
