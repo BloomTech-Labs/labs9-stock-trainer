@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 # from uuid import uuid4
 
 
@@ -7,13 +7,13 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class User(models.Model):
-    username = models.CharField(max_length=50)
-    firstname = models.CharField(max_length=25)
-    lastname = models.CharField(max_length=25)
+class User(AbstractUser):
+    # oauth_user = models.CharField(max_length=50, unique=True)
+    # firstname = models.CharField(max_length=25)
+    # lastname = models.CharField(max_length=25)
     # email = models.CharField(max_length=50)
-    study_name = models.ForeignKey('Study', on_delete=models.CASCADE, default="NA")
-    portfolio_name = models.ForeignKey('Portfolio', on_delete=models.CASCADE, default="NA")
+    study_name = models.ForeignKey('Study', on_delete=models.CASCADE, blank=True, null=True)
+    portfolio_name = models.ForeignKey('Portfolio', on_delete=models.CASCADE, blank=True, null=True)
     
 
 class Study(models.Model):
