@@ -173,9 +173,11 @@ export default class Reports extends React.Component {
   };
 
   dateChange = e => {
-    // console.log( e.currentTarget.value);
-    console.log(e);
-    debugger
+    const { id, value } = e.currentTarget;
+
+    this.setState({
+      [id]: value
+    });
   };
 
   render() {
