@@ -86,11 +86,10 @@ class App extends Component {
         // eslint-disable-next-line no-console
         console.log(err); // for errors
         this.handleOpen();
-
       });
   };
 
-  retrieveStock = (nameOfStock, startDate, endDate, fields) => {
+  retrieveStock = async (nameOfStock, startDate, endDate, fields) => {
     // this jwt is not actually where this is stored, it's a placeholder
     const { jwt, stockData } = this.state;
     // setting up for what we're grabbing from the backend, the ifs make it so those are optional. Defaults on the backend are currently 01-01-18 for date, and closing price
@@ -106,7 +105,7 @@ class App extends Component {
     if (fields) {
       paramSettings.FIELDS = fields;
     }
-    axios
+     return axios
       .request({
         method: "get",
         baseURL: `${process.env.REACT_APP_BACKEND_URL}stock/`,
@@ -148,6 +147,8 @@ class App extends Component {
         this.setState({
           stockData: newState
         });
+        return res;
+
       })
       .catch(err => {
         this.handleOpen();

@@ -115,16 +115,22 @@ export default class Reports extends React.Component {
       value: "",
       suggestions: [],
       startDate: today,
-      endDate: today
+      endDate: today,
+      stockName: "Enter Stock"
     };
   }
 
   componentDidMount = () => {
     const { match, history } = this.props;
+
     if (match.params.stockSymbol) {
       if (this.checkSymbol(match.params.stockSymbol)) {
+        const { name } = stockSymbolList.find(
+          x => x.symbol === match.params.stockSymbol
+        );
         this.setState({
-          value: match.params.stockSymbol
+          value: match.params.stockSymbol,
+          stockName: name
         });
       } else {
         history.push(`/reports/`);
@@ -154,7 +160,7 @@ export default class Reports extends React.Component {
     });
   };
 
-  searchStock = () => {
+  searchStock = async () => {
     const { value, startDate, endDate } = this.state;
     const { history, retrieveStock } = this.props;
     if (value === "") {
@@ -162,19 +168,25 @@ export default class Reports extends React.Component {
     }
     history.push(`/reports/${value}`);
     // need to make this a promise some how
-    retrieveStock(value, startDate, endDate);
+
+    const test = await retrieveStock(value, startDate, endDate, "volume,close");
+    console.log(test);
+  };
+
+  useGottenData = () => {
+    const { stockData } = this.props;
+    console.log(stockData);
   };
 
   dateChange = e => {
     const { id, value } = e.currentTarget;
-
     this.setState({
       [id]: value
     });
   };
 
   render() {
-    const { value, suggestions, startDate, endDate } = this.state;
+    const { value, suggestions, startDate, endDate, stockName } = this.state;
     const inputProps = {
       placeholder: "Search for a Stock",
       value,
@@ -184,16 +196,7 @@ export default class Reports extends React.Component {
 
     return (
       <Segment className="reportsContainer">
-        <Stock
-          big
-          symbol={match.params.stockSymbol}
-          name={
-            match.params.stockSymbol
-              ? stockSymbolList.find(x => x.symbol === match.params.stockSymbol)
-                  .name
-              : "Enter Stock"
-          }
-        />
+        <Stock big symbol={match.params.stockSymbol} name={stockName} />
         <div className="reportsSearch">
           <Autosuggest
             suggestions={suggestions}
