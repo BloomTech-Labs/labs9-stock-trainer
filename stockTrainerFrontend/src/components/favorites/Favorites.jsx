@@ -62,7 +62,7 @@ class Favorites extends React.Component {
           <List className="helpSearch" divided>
             {items.map((e, i) => (
               <List.Item key={i} className="favoritesItem">
-                <Stock name={e.name} />
+                <Stock symbol={e.symbol} name={e.name} />
               </List.Item>
             ))}
             {showLoad ? (

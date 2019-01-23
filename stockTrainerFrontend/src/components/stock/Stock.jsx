@@ -6,10 +6,10 @@ const Stock = props => {
   const { name, symbol } = props;
   return (
     <div className="stock">
-      <h1 className="stockName">
+      <h3 className="stockName">
         {name}
         {symbol ? ` (${symbol})` : ""}
-      </h1>
+      </h3>
       <Icon className="favoriteIcon" name="star outline" size="big" />
       <div className="leftColumnInfobox">
         <div className="upperRowInfobox">Price: $148.40</div>

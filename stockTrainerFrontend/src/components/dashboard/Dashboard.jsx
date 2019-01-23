@@ -3,6 +3,7 @@ import { Segment } from "semantic-ui-react";
 import "./Dashboard.css";
 import Indicators from "./Indicators";
 import Favorites from "../favorites/Favorites";
+import companyList from "../../util/test.json";
 
 const Dashboard = props => {
   const { data } = props;
@@ -22,9 +23,7 @@ const Dashboard = props => {
       <Segment className="leftColumn">
         <Favorites
           title="Stock Ticker"
-          data={Array.from({ length: 100 }, () => ({
-            name: Math.floor(Math.random() * 1000)
-          }))}
+          data={companyList}
         />
       </Segment>
     </div>
