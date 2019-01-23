@@ -111,7 +111,12 @@ export default class Reports extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { value: "", suggestions: [] };
+    this.state = {
+      value: "",
+      suggestions: [],
+      startDate: today,
+      endDate: today
+    };
   }
 
   componentDidMount = () => {
@@ -167,8 +172,14 @@ export default class Reports extends React.Component {
     history.push(`/reports/${value}`);
   };
 
+  dateChange = e => {
+    // console.log( e.currentTarget.value);
+    console.log(e);
+    debugger
+  };
+
   render() {
-    const { value, suggestions } = this.state;
+    const { value, suggestions, startDate, endDate } = this.state;
     const inputProps = {
       placeholder: "Search for a Stock",
       value,
@@ -195,16 +206,20 @@ export default class Reports extends React.Component {
             className="reportDateInput"
             max={today}
             type="date"
-            value={today}
+            value={startDate}
+            id="startDate"
+            onChange={this.dateChange}
           />
         </div>
         <div id="to" className="dateSelect">
           <h3>To:</h3>
           <Input
             className="reportDateInput"
-            value={today}
+            value={endDate}
             max={today}
             type="date"
+            id="endDate"
+            onChange={this.dateChange}
           />
         </div>
 
