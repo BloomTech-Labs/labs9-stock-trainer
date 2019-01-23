@@ -25,12 +25,10 @@ class Graph extends React.Component {
   convertData = () => {
     const { data } = this.state;
     const dataCopy = JSON.parse(JSON.stringify(data));
-    const newData = dataCopy.map(dataPoint => {
-      return {
-        date: new Date(dataPoint.date),
-        close: Number(dataPoint.close)
-      };
-    });
+    const newData = dataCopy.map(dataPoint => ({
+      date: new Date(dataPoint.date),
+      close: Number(dataPoint.close)
+    }));
     this.setState({
       data: newData
     });
