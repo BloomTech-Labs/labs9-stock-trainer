@@ -2,7 +2,7 @@ import React from "react";
 import { Header, Input, Tab, Segment } from "semantic-ui-react";
 import "./Reports.css";
 import Stock from "../stock/Stock";
-import Graph from "../Graph";
+import Graph from "../Graph/Graph";
 
 const placeholderPane = (
   <Segment>
