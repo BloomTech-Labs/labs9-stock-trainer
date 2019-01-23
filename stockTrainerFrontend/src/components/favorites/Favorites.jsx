@@ -9,54 +9,35 @@ class Favorites extends React.Component {
     super(props);
 
     this.state = {
-      items: [
-        { name: "testTEST" },
-        { name: "testTEST" },
-        { name: "testTEST" },
-        { name: "testTEST" },
-        { name: "testTEST" },
-        { name: "testTEST" },
-        { name: "testTEST" },
-        { name: "testTEST" },
-        { name: "testTEST" },
-        { name: "testTEST" },
-        { name: "testTEST" },
-        { name: "testTEST" },
-        { name: "testTEST" },
-        { name: "testTEST" }
-      ]
+      currentLastItem: 14,
+      items: props.data.slice(0, 14),
+      showLoad: false
     };
   }
 
+  // big problem here is people with very vertical screens. this only triggers on scroll. Need to find a way to trigger if there's no overflow too.
   handleScroll = e => {
+    const { currentLastItem, items } = this.state;
+    const { data } = this.props;
+    // This is a very goofy way to make it so you don't have to scroll to very bottom to make this work
     const bottom =
-      e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
-    if (bottom) {
-      this.setState({
-        items: this.state.items.concat([
-          { name: "testTEST" },
-          { name: "testTEST" },
-          { name: "testTEST" },
-          { name: "testTEST" },
-          { name: "testTEST" },
-          { name: "testTEST" },
-          { name: "testTEST" },
-          { name: "testTEST" },
-          { name: "testTEST" },
-          { name: "testTEST" },
-          { name: "testTEST" },
-          { name: "testTEST" },
-          { name: "testTEST" },
-          { name: "testTEST" }
-        ])
-      })
-     
+      e.target.scrollHeight - e.target.scrollTop - 50 <= e.target.clientHeight;
+    if (bottom && data.length !== items.length) {
+      this.setState(
+        { showLoad: true, currentLastItem: currentLastItem + 10 },
+        () => {
+          this.setState({
+            items: data.slice(0, currentLastItem),
+            showLoad: false
+          });
+        }
+      );
     }
   };
 
   render() {
     const { title } = this.props;
-    const { items } = this.state;
+    const { items, showLoad } = this.state;
     return (
       <div className="favoritesHolder">
         <Header attached="top">
@@ -73,16 +54,24 @@ class Favorites extends React.Component {
           />
         </Header>
 
-        <Segment className="favoritesDisplay" onScroll={this.handleScroll} attached>
-          <List className="helpSearch" divided >
+        <Segment
+          className="favoritesDisplay"
+          onScroll={this.handleScroll}
+          attached
+        >
+          <List className="helpSearch" divided>
             {items.map((e, i) => (
               <List.Item key={i} className="favoritesItem">
                 <Stock name={e.name} />
               </List.Item>
             ))}
-            <List.Item>
-              <h3>Loadering...</h3>
-            </List.Item>
+            {showLoad ? (
+              <List.Item>
+                <h3>Loadering...</h3>
+              </List.Item>
+            ) : (
+              ""
+            )}
           </List>
         </Segment>
       </div>

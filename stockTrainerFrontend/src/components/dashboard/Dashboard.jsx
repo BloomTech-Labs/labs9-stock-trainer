@@ -5,17 +5,27 @@ import Indicators from "./Indicators";
 import Favorites from "../favorites/Favorites";
 
 const Dashboard = props => {
-  const { favorites } = props;
+  const { data } = props;
   return (
     <div className="gridContainer">
       <Segment>
         <Indicators />
       </Segment>
       <Segment className="userStocks">
-        <Favorites title="Favorites" favorites={favorites} />
+        <Favorites
+          title="Favorites"
+          data={Array.from({ length: 100 }, () => ({
+            name: Math.floor(Math.random() * 1000)
+          }))}
+        />
       </Segment>
       <Segment className="leftColumn">
-        <Favorites title="Stock Ticker" favorites={favorites} />
+        <Favorites
+          title="Stock Ticker"
+          data={Array.from({ length: 100 }, () => ({
+            name: Math.floor(Math.random() * 1000)
+          }))}
+        />
       </Segment>
     </div>
   );
