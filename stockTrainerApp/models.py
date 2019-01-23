@@ -13,8 +13,9 @@ class Study(models.Model):
     stock_name = models.ForeignKey('Stock', on_delete=models.CASCADE, null=True)
     parameter_id = models.ForeignKey('Parameter', on_delete=models.CASCADE, null=True)
     portfolio_id = models.ForeignKey('Portfolio', on_delete=models.CASCADE, null=True)
-    start_date = models.DateField(blank=False, null=False)
-    end_date = models.DateField(blank=False, null=False)
+    start_date = models.CharField(max_length=20, blank=False, null=False)
+    end_date = models.CharField(max_length=20, blank=False, null=False)
+    data = models.TextField(default="{}", null=False, blank=False)
     
 
 class Portfolio(models.Model):

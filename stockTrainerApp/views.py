@@ -28,6 +28,8 @@ from .serializers import UserSerializer, UserSerializerWithToken
 
 stripe.api_key = settings.STRIPE_SECRET_TEST_KEY
 
+quandl.ApiConfig.api_key = config("QUANDL_API_KEY")
+
 
 class TestListCreate(generics.ListCreateAPIView):
     queryset = Test.objects.all()
@@ -129,6 +131,17 @@ def stock(request):
             rowObj['adjVolume'] = row['Adj. Volume']
 
         returnObj["data"].append(rowObj)
+
+    string_json = json.dumps(returnObj["data"])
+    stock = Stock.objects.all().filter(symbol=returnObj['symbol'])
+    if not stock:
+        stock = Stock(symbol=returnObj['symbol'])
+    stock.save()
+    new_study = Study(start_date=returnObj["startDate"], end_date=returnObj["endDate"], data=string_json)
+    new_study.save()
+    stock.study_set.add(new_study)
+
+    # TODO: Need to save study into user's portfolio when this route becomes protected.
 
     return JsonResponse(status=200, data=returnObj)
 
@@ -266,17 +279,6 @@ def requires_scope(required_scope):
             return response
         return decorated
     return require_scope
-
-
-def save_data(request):
-
-    if request.method == "GET":
-        res = quandl.get("FRED/GDP", start_date="2001-12-31", end_date="2005-12-31")
-        res_json = res.json()
-        serializer = StudySerializer(data=res_json)
-        if serializer.is_valid():
-            save_res = serializer.save()
-            return render(request, 'stock.html', {'save_req': save_res})
 
 
 def public(request):
