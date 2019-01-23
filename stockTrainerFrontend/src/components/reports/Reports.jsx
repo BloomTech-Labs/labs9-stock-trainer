@@ -115,14 +115,28 @@ export default class Reports extends React.Component {
   }
 
   componentDidMount = () => {
-    const { match } = this.props;
+    const { match, history } = this.props;
     if (match.params.stockSymbol) {
-      this.setState({
-        value: match.params.stockSymbol
-      });
+      if (this.checkSymbol(match.params.stockSymbol)) {
+        this.setState({
+          value: match.params.stockSymbol
+        });
+      } else {
+        history.push(`/reports/`);
+      }
     }
   };
-  
+
+  checkSymbol = symbolToFind => {
+    let testVal = false;
+    stockSymbolList.forEach(e => {
+      if (e.symbol === symbolToFind) {
+        testVal = true;
+      }
+    });
+    return testVal;
+  };
+
   findData = () => {};
 
   onChange = (event, { newValue }) => {
