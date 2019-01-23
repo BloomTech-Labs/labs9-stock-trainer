@@ -132,17 +132,8 @@ export default class Reports extends React.Component {
     }
   };
 
-  checkSymbol = symbolToFind => {
-    let testVal = false;
-    stockSymbolList.forEach(e => {
-      if (e.symbol === symbolToFind) {
-        testVal = true;
-      }
-    });
-    return testVal;
-  };
-
-  findData = () => {};
+  checkSymbol = symbolToFind =>
+    stockSymbolList.find(x => x.symbol === symbolToFind);
 
   onChange = (event, { newValue }) => {
     this.setState({
@@ -164,12 +155,14 @@ export default class Reports extends React.Component {
   };
 
   searchStock = () => {
-    const { value } = this.state;
-    const { history } = this.props;
+    const { value, startDate, endDate } = this.state;
+    const { history, retrieveStock } = this.props;
     if (value === "") {
       return;
     }
     history.push(`/reports/${value}`);
+    // need to make this a promise some how
+    retrieveStock(value, startDate, endDate);
   };
 
   dateChange = e => {
@@ -187,9 +180,20 @@ export default class Reports extends React.Component {
       value,
       onChange: this.onChange
     };
+    const { match } = this.props;
+
     return (
       <Segment className="reportsContainer">
-        <Stock big symbol="test" name="Stock name here" />
+        <Stock
+          big
+          symbol={match.params.stockSymbol}
+          name={
+            match.params.stockSymbol
+              ? stockSymbolList.find(x => x.symbol === match.params.stockSymbol)
+                  .name
+              : "Enter Stock"
+          }
+        />
         <div className="reportsSearch">
           <Autosuggest
             suggestions={suggestions}

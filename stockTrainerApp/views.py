@@ -67,7 +67,7 @@ def stock(request):
             'error': 'Please include a valid date in the format YYYY-MM-DD'
         })
 
-
+    print(startDate,endDate)
     #gets FIELDS, converts to uppercase, then splits into an array
     fields = request.GET.get('FIELDS', "Close").upper().split(',')
 
