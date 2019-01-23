@@ -1,29 +1,27 @@
 import React from "react";
-import { Segment, Input } from "semantic-ui-react";
+import { Segment } from "semantic-ui-react";
 import "./Dashboard.css";
 import Indicators from "./Indicators";
-import Stock from "../stock/Stock";
 import Favorites from "../favorites/Favorites";
-
-const dummyData = [{ name: "Apple" }, { name: "Amazon" }];
+import companyList from "../../util/test.json";
 
 const Dashboard = props => {
-  const { favorites } = props;
+  const { data } = props;
   return (
     <div className="gridContainer">
       <Segment>
         <Indicators />
       </Segment>
       <Segment className="userStocks">
-        <Favorites favorites={favorites} />
+        <Favorites
+          title="Favorites"
+          data={Array.from({ length: 100 }, () => ({
+            name: Math.floor(Math.random() * 1000)
+          }))}
+        />
       </Segment>
       <Segment className="leftColumn">
-        <Input placeholder="Search..." className="stockSearch" />
-        {dummyData.map(stock => (
-          <div className="stockContainer" key={stock.name}>
-            <Stock name={stock.name} />
-          </div>
-        ))}
+        <Favorites title="Stock Ticker" data={companyList} />
       </Segment>
     </div>
   );
