@@ -11,23 +11,24 @@ class Favorites extends React.Component {
     this.state = {
       currentLastItem: 14,
       items: props.data.slice(0, 14),
-      showLoad: false
+      showLoad: false,
+      searchText: "",
+      filteredList: props.data
     };
   }
 
   // big problem here is people with very vertical screens. this only triggers on scroll. Need to find a way to trigger if there's no overflow too.
   handleScroll = e => {
-    const { currentLastItem, items } = this.state;
-    const { data } = this.props;
+    const { currentLastItem, items, filteredList } = this.state;
     // This is a very goofy way to make it so you don't have to scroll to very bottom to make this work
     const bottom =
       e.target.scrollHeight - e.target.scrollTop - 50 <= e.target.clientHeight;
-    if (bottom && data.length !== items.length) {
+    if (bottom && filteredList.length !== items.length) {
       this.setState(
         { showLoad: true, currentLastItem: currentLastItem + 10 },
         () => {
           this.setState({
-            items: data.slice(0, currentLastItem),
+            items: filteredList.slice(0, currentLastItem),
             showLoad: false
           });
         }
@@ -35,22 +36,44 @@ class Favorites extends React.Component {
     }
   };
 
+  handleChange = event => {
+    const { data } = this.props;
+
+    this.setState(
+      {
+        searchText: event.target.value,
+        filteredList: data.filter(e => {
+          if (
+            e.name.toUpperCase().includes(event.target.value.toUpperCase()) ||
+            e.symbol.toUpperCase().includes(event.target.value.toUpperCase())
+          ) {
+            return e;
+          }
+          // eslint-disable-next-line
+          return;
+        })
+      },
+      () => {
+        const { filteredList, currentLastItem } = this.state;
+        this.setState({
+          items: filteredList.slice(0, currentLastItem)
+        });
+      }
+    );
+  };
+
   render() {
     const { title } = this.props;
-    const { items, showLoad } = this.state;
+    const { items, showLoad, searchText } = this.state;
     return (
       <div className="favoritesHolder">
         <Header attached="top">
           <h2>{title}</h2>
           <Input
             placeholder="Search for stock"
-            value=""
-            onChange=""
+            value={searchText}
+            onChange={this.handleChange}
             fluid
-            action={{
-              content: "search",
-              onClick: () => {}
-            }}
           />
         </Header>
 
@@ -60,14 +83,21 @@ class Favorites extends React.Component {
           attached
         >
           <List className="helpSearch" divided>
-            {items.map((e, i) => (
-              <List.Item key={i} className="favoritesItem">
+            {items.map(e => (
+              <List.Item key={`${e.symbol}${e.name}`} className="favoritesItem">
                 <Stock symbol={e.symbol} name={e.name} />
               </List.Item>
             ))}
             {showLoad ? (
               <List.Item>
                 <h3>Loadering...</h3>
+              </List.Item>
+            ) : (
+              ""
+            )}
+            {items.length === 0 ? (
+              <List.Item>
+                <h3>No Results Found</h3>
               </List.Item>
             ) : (
               ""
