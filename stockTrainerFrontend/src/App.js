@@ -198,7 +198,11 @@ class App extends Component {
             render={props => (
               <div className="lowerPageLayout">
                 <NavBar {...props} />
-                <Reports {...props} />
+                <Reports
+                  retrieveStock={this.retrieveStock}
+                  stockData={stockData}
+                  {...props}
+                />
               </div>
             )}
           />

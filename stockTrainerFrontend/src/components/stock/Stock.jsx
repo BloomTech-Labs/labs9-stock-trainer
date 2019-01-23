@@ -3,13 +3,20 @@ import { Icon } from "semantic-ui-react";
 import "./Stock.css";
 
 const Stock = props => {
-  const { name, symbol } = props;
+  const { name, symbol, big } = props;
   return (
     <div className="stock">
-      <h3 className="stockName">
-        {name}
-        {symbol ? ` (${symbol})` : ""}
-      </h3>
+      {big ? (
+        <h1 className="stockName">
+          {name}
+          {symbol ? ` (${symbol})` : ""}
+        </h1>
+      ) : (
+        <h3 className="stockName">
+          {name}
+          {symbol ? ` (${symbol})` : ""}
+        </h3>
+      )}
       <Icon className="favoriteIcon" name="star outline" size="big" />
       <div className="leftColumnInfobox">
         <div className="upperRowInfobox">Price: $148.40</div>

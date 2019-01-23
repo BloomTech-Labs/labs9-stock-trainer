@@ -1,70 +1,51 @@
-/* .titleRowReports {
-  display: flex;
-  align-content: center;
-}
-
-i.icon {
-  margin-left: 10%;
-}
-
-.reportsSearch {
-  margin-left: 10%;
-  width: 30%;
-}
-.leftInfobox {
-  display: flex;
-}
-.rightInfobox {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-.infoRowReports {
-  display: flex;
-  justify-content: space-between;
-  height: 20%;
-}
-.targetScoreResult {
-  font-size: 45px;
-  margin-top: 10px;
-}
-.leftInfobox {
-  width: 40%;
-}
-.lowerRowInfobox {
-  margin-top: 1rem;
-}
-.leftColumnInfobox {
-  width: 10rem;
-} */
 .reportsSearch {
   grid-area: search;
 }
-.rightInfobox {
-  grid-area: targetScore;
-  font-size: 45px;
-  height:100%;
-  display:flex;
-  justify-content: center;
-  flex-direction: column;
+.searchButton {
+  grid-area: searchButton;
+  align-self: end;
+  height: 100%;
+  margin-right: 0 !important;
+
 }
 .chart {
   grid-area: tabbedChart;
   align-self: end;
+  height:95%;
+}
+.chartArea{
+  height:93%;
+}
+.dateSelect{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#from{
+  grid-area: from;
+}
+#to{
+  grid-area: to;
+}
+.reportDateInput{
+  width: 100%;
 }
 .reportsContainer {
   width: 85%;
   height: 100%;
+  padding: 1rem 2rem !important;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 10% 10% 80%;
+  grid-column-gap: 2rem;
   /* grid-template-areas:
     "stockname favoriteStar search . ."
     "leftInfoColumn rightInfoColumn . . targetScore"
     "tabbedChart tabbedChart tabbedChart tabbedChart tabbedChart"; */
   grid-template-areas:
-    "stock stock search . ."
-    "stock stock . . targetScore"
+    "stock stock search search search"
+    "stock stock from to searchButton"
     "tabbedChart tabbedChart tabbedChart tabbedChart tabbedChart";
   align-items: center;
 }
