@@ -1,5 +1,7 @@
 .reportsSearch {
   grid-area: search;
+  height: 100%;
+  position: relative;
 }
 .searchButton {
   grid-area: searchButton;
