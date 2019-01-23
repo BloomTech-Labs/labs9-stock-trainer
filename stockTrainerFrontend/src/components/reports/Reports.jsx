@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Input, Tab, Segment } from "semantic-ui-react";
 import "./Reports.css";
 import Autosuggest from "react-autosuggest";
-import data from "../../util/test.json";
+import stockSymbolList from "../../util/test.json";
 
 import Stock from "../stock/Stock";
 
@@ -60,7 +60,7 @@ const getSuggestions = value => {
 
   return inputLength === 0
     ? []
-    : data.filter(
+    : stockSymbolList.filter(
         lang =>
           lang.name.toLowerCase().slice(0, inputLength) === inputValue ||
           lang.symbol.toLowerCase().slice(0, inputLength) === inputValue
@@ -114,8 +114,15 @@ export default class Reports extends React.Component {
     this.state = { value: "", suggestions: [] };
   }
 
-  componentDidMount = () => {};
-
+  componentDidMount = () => {
+    const { match } = this.props;
+    if (match.params.stockSymbol) {
+      this.setState({
+        value: match.params.stockSymbol
+      });
+    }
+  };
+  
   findData = () => {};
 
   onChange = (event, { newValue }) => {
@@ -138,18 +145,18 @@ export default class Reports extends React.Component {
   };
 
   searchStock = () => {
-    const { retrieveStock } = this.props;
     const { value } = this.state;
+    const { history } = this.props;
     if (value === "") {
       return;
     }
-    retrieveStock(value.toUpperCase());
+    history.push(`/reports/${value}`);
   };
 
   render() {
     const { value, suggestions } = this.state;
     const inputProps = {
-      placeholder: "Look for a company!",
+      placeholder: "Search for a Stock",
       value,
       onChange: this.onChange
     };
@@ -187,7 +194,12 @@ export default class Reports extends React.Component {
           />
         </div>
 
-        <Button className="searchButton" size="massive" secondary>
+        <Button
+          className="searchButton"
+          size="massive"
+          onClick={this.searchStock}
+          secondary
+        >
           Search
         </Button>
         <Tab className="chart" panes={panes} />
