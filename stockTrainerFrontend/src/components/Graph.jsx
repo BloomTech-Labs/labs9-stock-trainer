@@ -16,17 +16,7 @@ class Graph extends React.Component {
   constructor(props) {
     super(props);
     console.log(`constructor`);
-    this.state = {
-      data: {}
-    };
   }
-
-  componentDidMount = () => {
-    const { stockData } = this.props;
-    this.setState({
-      data: stockData
-    });
-  };
 
   render() {
     console.log(data);
@@ -39,6 +29,8 @@ class Graph extends React.Component {
               parent: { border: "1px solid #ccc" }
             }}
             data={data}
+            x="date"
+            y={data.price}
             animate={{
               // animation can be implemented
               duration: 2000,
