@@ -268,6 +268,17 @@ def requires_scope(required_scope):
     return require_scope
 
 
+def save_data(request):
+
+    if request.method == "GET":
+        res = quandl.get("FRED/GDP", start_date="2001-12-31", end_date="2005-12-31")
+        res_json = res.json()
+        serializer = StudySerializer(data=res_json)
+        if serializer.is_valid():
+            save_res = serializer.save()
+            return render(request, 'stock.html', {'save_req': save_res})
+
+
 def public(request):
     return JsonResponse({'message': 'Hello from a public endpoint! You don\'t need to be authenticated to see this.'})
 
