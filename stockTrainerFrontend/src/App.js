@@ -26,7 +26,7 @@ class App extends Component {
       currentUser: "",
       jwt: "TESTESTEST",
       stockData: {},
-      favorites: [] // eslint-disable-line react/no-unused-state
+      favorites: []
     };
   }
 
@@ -194,11 +194,11 @@ class App extends Component {
           />
           <Route
             exact
-            path="/reports"
+            path="/reports/:stockSymbol?"
             render={props => (
               <div className="lowerPageLayout">
                 <NavBar {...props} />
-                <Reports />
+                <Reports {...props} />
               </div>
             )}
           />

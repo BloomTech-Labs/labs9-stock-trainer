@@ -35,15 +35,18 @@ const panes = [
   }
 ];
 
-const Reports = () => (
-  <Segment className="reportsContainer">
-    <Stock name="Stock name here" />
-    <Input className="reportsSearch" placeholder="Search..." />
-    <div className="rightInfobox">
-      <Header as="h3">Target Score:</Header>
-      <div className="targetScoreResult">15</div>
-    </div>
-    <Tab className="chart" panes={panes} />
-  </Segment>
-);
+const Reports = props => {
+  console.log(props);
+  return (
+    <Segment className="reportsContainer">
+      <Stock name="Stock name here" />
+      <Input className="reportsSearch" placeholder="Search..." />
+      <div className="rightInfobox">
+        <Header as="h3">Target Score:</Header>
+        <div className="targetScoreResult">15</div>
+      </div>
+      <Tab className="chart" panes={panes} />
+    </Segment>
+  );
+};
 export default Reports;
