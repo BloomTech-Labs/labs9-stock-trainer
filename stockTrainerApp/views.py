@@ -95,6 +95,16 @@ def stock(request):
     returnObj = {'symbol': stockName, 'startDate': startDate,
                  'endDate': endDate, 'data': []}
 
+    # check if study exists in the database, if it does, then it returns the study
+    check_study = Study.objects.all().filter(stock_name=stockName, start_date=startDate, end_date=endDate)
+    if check_study:
+        temp = {}
+        for check_data in check_study.values("data"):
+            # json.loads allow for our data to be "unstringified" so we can return it as readable data
+            temp = json.loads(check_data['data'])
+        returnObj['data'] = temp
+        return JsonResponse(status=200, data=returnObj)
+
     # this moves the date from being a row key, to another column, then converts the whole dataframe to strings. Even
     # all the numbers. This is to avoid problems with handling the date
     df_r = df.reset_index().astype(str)
@@ -137,6 +147,7 @@ def stock(request):
     if not stock:
         stock = Stock(symbol=returnObj['symbol'])
     stock.save()
+    # Data is being saved as a stringified json
     new_study = Study(start_date=returnObj["startDate"], end_date=returnObj["endDate"], data=string_json)
     new_study.save()
     stock.study_set.add(new_study)
