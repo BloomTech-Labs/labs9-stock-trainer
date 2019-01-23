@@ -188,7 +188,7 @@ class App extends Component {
             render={props => (
               <div className="lowerPageLayout">
                 <NavBar {...props} />
-                <AccountSettings />
+                <AccountSettings accessToken={auth.accessToken} />
               </div>
             )}
           />

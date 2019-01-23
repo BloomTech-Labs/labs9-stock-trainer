@@ -26,10 +26,12 @@
 }
 
 .stock {
+  margin: .5em 0;
   display: grid;
   height: 100%;
   align-items: center;
-  grid-template-columns: 1fr 1fr;
+  grid-row-gap: .5em;
+  grid-template-columns: 70% 30%;
   grid-template-rows: 50% 50%;
   grid-template-areas:
     "stockname favoriteStar"

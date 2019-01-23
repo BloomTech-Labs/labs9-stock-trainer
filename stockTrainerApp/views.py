@@ -167,11 +167,21 @@ class HomePageView(TemplateView):
         return context
 
 
+def get_username(request):
+    # gets username from the token, should be something like github.asdfasdf or google-oauth2.asdfasdf
+    token = jwt.decode(get_token_auth_header(request), OAUTH_CERT, algorithms=['RS256'],
+                       audience='https://stock-trainer.auth0.com/api/v2/')
+    username = token.get('sub').replace('|', '.')
+    return username
+
+
+# look into protecting this route, so that only logged in and users in DB can actually be charged
 def charge(request):
     if request.method == 'POST':
+        # username is taken from the request header
+        username = get_username(request)
         # body of request is parsed by the loads function
         body = json.loads(request.body)
-        print(body)
         # currently we're looking at the token only, but there we can add more to the body to id the user
         token = body['token']
         charge = stripe.Charge.create(
@@ -183,9 +193,18 @@ def charge(request):
         print(charge)
         print("status:", charge['status'])
         # we can change our jsonresponse depending on the error from stripe, or the status of the charge
-        return JsonResponse({
-            'message': 'The payment has been successful'
-        })
+        if charge['status'] == 'succeeded': # hard coded for now, there are WAY better ways to check for this and errors
+            print('payment success')
+            # currently, whether a user is premium or not is a boolean, but should be updated to be an expiration date
+            User.objects.all().filter(username=username).update(premium=True)
+            return JsonResponse({
+                'message': 'The payment has been successful'
+            })
+        else:
+            print('payment failed')
+            return JsonResponse({
+                'message': 'The payment was not successful'
+            })
 
 
 # Oauth cert
@@ -198,20 +217,11 @@ WPEEToVjaAN0lDkyGaEPeTfUc5fMhFJBdF1RdRwzSk8z9CN3hzTtUr9MOI+RKA2HyxWrX7qI8+NAne2D
 -----END CERTIFICATE-----"""
 
 # @api_view(['GET'])
-
-
 def current_user(request):
     """
     Determine the current user by their token, and return their data
     """
-    def get_username():
-        # gets username from the token, should be something like github.asdfasdf or google-oauth2.asdfasdf
-        token = jwt.decode(get_token_auth_header(request), OAUTH_CERT, algorithms=['RS256'],
-                           audience='https://stock-trainer.auth0.com/api/v2/')
-        username = token.get('sub').replace('|', '.')
-        return username
-
-    username = get_username()
+    username = get_username(request)
 
     user = User.objects.all().filter(username=username)
     # Can DRY this up probably

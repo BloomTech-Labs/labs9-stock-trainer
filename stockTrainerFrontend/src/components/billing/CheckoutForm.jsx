@@ -30,13 +30,19 @@ class CheckoutForm extends Component {
       return;
     }
 
-    const { stripe } = this.props;
+    const { stripe, accessToken } = this.props;
     const { token } = await stripe.createToken({ name: "Name" }); // can add more userinfo here
     const url = "http://localhost:8000/charge/"; // "django_url/charge/"
 
     // our post request currently sends the token and name to our backend
     // we can change what user info we send to our backend to connect user to payment
     // token contains card information, and the stripe call is done on the backend
+    // header contains the user token, which allows our backend to identify the user
+    // within the database. This is not protected for now, but should be implemented
+    const headers = {
+      "Content-Type": "text/plain",
+      Authorization: `Bearer ${accessToken}`
+    };
     axios
       .post(
         `${url}`,
@@ -45,13 +51,14 @@ class CheckoutForm extends Component {
           name: "jhk"
         },
         {
-          "Content-Type": "text/plain"
+          headers
         }
       )
       .then(response => {
         if (response.status === 200) this.setState({ complete: true });
         console.log(response);
-      });
+      })
+      .catch(err => console.log(err));
   };
 
   stripeElementChange = (element, name) => {
