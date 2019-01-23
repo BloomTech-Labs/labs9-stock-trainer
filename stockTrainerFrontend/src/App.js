@@ -26,7 +26,8 @@ class App extends Component {
       signIn: false,
       currentUser: "",
       jwt: "TESTESTEST",
-      stockData: {}
+      stockData: {},
+      favorites: [] // eslint-disable-line react/no-unused-state
     };
   }
 
@@ -39,6 +40,7 @@ class App extends Component {
   };
 
   switchSignInState = () => {
+    this.retrieveUser();
     const { auth } = this.props;
     const tokenPayload = auth.idTokenPayload;
     let nameToSet = "";
@@ -75,6 +77,9 @@ class App extends Component {
         // this.switchSignInState({
         //   name: res.data.UserInfo
         // });
+        this.setState({
+          favorites: res.data.portfolio // eslint-disable-line react/no-unused-state
+        });
       })
       .catch(err => {
         // eslint-disable-next-line no-console
@@ -148,7 +153,7 @@ class App extends Component {
 
   render() {
     const { auth } = this.props;
-    const { currentUser, signIn, stockData } = this.state;
+    const { currentUser, signIn, stockData, favorites } = this.state;
     return (
       <div className="App">
         <TopBar
@@ -184,7 +189,7 @@ class App extends Component {
             render={props => (
               <div className="lowerPageLayout">
                 <NavBar {...props} />
-                <AccountSettings />
+                <AccountSettings accessToken={auth.accessToken} />
               </div>
             )}
           />
@@ -204,7 +209,7 @@ class App extends Component {
             render={props => (
               <div className="lowerPageLayout">
                 <NavBar {...props} />
-                <Dashboard />
+                <Dashboard favorites={favorites} />
               </div>
             )}
           />

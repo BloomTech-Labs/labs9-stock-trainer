@@ -1,0 +1,19 @@
+.favoritesDisplay {
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.helpSearch{
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+}
+.favoritesHolder{
+  height:100%;
+  display:flex;
+  flex-direction: column;
+}
+.favoritesItem{
+  margin-right: .3em !important;
+}

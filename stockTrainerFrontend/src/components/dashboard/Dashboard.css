@@ -21,8 +21,8 @@
 }
 
 .userStocks {
-  display: grid;
+  /* display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 22% 22% 22% 22%;
-  grid-row-gap: 4%;
+  grid-row-gap: 4%; */
 }

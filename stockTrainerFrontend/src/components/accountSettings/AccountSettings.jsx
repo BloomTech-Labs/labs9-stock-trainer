@@ -66,6 +66,7 @@ class AccountSettings extends Component {
       newPassword,
       activeIndex
     } = this.state;
+    const { accessToken } = this.props;
     return (
       <Accordion styled className="settingsAccordion">
         <Accordion.Title
@@ -151,7 +152,7 @@ class AccountSettings extends Component {
           Billing
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 1}>
-          <UpgradeUser />
+          <UpgradeUser accessToken={accessToken} />
         </Accordion.Content>
       </Accordion>
     );
