@@ -21,10 +21,7 @@ const Dashboard = props => {
         />
       </Segment>
       <Segment className="leftColumn">
-        <Favorites
-          title="Stock Ticker"
-          data={companyList}
-        />
+        <Favorites title="Stock Ticker" data={companyList} />
       </Segment>
     </div>
   );
