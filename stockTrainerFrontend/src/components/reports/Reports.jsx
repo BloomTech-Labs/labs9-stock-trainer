@@ -1,14 +1,13 @@
 import React from "react";
-import { Header, Input, Tab, Placeholder, Segment } from "semantic-ui-react";
+import { Header, Input, Tab, Segment } from "semantic-ui-react";
 import "./Reports.css";
 import Stock from "../stock/Stock";
+import Graph from "../Graph";
 
 const placeholderPane = (
   <Segment>
     <Tab.Pane>
-      <Placeholder style={{ height: "30rem", width: "100%", maxWidth: "100%" }}>
-        <Placeholder.Image />
-      </Placeholder>
+      <Graph />
     </Tab.Pane>
   </Segment>
 );

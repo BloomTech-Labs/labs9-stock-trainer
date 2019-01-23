@@ -220,7 +220,11 @@ class App extends Component {
               </div>
             )}
           />
-          <Route exact path="/" render={props => <Landing {...props} />} />
+          <Route
+            exact
+            path="/"
+            render={props => <Landing {...props} stockData={stockData} />}
+          />
           <Route
             exact
             path="/callback"
