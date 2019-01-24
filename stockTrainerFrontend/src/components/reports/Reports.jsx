@@ -84,33 +84,51 @@ const renderSuggestion = suggestion => (
   </div>
 );
 // format for panes, look into seperate component?
-const placeholderPane = (
-  <Segment className="chartArea">
-    <Tab.Pane>
-      <Graph />
-    </Tab.Pane>
-  </Segment>
-);
+const PlaceholderPane = props => {
+  const { stockData } = props;
+  return (
+    <Segment className="chartArea">
+      <Tab.Pane>
+        <Graph stockData={stockData} />
+      </Tab.Pane>
+    </Segment>
+  );
+};
 const panes = [
   {
     menuItem: "Price",
-    render: () => placeholderPane
+    render: props => {
+      const { stockData } = props;
+      return <PlaceholderPane stockData={stockData} />;
+    }
   },
   {
     menuItem: "Average True Range",
-    render: () => placeholderPane
+    render: props => {
+      const { stockData } = props;
+      return <PlaceholderPane stockData={stockData} />;
+    }
   },
   {
     menuItem: "Volumn Weighted Average",
-    render: () => placeholderPane
+    render: props => {
+      const { stockData } = props;
+      return <PlaceholderPane stockData={stockData} />;
+    }
   },
   {
     menuItem: "Moving Average Convergence",
-    render: () => placeholderPane
+    render: props => {
+      const { stockData } = props;
+      return <PlaceholderPane stockData={stockData} />;
+    }
   },
   {
     menuItem: "Moving Average",
-    render: () => placeholderPane
+    render: props => {
+      const { stockData } = props;
+      return <PlaceholderPane stockData={stockData} />;
+    }
   }
 ];
 
@@ -242,7 +260,7 @@ export default class Reports extends React.Component {
       value,
       onChange: this.onChange
     };
-    const { match } = this.props;
+    const { match, stockData } = this.props;
 
     return (
       <Segment className="reportsContainer">
@@ -295,7 +313,7 @@ export default class Reports extends React.Component {
         >
           Search
         </Button>
-        <Tab className="chart" panes={panes} />
+        <Tab className="chart" panes={panes} stockData={stockData} />
       </Segment>
     );
   }

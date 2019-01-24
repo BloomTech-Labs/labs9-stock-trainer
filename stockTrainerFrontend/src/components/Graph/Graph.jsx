@@ -1,30 +1,31 @@
 import React from "react";
 import { Segment } from "semantic-ui-react";
-import { VictoryChart, VictoryLine } from "victory";
+import { VictoryChart, VictoryLine, VictoryAxis } from "victory";
 import "./Graph.css";
 
-// data should consist of an array of objects
-const testData = [
-  { date: "2015-12-07", close: "118.8" },
-  { date: "2015-12-08", close: "121.8" },
-  { date: "2015-12-09", close: "141.8" },
-  { date: "2015-12-10", close: "118.8" }
-];
-
-// currently throws some warnings about non-boolean attributes receiving boolean values, will need to fix
 class Graph extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { data: testData };
+    this.state = { data: [] };
   }
 
-  componentDidMount() {
-    this.convertData();
+  // componentDidMount() {
+  //   console.log(this.props);
+  //   this.convertData();
+  // }
+
+  componentWillReceiveProps(nextProps) {
+    const { stockData } = this.props;
+    if (nextProps.stockData !== stockData) {
+      this.convertData(nextProps.stockData);
+    }
   }
 
-  convertData = () => {
-    const { data } = this.state;
-    const dataCopy = JSON.parse(JSON.stringify(data));
+  convertData = data => {
+    console.log(Object.keys(data));
+    const key = Object.keys(data)[0];
+
+    const dataCopy = JSON.parse(JSON.stringify(data[key].data));
     const newData = dataCopy.map(dataPoint => ({
       date: new Date(dataPoint.date),
       close: Number(dataPoint.close)
@@ -54,6 +55,8 @@ class Graph extends React.Component {
               onLoad: { duration: 1000 }
             }}
           />
+          <VictoryAxis fixLabelOverlap />
+          <VictoryAxis dependentAxis />
         </VictoryChart>
       </Segment>
     );
