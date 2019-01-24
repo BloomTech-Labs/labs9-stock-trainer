@@ -79,7 +79,7 @@ class App extends Component {
         //   name: res.data.UserInfo
         // });
         this.setState({
-          favorites: res.data.portfolio // eslint-disable-line react/no-unused-state
+          favorites: res.data.favorites
         });
       })
       .catch(err => {
