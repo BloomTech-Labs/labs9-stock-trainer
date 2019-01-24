@@ -9,7 +9,7 @@ from decouple import config
 import json
 from rest_framework.decorators import api_view
 from . models import Test, Stock, User, Portfolio, Study
-from . serializers import TestSerializer
+from . serializers import TestSerializer, StudySerializer
 from rest_framework import generics
 from django.shortcuts import render
 
@@ -26,8 +26,9 @@ from rest_framework.views import APIView
 from .serializers import UserSerializer, UserSerializerWithToken
 
 
-
 stripe.api_key = settings.STRIPE_SECRET_TEST_KEY
+
+quandl.ApiConfig.api_key = config("QUANDL_API_KEY")
 
 
 class TestListCreate(generics.ListCreateAPIView):
@@ -49,7 +50,7 @@ def stock(request):
             'error': 'Please include stock symbol'
         })
 
-    #the "2018-01-01" is the default value if STARTDATE isn't set
+    # the "2018-01-01" is the default value if STARTDATE isn't set
     startDate = request.GET.get('STARTDATE', "2018-01-01"
                                 )
     try:
@@ -67,34 +68,50 @@ def stock(request):
             'error': 'Please include a valid date in the format YYYY-MM-DD'
         })
 
-    print(startDate,endDate)
-    #gets FIELDS, converts to uppercase, then splits into an array
+    # gets FIELDS, converts to uppercase, then splits into an array
     fields = request.GET.get('FIELDS', "Close").upper().split(',')
 
     # DL data from the Quandl API
-    quandl.ApiConfig.api_key = 'SX5vBsMh7ovP9Pyqp-w7'
+    quandl.ApiConfig.api_key = config('QUANDL_API_KEY')
     try:
         df = quandl.get(f"WIKI/{stockName}", start_date=startDate,
                         end_date=endDate)
     except:
-        #This might need to get changed to a more generic answer
-        print("Query error: please change your inputs (possibly invaild NAME, STARTDATE, ENDDATE) or check your API key.")
+        # This might need to get changed to a more generic answer
+        print("Query error: please change your inputs (possibly invaild NAME, STARTDATE, ENDDATE) or check your API "
+              "key.")
         return JsonResponse(status=500, data={
             'error': 'query error'
         })
-    #frustratingly enough is quandl doesn't have data due to something be impossible it won't error, it'll just return an empty dataframe. For example requesting google stock from 1999, before they went public. This won't pop if the dates are set wrong, but sometimes will if they're set to the same day.
+    # frustratingly enough is quandl doesn't have data due to something be impossible it won't error, it'll just
+    # return an empty dataframe. For example requesting google stock from 1999, before they went public. This won't
+    # pop if the dates are set wrong, but sometimes will if they're set to the same day.
     if df.empty:
         return JsonResponse(status=404, data={
-            'error': 'Data was not found for this stock, please verify that the dates and stock symbol are valid and try again'
+            'error': 'Data was not found for this stock, please verify that the dates and stock symbol are valid and '
+                     'try again '
         })
 
     returnObj = {'symbol': stockName, 'startDate': startDate,
                  'endDate': endDate, 'data': []}
 
-    #this moves the date from being a row key, to another column, then converts the whole dataframe to strings. Even all the numbers. This is to avoid problems with handling the date
+    # check if study exists in the database, if it does, then it returns the study
+    check_study = Study.objects.all().filter(stock_name=stockName, start_date=startDate, end_date=endDate)
+    if check_study:
+        temp = {}
+        for check_data in check_study.values("data"):
+            # json.loads allow for our data to be "unstringified" so we can return it as readable data
+            temp = json.loads(check_data['data'])
+        returnObj['data'] = temp
+        return JsonResponse(status=200, data=returnObj)
+
+    # this moves the date from being a row key, to another column, then converts the whole dataframe to strings. Even
+    # all the numbers. This is to avoid problems with handling the date
     df_r = df.reset_index().astype(str)
 
-    #this preps the return value by iterating over all the df rows then shoving them inside the data array in returnObj. I was unsure if I should use an object instead of an array but using a date as a key seemed much messier then letting an array preserve order
+    # this preps the return value by iterating over all the df rows then shoving them inside the data array in
+    # returnObj. I was unsure if I should use an object instead of an array but using a date as a key seemed much
+    # messier then letting an array preserve order
     for index, row in df_r.iterrows():
         rowObj = {'date': row['Date']}
 
@@ -124,6 +141,18 @@ def stock(request):
             rowObj['adjVolume'] = row['Adj. Volume']
 
         returnObj["data"].append(rowObj)
+
+    string_json = json.dumps(returnObj["data"])
+    stock = Stock.objects.all().filter(symbol=returnObj['symbol'])
+    if not stock:
+        stock = Stock(symbol=returnObj['symbol'])
+    stock.save()
+    # Data is being saved as a stringified json
+    new_study = Study(start_date=returnObj["startDate"], end_date=returnObj["endDate"], data=string_json)
+    new_study.save()
+    stock.study_set.add(new_study)
+
+    # TODO: Need to save study into user's portfolio when this route becomes protected.
 
     return JsonResponse(status=200, data=returnObj)
 
@@ -186,7 +215,6 @@ ADJf2GIoxF7DnNR95R10kbsaXdTPjpTkTcFlUesnp6RKyCfnGMZ8OOLs2IXciuZ1TXSbTM0SF8OUN0HE
 4F+ns512XwTiydvnnNdiros9K7SicOXf/gF2NoebrvjdVSuODC6LDdAgMBAAGjQjBAMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFBvMhts6Gw+hFLqujhfpAJCTcEBjMA4GA1UdDwEB/wQEAwIChDANBgkqhkiG9w0BAQsFAAOCAQEAuXpXc4yD7ugwSjYoWeSvMeKqIiWdp1jRlxl5FCjnwMIQPdoCTQKmSbLhnl7LSkuD87GO1HVw/vgL3njnKm8
 WPEEToVjaAN0lDkyGaEPeTfUc5fMhFJBdF1RdRwzSk8z9CN3hzTtUr9MOI+RKA2HyxWrX7qI8+NAne2DrPcFqSx42jhgh25s+af9LHpVHRIQBM6LiJr4Nrahf86BBocVfZN1W/COuev5I8cquZxh5Gd1KwHkZZPH3OqHfZmYkWgE8xi5M//p1ibRVUWo0H3nV+Ix1tSTc+kS1CZuUvds/BuNJFSe6KVoK8NPM5his2zbIOWD13PmkjcLnvTQlArodxw==
 -----END CERTIFICATE-----"""
-
 
 # @api_view(['GET'])
 def current_user(request):

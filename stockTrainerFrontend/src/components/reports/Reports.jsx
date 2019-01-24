@@ -5,6 +5,7 @@ import Autosuggest from "react-autosuggest";
 import stockSymbolList from "../../util/test.json";
 
 import Stock from "../stock/Stock";
+import Graph from "../Graph/Graph";
 
 const today = new Date().toISOString().substr(0, 10);
 const theme = {
@@ -81,7 +82,9 @@ const renderSuggestion = suggestion => (
 );
 const placeholderPane = (
   <Segment className="chartArea">
-    <Tab.Pane>Placeholder image</Tab.Pane>
+    <Tab.Pane>
+      <Graph />
+    </Tab.Pane>
   </Segment>
 );
 const panes = [
