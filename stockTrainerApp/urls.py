@@ -20,7 +20,7 @@ urlpatterns = [
     path('stock/', csrf_exempt(views.stock), name='stock'),
     path('api/testdata/', views.TestListCreate.as_view()),
     path('charge/', csrf_exempt(views.charge), name='charge'),  # for now, we're disabling csrf requirements for charging
-    path('add_favorite/', csrf_exempt(views.add_favorite), name='add_favorite')
+    path('favorite/', csrf_exempt(views.favorite), name='favorite')
 ]
  
  #################################

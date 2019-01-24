@@ -148,7 +148,7 @@ Example:
 }
 ```
 
-`/add_favorite/`
+`/favorite/`
 
 *POST*
 
@@ -179,6 +179,36 @@ Example:
     ]
 }
 ```
+
+*DELETE*
+
+##### Authentication
+
+The accessToken from the frontend should be attached as an authentication token. This
+will allow for our server to correctly identify the user, and delete the favorite from the
+user's favorite list. Make sure to attach the token to the header before making the request.
+
+##### Parameters
+
+The server is expecting a JSON body with a key of symbol. It should look like this:
+
+```
+{
+  "symbol": "AMZN"
+}
+```
+
+##### Return Format
+Data will be returned with a status code 200, in a json format.
+Example:
+```
+{
+    "favorites": [
+        "AAPL"
+    ]
+}
+```
+
 
 ### Code Style
 
