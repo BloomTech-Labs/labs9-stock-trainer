@@ -160,14 +160,19 @@ class App extends Component {
 
   favoriteToggle = stockSymbol => {
     const { auth } = this.props;
+    const { favorites } = this.state;
+    let way = "post";
     if (!auth.isAuthenticated()) {
       console.log("You gotta be logged in");
       return;
     }
+    if (favorites.find(x => x === stockSymbol)) {
+      way = "delete";
+    }
     axios
       .request({
-        method: "post",
-        baseURL: `${process.env.REACT_APP_BACKEND_URL}add_favorite/`,
+        method: way,
+        baseURL: `${process.env.REACT_APP_BACKEND_URL}favorite/`,
         headers: {
           Authorization: `Bearer ${auth.accessToken}`
         },
@@ -192,6 +197,10 @@ class App extends Component {
   render() {
     const { auth } = this.props;
     const { currentUser, signIn, stockData, favorites, modalOpen } = this.state;
+    console.log(!auth.isAuthenticated());
+    if (localStorage.getItem("isLoggedIn") && !auth.isAuthenticated()) {
+      auth.renewSession();
+    }
     return (
       <div className="App">
         <TopBar
