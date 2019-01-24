@@ -98,6 +98,7 @@ def stock(request):
     # check if study exists in the database, if it does, then it returns the study
     check_study = Study.objects.all().filter(stock_name=stockName, start_date=startDate, end_date=endDate)
     if check_study:
+        print('already here')
         temp = {}
         for check_data in check_study.values("data"):
             # json.loads allow for our data to be "unstringified" so we can return it as readable data
@@ -143,10 +144,10 @@ def stock(request):
         returnObj["data"].append(rowObj)
 
     string_json = json.dumps(returnObj["data"])
-    stock = Stock.objects.all().filter(symbol=returnObj['symbol'])
+    stock = Stock.objects.all().filter(symbol=returnObj['symbol']).first()
     if not stock:
         stock = Stock(symbol=returnObj['symbol'])
-    stock.save()
+        stock.save()
     # Data is being saved as a stringified json
     new_study = Study(start_date=returnObj["startDate"], end_date=returnObj["endDate"], data=string_json)
     new_study.save()
