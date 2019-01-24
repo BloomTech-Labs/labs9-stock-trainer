@@ -24,17 +24,25 @@
   justify-self: end;
 
 }
+.middleColumnInfobox {
+  grid-area: middleInfoColumn;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  height: 100%;
+  justify-self: center;
 
+}
 .stock {
   margin: .5em 0;
   display: grid;
   height: 100%;
   align-items: center;
   grid-row-gap: .5em;
-  grid-template-columns: 70% 30%;
+  grid-template-columns: 35% 35% 30%;
   grid-template-rows: 50% 50%;
   grid-template-areas:
-    "stockname favoriteStar"
-    "leftInfoColumn rightInfoColumn";
+    "stockname stockname favoriteStar"
+    "leftInfoColumn middleInfoColumn rightInfoColumn";
   grid-area: stock;
 }

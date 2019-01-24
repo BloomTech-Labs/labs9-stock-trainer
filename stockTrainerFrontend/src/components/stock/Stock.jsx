@@ -3,21 +3,43 @@ import { Icon } from "semantic-ui-react";
 import "./Stock.css";
 
 const Stock = props => {
-  const { name, symbol } = props;
+  // todo fix this mess
+  let { name, symbol, big, info } = props;
+  if (typeof info) {
+    info = {
+      startPrice: "",
+      endPrice: "",
+      volume: "",
+      days: 0,
+      change: 0,
+      changePercentage: 0
+    };
+  }
   return (
     <div className="stock">
-      <h3 className="stockName">
-        {name}
-        {symbol ? ` (${symbol})` : ""}
-      </h3>
+      {big ? (
+        <h1 className="stockName">
+          {name}
+          {symbol ? ` (${symbol})` : ""}
+        </h1>
+      ) : (
+        <h3 className="stockName">
+          {name}
+          {symbol ? ` (${symbol})` : ""}
+        </h3>
+      )}
       <Icon className="favoriteIcon" name="star outline" size="big" />
       <div className="leftColumnInfobox">
-        <div className="upperRowInfobox">Price: $148.40</div>
-        <div className="lowerRowInfobox">Volume: 43.28M</div>
+        <div className="upperRowInfobox">Start Price: {info.startPrice}</div>
+        <div className="lowerRowInfobox">Volume: {info.volume}</div>
+      </div>
+      <div className="middleColumnInfobox">
+        <div className="upperRowInfobox">End Price: {info.endPrice}</div>
+        <div className="lowerRowInfobox">Days Measured: {info.days}</div>
       </div>
       <div className="rightColumnInfobox">
-        <div className="upperRowInfobox">Change: 6.07</div>
-        <div className="lowerRowInfobox">Change %: +4.27</div>
+        <div className="upperRowInfobox">Change: {info.change}</div>
+        <div className="lowerRowInfobox">Change %: {info.changePercentage}</div>
       </div>
     </div>
   );

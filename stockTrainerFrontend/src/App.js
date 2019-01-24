@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
 import { Switch, Route, withRouter } from "react-router-dom";
+import { Button, Header, Icon, Modal } from "semantic-ui-react";
 
 import TopBar from "./components/topbar/TopBar";
 import NavBar from "./components/navbar/NavBar";
@@ -27,7 +28,8 @@ class App extends Component {
       currentUser: "",
       jwt: "TESTESTEST",
       stockData: {},
-      favorites: [] // eslint-disable-line react/no-unused-state
+      favorites: [],
+      modalOpen: false
     };
   }
 
@@ -84,10 +86,11 @@ class App extends Component {
       .catch(err => {
         // eslint-disable-next-line no-console
         console.log(err); // for errors
+        this.handleOpen();
       });
   };
 
-  retrieveStock = (nameOfStock, startDate, endDate, fields) => {
+  retrieveStock = async (nameOfStock, startDate, endDate, fields) => {
     // this jwt is not actually where this is stored, it's a placeholder
     const { jwt, stockData } = this.state;
     // setting up for what we're grabbing from the backend, the ifs make it so those are optional. Defaults on the backend are currently 01-01-18 for date, and closing price
@@ -103,7 +106,7 @@ class App extends Component {
     if (fields) {
       paramSettings.FIELDS = fields;
     }
-    axios
+    return axios
       .request({
         method: "get",
         baseURL: `${process.env.REACT_APP_BACKEND_URL}stock/`,
@@ -145,15 +148,23 @@ class App extends Component {
         this.setState({
           stockData: newState
         });
+        return res;
       })
       .catch(err => {
+        // this is a new error message that pops up on failure
+        this.handleOpen();
+
         console.log(err);
       });
   };
 
+  handleOpen = () => this.setState({ modalOpen: true });
+
+  handleClose = () => this.setState({ modalOpen: false });
+
   render() {
     const { auth } = this.props;
-    const { currentUser, signIn, stockData, favorites } = this.state;
+    const { currentUser, signIn, stockData, favorites, modalOpen } = this.state;
     return (
       <div className="App">
         <TopBar
@@ -195,11 +206,15 @@ class App extends Component {
           />
           <Route
             exact
-            path="/reports"
+            path="/reports/:stockSymbol?"
             render={props => (
               <div className="lowerPageLayout">
                 <NavBar {...props} />
-                <Reports />
+                <Reports
+                  retrieveStock={this.retrieveStock}
+                  stockData={stockData}
+                  {...props}
+                />
               </div>
             )}
           />
@@ -251,6 +266,17 @@ class App extends Component {
             )}
           />
         </Switch>
+        <Modal open={modalOpen} onClose={this.handleClose}>
+          <Header icon="browser" content="Error" />
+          <Modal.Content>
+            <h3>Unable to get requested data</h3>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color="green" onClick={this.handleClose} inverted>
+              <Icon name="checkmark" /> Ok
+            </Button>
+          </Modal.Actions>
+        </Modal>
       </div>
     );
   }
