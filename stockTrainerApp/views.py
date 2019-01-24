@@ -158,31 +158,45 @@ def stock(request):
     return JsonResponse(status=200, data=returnObj)
 
 
-def add_favorite(request):
-    # should be post request, body should have stock symbol and stock name
-    # i.e. {symbol: "AMZN", name:"Amazon"}
-    if request.method != 'POST':
-        return JsonResponse(status=405, data={
-            'error': 'Please use a post request'
-        })
+def favorite(request):
+    # this route must have an access token attached
+    if request.method == 'POST':
+        # body should have stock symbol
+        # i.e. {symbol: "AMZN"}
+        username = get_username(request)
+        body = json.loads(request.body)
 
-    username = get_username(request)
-    body = json.loads(request.body)
+        # user is found, and then stock is added to favorite
+        user = User.objects.all().filter(username=username).first()
+        stock = Stock.objects.all().filter(symbol=body.get('symbol')).first()
+        if not stock:
+            # if stock doesn't exist in DB, creates one
+            stock = Stock(symbol=body.get('symbol'))
+            stock.save()
+        user.favorites.add(stock)
+        user = User.objects.all().filter(username=username)
+        fav_ret = []
+        for fav in list(user.values('favorites')):
+            if fav['favorites'] is not None:
+                fav_ret.append(fav['favorites'])
+        return JsonResponse(status=200, data={'favorites': fav_ret})
 
-    # user is found, and then stock is added to favorite
-    user = User.objects.all().filter(username=username).first()
-    stock = Stock.objects.all().filter(symbol=body.get('symbol')).first()
-    if not stock:
-        # if stock doesn't exist in DB, creates one
-        stock = Stock(symbol=body.get('symbol'))
-        stock.save()
-    user.favorites.add(stock)
-    user = User.objects.all().filter(username=username)
-    fav_ret = []
-    for fav in list(user.values('favorites')):
-        if fav['favorites'] is not None:
-            fav_ret.append(fav['favorites'])
-    return JsonResponse(status=200, data={'favorites': fav_ret})
+    if request.method == 'DELETE':
+        # body should contain stock symbol
+        # i.e. {symbol: "AMZN"}
+        username = get_username(request)
+        body = json.loads(request.body)
+        if not body.get('symbol'):
+            return JsonResponse(status=400, data={'message': 'Please check if the stock symbol is in the request body'})
+        user = User.objects.all().filter(username=username).first()
+        stock = Stock.objects.all().filter(symbol=body.get('symbol')).first()
+        user.favorites.remove(stock)
+        user = User.objects.all().filter(username=username)
+        fav_ret = []
+        for fav in list(user.values('favorites')):
+            if fav['favorites'] is not None:
+                fav_ret.append(fav['favorites'])
+        return JsonResponse(status=200, data={'favorites': fav_ret})
 
 
 class HomePageView(TemplateView):
