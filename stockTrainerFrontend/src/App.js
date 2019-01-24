@@ -197,10 +197,11 @@ class App extends Component {
   render() {
     const { auth } = this.props;
     const { currentUser, signIn, stockData, favorites, modalOpen } = this.state;
-    console.log(!auth.isAuthenticated());
-    if (localStorage.getItem("isLoggedIn") && !auth.isAuthenticated()) {
-      auth.renewSession();
-    }
+    // this is what we use for refresh relogin, debug later
+    // console.log(!auth.isAuthenticated());
+    // if (localStorage.getItem("isLoggedIn") && !auth.isAuthenticated()) {
+    //   auth.renewSession();
+    // }
     return (
       <div className="App">
         <TopBar
