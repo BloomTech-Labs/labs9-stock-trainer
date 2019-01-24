@@ -174,12 +174,8 @@ Example:
 ```
 {
     "favorites": [
-        {
-            "favorites": "AAPL"
-        },
-        {
-            "favorites": "AMZN"
-        }
+        "AAPL",
+        "AMZN"
     ]
 }
 ```
