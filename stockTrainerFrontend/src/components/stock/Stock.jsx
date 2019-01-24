@@ -3,7 +3,7 @@ import { Icon } from "semantic-ui-react";
 import "./Stock.css";
 
 const Stock = props => {
-  const { name, symbol, big } = props;
+  const { name, symbol, big, info } = props;
   return (
     <div className="stock">
       {big ? (
@@ -19,12 +19,12 @@ const Stock = props => {
       )}
       <Icon className="favoriteIcon" name="star outline" size="big" />
       <div className="leftColumnInfobox">
-        <div className="upperRowInfobox">Price: $148.40</div>
-        <div className="lowerRowInfobox">Volume: 43.28M</div>
+        <div className="upperRowInfobox">Price: {info.price}</div>
+        <div className="lowerRowInfobox">Volume: {info.volume}</div>
       </div>
       <div className="rightColumnInfobox">
-        <div className="upperRowInfobox">Change: 6.07</div>
-        <div className="lowerRowInfobox">Change %: +4.27</div>
+        <div className="upperRowInfobox">Change: {info.change}</div>
+        <div className="lowerRowInfobox">Change %: {info.changePercentage}</div>
       </div>
     </div>
   );

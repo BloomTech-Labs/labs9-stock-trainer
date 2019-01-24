@@ -105,7 +105,7 @@ class App extends Component {
     if (fields) {
       paramSettings.FIELDS = fields;
     }
-     return axios
+    return axios
       .request({
         method: "get",
         baseURL: `${process.env.REACT_APP_BACKEND_URL}stock/`,
@@ -148,7 +148,6 @@ class App extends Component {
           stockData: newState
         });
         return res;
-
       })
       .catch(err => {
         this.handleOpen();

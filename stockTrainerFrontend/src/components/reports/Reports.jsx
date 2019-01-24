@@ -116,7 +116,8 @@ export default class Reports extends React.Component {
       suggestions: [],
       startDate: today,
       endDate: today,
-      stockName: "Enter Stock"
+      stockName: "Enter Stock",
+      stockCardInfo: {}
     };
   }
 
@@ -166,16 +167,40 @@ export default class Reports extends React.Component {
     if (value === "") {
       return;
     }
+    if (!this.checkSymbol(value)) {
+      return;
+    }
     history.push(`/reports/${value}`);
     // need to make this a promise some how
 
-    const test = await retrieveStock(value, startDate, endDate, "volume,close");
-    console.log(test);
+    retrieveStock(value, startDate, endDate, "volume,close");
+    // .then(r=>
+    //   // this.useGottenData()
+    // );
   };
 
-  useGottenData = () => {
+  componentWillReceiveProps(nextProps) {
     const { stockData } = this.props;
-    console.log(stockData);
+    if (nextProps.stockData !== stockData) {
+      this.useGottenData(nextProps.stockData);
+    }
+  }
+
+  useGottenData = stockData => {
+    const { value } = this.state;
+    const dataArr = stockData[value].data;
+    const last = parseFloat(dataArr[dataArr.length - 1].close);
+    const changeCalc = last - parseFloat(dataArr[0].close);
+    const changePerc = (changeCalc / parseFloat(dataArr[0].close)) * 100;
+    const newCard = {
+      price: last,
+      volume: parseFloat(dataArr[dataArr.length - 1].volume),
+      changePercentage: changePerc.toFixed(2),
+      change: changeCalc.toFixed(2)
+    };
+    this.setState({
+      stockCardInfo: newCard
+    });
   };
 
   dateChange = e => {
@@ -186,7 +211,14 @@ export default class Reports extends React.Component {
   };
 
   render() {
-    const { value, suggestions, startDate, endDate, stockName } = this.state;
+    const {
+      value,
+      suggestions,
+      startDate,
+      endDate,
+      stockName,
+      stockCardInfo
+    } = this.state;
     const inputProps = {
       placeholder: "Search for a Stock",
       value,
@@ -196,7 +228,12 @@ export default class Reports extends React.Component {
 
     return (
       <Segment className="reportsContainer">
-        <Stock big symbol={match.params.stockSymbol} name={stockName} />
+        <Stock
+          big
+          symbol={match.params.stockSymbol}
+          name={stockName}
+          info={stockCardInfo}
+        />
         <div className="reportsSearch">
           <Autosuggest
             suggestions={suggestions}
