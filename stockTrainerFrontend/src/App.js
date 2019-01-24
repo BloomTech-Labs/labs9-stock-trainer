@@ -27,7 +27,7 @@ class App extends Component {
       signIn: false,
       currentUser: "",
       stockData: {},
-      favorites: [""],
+      favorites: [],
       modalOpen: false
     };
   }

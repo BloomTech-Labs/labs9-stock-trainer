@@ -17,6 +17,7 @@ const Stock = props => {
       changePercentage: 0
     };
   }
+
   if (favorites.find(x => x === symbol)) {
     isFavorite = "star";
   }
