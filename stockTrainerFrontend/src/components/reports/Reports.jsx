@@ -121,6 +121,13 @@ export default class Reports extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { stockData } = this.props;
+    if (nextProps.stockData !== stockData) {
+      this.useGottenData(nextProps.stockData);
+    }
+  }
+
   componentDidMount = () => {
     const { match, history } = this.props;
 
@@ -179,21 +186,17 @@ export default class Reports extends React.Component {
     // );
   };
 
-  componentWillReceiveProps(nextProps) {
-    const { stockData } = this.props;
-    if (nextProps.stockData !== stockData) {
-      this.useGottenData(nextProps.stockData);
-    }
-  }
-
   useGottenData = stockData => {
     const { value } = this.state;
     const dataArr = stockData[value].data;
     const last = parseFloat(dataArr[dataArr.length - 1].close);
-    const changeCalc = last - parseFloat(dataArr[0].close);
-    const changePerc = (changeCalc / parseFloat(dataArr[0].close)) * 100;
+    const first = parseFloat(dataArr[0].close);
+    const changeCalc = last - first;
+    const changePerc = (changeCalc / first) * 100;
     const newCard = {
-      price: last,
+      endPrice: last,
+      startPrice: first,
+      days: dataArr.length,
       volume: parseFloat(dataArr[dataArr.length - 1].volume),
       changePercentage: changePerc.toFixed(2),
       change: changeCalc.toFixed(2)

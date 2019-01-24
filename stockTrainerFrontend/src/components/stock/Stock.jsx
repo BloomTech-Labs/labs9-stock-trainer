@@ -19,8 +19,12 @@ const Stock = props => {
       )}
       <Icon className="favoriteIcon" name="star outline" size="big" />
       <div className="leftColumnInfobox">
-        <div className="upperRowInfobox">Price: {info.price}</div>
+        <div className="upperRowInfobox">Start Price: {info.startPrice}</div>
         <div className="lowerRowInfobox">Volume: {info.volume}</div>
+      </div>
+      <div className="middleColumnInfobox">
+        <div className="upperRowInfobox">End Price: {info.endPrice}</div>
+        <div className="lowerRowInfobox">Days Measured: {info.days}</div>
       </div>
       <div className="rightColumnInfobox">
         <div className="upperRowInfobox">Change: {info.change}</div>
