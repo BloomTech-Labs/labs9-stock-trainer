@@ -26,7 +26,6 @@ class App extends Component {
     this.state = {
       signIn: false,
       currentUser: "",
-      jwt: "TESTESTEST",
       stockData: {},
       favorites: [""],
       modalOpen: false
