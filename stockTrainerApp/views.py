@@ -177,7 +177,10 @@ def add_favorite(request):
         stock.save()
     user.favorites.add(stock)
     user = User.objects.all().filter(username=username)
-    return JsonResponse(status=200, data={'favorites': list(user.values('favorites'))})
+    fav_ret = []
+    for fav in list(user.values('favorites')):
+        fav_ret.append(fav['favorites'])
+    return JsonResponse(status=200, data={'favorites': fav_ret})
 
 
 class HomePageView(TemplateView):
@@ -251,11 +254,12 @@ def current_user(request):
     if user:
         portfolio_id_dict = user.values('portfolio_id_id').first()
         portfolio_id = portfolio_id_dict.get('portfolio_id_id')
-        print(portfolio_id)
         studies = Study.objects.all().filter(portfolio_id=portfolio_id).values()
         favorites = list(user.values('favorites'))
-        # currently the favorites return is kinda janky... but it works...
-        return JsonResponse({'portfolio': list(studies), 'favorites': list(favorites)})
+        fav_ret = []
+        for fav in favorites:
+            fav_ret.append(fav['favorites'])
+        return JsonResponse({'portfolio': list(studies), 'favorites': fav_ret})
     else:
         # creates new user and portfolio if user does not exist.
         new_user = User.objects.create_user(username=username)
