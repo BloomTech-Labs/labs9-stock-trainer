@@ -91,8 +91,9 @@ class App extends Component {
   };
 
   retrieveStock = async (nameOfStock, startDate, endDate, fields) => {
-    // this jwt is not actually where this is stored, it's a placeholder
-    const { jwt, stockData } = this.state;
+    const { stockData } = this.state;
+    const { auth } = this.props;
+
     // setting up for what we're grabbing from the backend, the ifs make it so those are optional. Defaults on the backend are currently 01-01-18 for date, and closing price
     const paramSettings = {
       NAME: nameOfStock
@@ -111,7 +112,7 @@ class App extends Component {
         method: "get",
         baseURL: `${process.env.REACT_APP_BACKEND_URL}stock/`,
         headers: {
-          Authorization: `Bearer ${jwt}`
+          Authorization: `Bearer ${auth.accessToken}`
         },
         params: paramSettings
       })
@@ -155,6 +156,33 @@ class App extends Component {
         this.handleOpen();
 
         console.log(err);
+      });
+  };
+
+  favoriteToggle = stockSymbol => {
+    const { auth } = this.props;
+    if (!auth.isAuthenticated()) {
+      console.log("You gotta be logged in");
+      return;
+    }
+    axios
+      .request({
+        method: "post",
+        baseURL: `${process.env.REACT_APP_BACKEND_URL}add_favorite/`,
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`
+        },
+        data: { symbol: stockSymbol }
+      })
+      .then(res => {
+        this.setState({
+          favorites: res.data.favorites
+        });
+      })
+      .catch(err => {
+        // eslint-disable-next-line no-console
+        console.log(err); // for errors
+        // this.handleOpen();
       });
   };
 
@@ -211,6 +239,7 @@ class App extends Component {
               <div className="lowerPageLayout">
                 <NavBar {...props} />
                 <Reports
+                  favoriteToggle={this.favoriteToggle}
                   retrieveStock={this.retrieveStock}
                   stockData={stockData}
                   favorites={favorites}
@@ -225,7 +254,10 @@ class App extends Component {
             render={props => (
               <div className="lowerPageLayout">
                 <NavBar {...props} />
-                <Dashboard favorites={favorites} />
+                <Dashboard
+                  favoriteToggle={this.favoriteToggle}
+                  favorites={favorites}
+                />
               </div>
             )}
           />

@@ -242,7 +242,7 @@ export default class Reports extends React.Component {
       value,
       onChange: this.onChange
     };
-    const { match, favotrites } = this.props;
+    const { match, favotrites, favoriteToggle } = this.props;
 
     return (
       <Segment className="reportsContainer">
@@ -252,6 +252,7 @@ export default class Reports extends React.Component {
           name={stockName}
           info={stockCardInfo}
           favorites={favotrites}
+          favoriteToggle={favoriteToggle}
         />
         <div className="reportsSearch">
           <Autosuggest

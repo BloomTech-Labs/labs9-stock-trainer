@@ -4,7 +4,7 @@ import "./Stock.css";
 
 const Stock = props => {
   // todo fix this mess
-  const { name, symbol, big, favorites } = props;
+  const { name, symbol, big, favorites, favoriteToggle } = props;
   let { info } = props;
   let isFavorite = "star outline";
   if (typeof info) {
@@ -33,7 +33,12 @@ const Stock = props => {
           {symbol ? ` (${symbol})` : ""}
         </h3>
       )}
-      <Icon className="favoriteIcon" name={isFavorite} size="big" />
+      <Icon
+        className="favoriteIcon"
+        name={isFavorite}
+        size="big"
+        onClick={symbol ? () => favoriteToggle(symbol) : () => {}}
+      />
       <div className="leftColumnInfobox">
         <div className="upperRowInfobox">Start Price: {info.startPrice}</div>
         <div className="lowerRowInfobox">Volume: {info.volume}</div>
