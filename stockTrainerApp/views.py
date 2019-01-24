@@ -173,11 +173,11 @@ def add_favorite(request):
     stock = Stock.objects.all().filter(symbol=body.get('symbol')).first()
     if not stock:
         # if stock doesn't exist in DB, creates one
-        stock = Stock(symbol=body.get('symbol'), name=body.get('name'))
+        stock = Stock(symbol=body.get('symbol'))
         stock.save()
     user.favorites.add(stock)
-
-    return JsonResponse(status=200, data={'message': 'success'})
+    user = User.objects.all().filter(username=username)
+    return JsonResponse(status=200, data={'favorites': list(user.values('favorites'))})
 
 
 class HomePageView(TemplateView):
