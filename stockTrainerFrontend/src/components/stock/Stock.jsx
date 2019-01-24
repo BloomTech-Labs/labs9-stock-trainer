@@ -7,7 +7,7 @@ const Stock = props => {
   const { name, symbol, big, favorites, favoriteToggle } = props;
   let { info } = props;
   let isFavorite = "star outline";
-  if (typeof info) {
+  if (typeof info === "undefined") {
     info = {
       startPrice: "",
       endPrice: "",
