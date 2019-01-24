@@ -6,7 +6,7 @@ import Favorites from "../favorites/Favorites";
 import companyList from "../../util/test.json";
 
 const Dashboard = props => {
-  const { data } = props;
+  const { favorites } = props;
   return (
     <div className="gridContainer">
       <Segment>
@@ -15,13 +15,18 @@ const Dashboard = props => {
       <Segment className="userStocks">
         <Favorites
           title="Favorites"
+          favorites={favorites}
           data={Array.from({ length: 100 }, () => ({
             name: Math.floor(Math.random() * 1000)
           }))}
         />
       </Segment>
       <Segment className="leftColumn">
-        <Favorites title="Stock Ticker" data={companyList} />
+        <Favorites
+          favorites={favorites}
+          title="Stock Ticker"
+          data={companyList}
+        />
       </Segment>
     </div>
   );

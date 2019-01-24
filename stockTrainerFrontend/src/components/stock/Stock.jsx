@@ -4,7 +4,9 @@ import "./Stock.css";
 
 const Stock = props => {
   // todo fix this mess
-  let { name, symbol, big, info } = props;
+  const { name, symbol, big, favorites } = props;
+  let { info } = props;
+  let isFavorite = "star outline";
   if (typeof info) {
     info = {
       startPrice: "",
@@ -14,6 +16,9 @@ const Stock = props => {
       change: 0,
       changePercentage: 0
     };
+  }
+  if (favorites.find(x => x === symbol)) {
+    isFavorite = "star";
   }
   return (
     <div className="stock">
@@ -28,7 +33,7 @@ const Stock = props => {
           {symbol ? ` (${symbol})` : ""}
         </h3>
       )}
-      <Icon className="favoriteIcon" name="star outline" size="big" />
+      <Icon className="favoriteIcon" name={isFavorite} size="big" />
       <div className="leftColumnInfobox">
         <div className="upperRowInfobox">Start Price: {info.startPrice}</div>
         <div className="lowerRowInfobox">Volume: {info.volume}</div>

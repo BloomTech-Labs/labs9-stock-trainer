@@ -28,7 +28,7 @@ class App extends Component {
       currentUser: "",
       jwt: "TESTESTEST",
       stockData: {},
-      favorites: [],
+      favorites: [""],
       modalOpen: false
     };
   }
@@ -213,6 +213,7 @@ class App extends Component {
                 <Reports
                   retrieveStock={this.retrieveStock}
                   stockData={stockData}
+                  favorites={favorites}
                   {...props}
                 />
               </div>

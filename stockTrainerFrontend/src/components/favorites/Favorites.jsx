@@ -63,7 +63,7 @@ class Favorites extends React.Component {
   };
 
   render() {
-    const { title } = this.props;
+    const { title, favorites } = this.props;
     const { items, showLoad, searchText } = this.state;
     return (
       <div className="favoritesHolder">
@@ -85,7 +85,7 @@ class Favorites extends React.Component {
           <List className="helpSearch" divided>
             {items.map(e => (
               <List.Item key={`${e.symbol}${e.name}`} className="favoritesItem">
-                <Stock symbol={e.symbol} name={e.name} />
+                <Stock favorites={favorites} symbol={e.symbol} name={e.name} />
               </List.Item>
             ))}
             {showLoad ? (
