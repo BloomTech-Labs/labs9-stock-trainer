@@ -3,7 +3,18 @@ import { Icon } from "semantic-ui-react";
 import "./Stock.css";
 
 const Stock = props => {
-  const { name, symbol, big, info } = props;
+  // todo fix this mess
+  let { name, symbol, big, info } = props;
+  if (typeof info) {
+    info = {
+      startPrice: "",
+      endPrice: "",
+      volume: "",
+      days: 0,
+      change: 0,
+      changePercentage: 0
+    };
+  }
   return (
     <div className="stock">
       {big ? (
