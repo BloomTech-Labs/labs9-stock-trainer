@@ -157,6 +157,29 @@ def stock(request):
     return JsonResponse(status=200, data=returnObj)
 
 
+def add_favorite(request):
+    # should be post request, body should have stock symbol and stock name
+    # i.e. {symbol: "AMZN", name:"Amazon"}
+    if request.method != 'POST':
+        return JsonResponse(status=405, data={
+            'error': 'Please use a post request'
+        })
+
+    username = get_username(request)
+    body = json.loads(request.body)
+
+    # user is found, and then stock is added to favorite
+    user = User.objects.all().filter(username=username).first()
+    stock = Stock.objects.all().filter(symbol=body.get('symbol')).first()
+    if not stock:
+        # if stock doesn't exist in DB, creates one
+        stock = Stock(symbol=body.get('symbol'))
+        stock.save()
+    user.favorites.add(stock)
+    user = User.objects.all().filter(username=username)
+    return JsonResponse(status=200, data={'favorites': list(user.values('favorites'))})
+
+
 class HomePageView(TemplateView):
     template_name = 'index.html'
 
@@ -226,14 +249,13 @@ def current_user(request):
     user = User.objects.all().filter(username=username)
     # Can DRY this up probably
     if user:
-        portfolio_id_iter = user.values('portfolio_id_id')
-        portfolio_id = 0
-        for portfolio in portfolio_id_iter:
-            portfolio_id = portfolio.get('portfolio_id_id')
+        portfolio_id_dict = user.values('portfolio_id_id').first()
+        portfolio_id = portfolio_id_dict.get('portfolio_id_id')
         print(portfolio_id)
         studies = Study.objects.all().filter(portfolio_id=portfolio_id).values()
-        print(studies)
-        return JsonResponse({'portfolio': list(studies)})
+        favorites = list(user.values('favorites'))
+        # currently the favorites return is kinda janky... but it works...
+        return JsonResponse({'portfolio': list(studies), 'favorites': list(favorites)})
     else:
         # creates new user and portfolio if user does not exist.
         new_user = User.objects.create_user(username=username)
@@ -249,7 +271,7 @@ def current_user(request):
         for portfolio in portfolio_id_iter:
             portfolio_id = portfolio.get('portfolio_id_id')
         studies = Study.objects.all().filter(portfolio_id=portfolio_id).values()
-        return JsonResponse({'portfolio': list(studies)})
+        return JsonResponse({'portfolio': list(studies), 'favorites': []})
 
 
 class UserList(APIView):

@@ -7,6 +7,7 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     portfolio_id = models.ForeignKey('Portfolio', on_delete=models.CASCADE, null=True)
     premium = models.BooleanField(default=False)
+    favorites = models.ManyToManyField('Stock')
     
 
 class Study(models.Model):

@@ -148,6 +148,41 @@ Example:
 }
 ```
 
+`/add_favorite/`
+
+*POST*
+
+##### Authentication
+
+The accessToken from the frontend should be attached as an authentication token. This
+will allow for our server to correctly identify the user, and add the favorite to the
+user. Make sure to attach the token to the header before making the request.
+
+##### Parameters
+
+The server is expecting a JSON body with a key of symbol. It should look like this:
+
+```
+{
+  "symbol": "AMZN"
+}
+```
+
+##### Return Format
+Data will be returned with a status code 200, in a json format.
+Example:
+```
+{
+    "favorites": [
+        {
+            "favorites": "AAPL"
+        },
+        {
+            "favorites": "AMZN"
+        }
+    ]
+}
+```
 
 ### Code Style
 
