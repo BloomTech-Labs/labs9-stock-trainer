@@ -6,7 +6,26 @@ import Favorites from "../favorites/Favorites";
 import companyList from "../../util/test.json";
 
 const Dashboard = props => {
-  const { data } = props;
+  const { favorites, favoriteToggle } = props;
+  const favoriteObj = favorites
+    .map(e => {
+      {
+        const newObj = {
+          symbol: e,
+          name: companyList.find(x => x.symbol === e).name
+        };
+        return newObj;
+      }
+    }) // this sort makes it the same order as the other list
+    .sort((a, b) => {
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    });
   return (
     <div className="gridContainer">
       <Segment>
@@ -15,13 +34,18 @@ const Dashboard = props => {
       <Segment className="userStocks">
         <Favorites
           title="Favorites"
-          data={Array.from({ length: 100 }, () => ({
-            name: Math.floor(Math.random() * 1000)
-          }))}
+          favorites={favorites}
+          favoriteToggle={favoriteToggle}
+          data={favoriteObj}
         />
       </Segment>
       <Segment className="leftColumn">
-        <Favorites title="Stock Ticker" data={companyList} />
+        <Favorites
+          favoriteToggle={favoriteToggle}
+          favorites={favorites}
+          title="Stock Ticker"
+          data={companyList}
+        />
       </Segment>
     </div>
   );
