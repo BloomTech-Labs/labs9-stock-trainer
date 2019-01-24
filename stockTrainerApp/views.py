@@ -157,6 +157,29 @@ def stock(request):
     return JsonResponse(status=200, data=returnObj)
 
 
+def add_favorite(request):
+    # should be post request, body should have stock symbol and stock name
+    # i.e. {symbol: "AMZN", name:"Amazon"}
+    if request.method != 'POST':
+        return JsonResponse(status=405, data={
+            'error': 'Please use a post request'
+        })
+
+    username = get_username(request)
+    body = json.loads(request.body)
+
+    # user is found, and then stock is added to favorite
+    user = User.objects.all().filter(username=username).first()
+    stock = Stock.objects.all().filter(symbol=body.get('symbol')).first()
+    if not stock:
+        # if stock doesn't exist in DB, creates one
+        stock = Stock(symbol=body.get('symbol'), name=body.get('name'))
+        stock.save()
+    user.favorites.add(stock)
+
+    return JsonResponse(status=200, data={'message': 'success'})
+
+
 class HomePageView(TemplateView):
     template_name = 'index.html'
 
