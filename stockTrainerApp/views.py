@@ -198,6 +198,8 @@ def favorite(request):
                 fav_ret.append(fav['favorites'])
         return JsonResponse(status=200, data={'favorites': fav_ret})
 
+    return JsonResponse(status=404, data={'message': 'Please use a POST or DELETE request.'})
+
 
 class HomePageView(TemplateView):
     template_name = 'index.html'
