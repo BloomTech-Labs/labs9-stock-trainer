@@ -43,7 +43,7 @@ class Graph extends React.Component {
         <VictoryChart scale={{ x: "time" }}>
           <VictoryLine
             style={{
-              data: { stroke: "#0984e3" }, // color of the stroke
+              data: { stroke: "#00b894" }, // color of the stroke
               parent: { border: "1px solid #ccc" }
             }}
             data={data}
@@ -55,8 +55,22 @@ class Graph extends React.Component {
               onLoad: { duration: 1000 }
             }}
           />
-          <VictoryAxis fixLabelOverlap />
-          <VictoryAxis dependentAxis />
+          <VictoryAxis
+            fixLabelOverlap
+            label="Date"
+            style={{
+              axisLabel: { padding: 30 },
+              tickLabels: { fontSize: 15, padding: 5 }
+            }}
+          />
+          <VictoryAxis
+            dependentAxis
+            label="Closing Price (USD)"
+            style={{
+              axisLabel: { display: "block", padding: 35 },
+              tickLabels: { fontSize: 15, padding: 5 }
+            }}
+          />
         </VictoryChart>
       </Segment>
     );

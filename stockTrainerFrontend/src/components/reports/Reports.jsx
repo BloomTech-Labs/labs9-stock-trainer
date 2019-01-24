@@ -87,47 +87,45 @@ const renderSuggestion = suggestion => (
 const PlaceholderPane = props => {
   const { stockData } = props;
   return (
-    <Segment className="chartArea">
-      <Tab.Pane>
-        <Graph stockData={stockData} />
-      </Tab.Pane>
-    </Segment>
+    <Tab.Pane className="chartArea">
+      <Graph stockData={stockData} />
+    </Tab.Pane>
   );
 };
 const panes = [
   {
     menuItem: "Price",
     render: props => {
-      const { stockData } = props;
-      return <PlaceholderPane stockData={stockData} />;
+      const { stockdata } = props;
+      return <PlaceholderPane stockData={stockdata} />;
     }
   },
   {
     menuItem: "Average True Range",
     render: props => {
-      const { stockData } = props;
-      return <PlaceholderPane stockData={stockData} />;
+      const { stockdata } = props;
+      return <PlaceholderPane stockData={stockdata} />;
     }
   },
   {
     menuItem: "Volumn Weighted Average",
     render: props => {
-      const { stockData } = props;
-      return <PlaceholderPane stockData={stockData} />;
+      const { stockdata } = props;
+      return <PlaceholderPane stockData={stockdata} />;
     }
   },
   {
     menuItem: "Moving Average Convergence",
     render: props => {
-      const { stockData } = props;
-      return <PlaceholderPane stockData={stockData} />;
+      const { stockdata } = props;
+      return <PlaceholderPane stockData={stockdata} />;
     }
   },
   {
     menuItem: "Moving Average",
     render: props => {
-      const { stockData } = props;
-      return <PlaceholderPane stockData={stockData} />;
+      const { stockdata } = props;
+      return <PlaceholderPane stockData={stockdata} />;
     }
   }
 ];
@@ -313,7 +311,7 @@ export default class Reports extends React.Component {
         >
           Search
         </Button>
-        <Tab className="chart" panes={panes} stockData={stockData} />
+        <Tab className="chart" panes={panes} stockdata={stockData} />
       </Segment>
     );
   }
