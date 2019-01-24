@@ -243,7 +243,6 @@ export default class Reports extends React.Component {
       onChange: this.onChange
     };
     const { match, favorites, favoriteToggle } = this.props;
-    console.log(favorites);
     return (
       <Segment className="reportsContainer">
         <Stock
