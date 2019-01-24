@@ -151,6 +151,7 @@ class App extends Component {
         return res;
       })
       .catch(err => {
+        // this is a new error message that pops up on failure
         this.handleOpen();
 
         console.log(err);
