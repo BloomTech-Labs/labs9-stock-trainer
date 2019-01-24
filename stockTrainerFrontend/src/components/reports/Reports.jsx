@@ -7,7 +7,10 @@ import stockSymbolList from "../../util/test.json";
 import Stock from "../stock/Stock";
 import Graph from "../Graph/Graph";
 
+// used for default values on the date select
 const today = new Date().toISOString().substr(0, 10);
+
+// css for the suggest menu. There might be a way to move thise to the css file, look into that
 const theme = {
   container: {
     height: "90%",
@@ -80,6 +83,7 @@ const renderSuggestion = suggestion => (
     {suggestion.name} - <strong>{suggestion.symbol}</strong>
   </div>
 );
+// format for panes, look into seperate component?
 const placeholderPane = (
   <Segment className="chartArea">
     <Tab.Pane>
@@ -113,7 +117,7 @@ const panes = [
 export default class Reports extends React.Component {
   constructor(props) {
     super(props);
-
+    // value should always have the stock symbol currently working, stockName is the name of the company not the symbol, stockCard info is all other other stuff on there
     this.state = {
       value: "",
       suggestions: [],
@@ -124,6 +128,7 @@ export default class Reports extends React.Component {
     };
   }
 
+  // this is dealing with an async axios request
   componentWillReceiveProps(nextProps) {
     const { stockData } = this.props;
     if (nextProps.stockData !== stockData) {
@@ -131,6 +136,7 @@ export default class Reports extends React.Component {
     }
   }
 
+  // this is so if you go straight to /aapl it'll just pull up the defaults for it. It also has a bunch of checking and stuff
   componentDidMount = () => {
     const { match, history } = this.props;
 
@@ -149,9 +155,11 @@ export default class Reports extends React.Component {
     }
   };
 
+  // ensures the symbol is a valid one
   checkSymbol = symbolToFind =>
     stockSymbolList.find(x => x.symbol === symbolToFind);
 
+  // only used for the search box
   onChange = (event, { newValue }) => {
     this.setState({
       value: newValue
@@ -171,6 +179,7 @@ export default class Reports extends React.Component {
     });
   };
 
+  // this is what runs when you hit the search button
   searchStock = async () => {
     const { value, startDate, endDate } = this.state;
     const { history, retrieveStock } = this.props;
@@ -181,15 +190,17 @@ export default class Reports extends React.Component {
       return;
     }
     history.push(`/reports/${value}`);
-    // need to make this a promise some how
 
+    // for those following along, this goes back to App.js runs the axios request. Notice despite being async nothing actually is run after it, that's because it was easier to just watch props for changes rather then hope they happened before the async part responded
     retrieveStock(value, startDate, endDate, "volume,close");
     // .then(r=>
     //   // this.useGottenData()
     // );
   };
 
+  // this is what runs when the props change
   useGottenData = stockData => {
+    // remeber everything comes in a string
     const { value } = this.state;
     const dataArr = stockData[value].data;
     const last = parseFloat(dataArr[dataArr.length - 1].close);
@@ -201,6 +212,7 @@ export default class Reports extends React.Component {
       startPrice: first,
       days: dataArr.length,
       volume: parseFloat(dataArr[dataArr.length - 1].volume),
+      // I'm not sure I like this .toFixed, it makes it a string again
       changePercentage: changePerc.toFixed(2),
       change: changeCalc.toFixed(2)
     };
