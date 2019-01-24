@@ -179,7 +179,8 @@ def add_favorite(request):
     user = User.objects.all().filter(username=username)
     fav_ret = []
     for fav in list(user.values('favorites')):
-        fav_ret.append(fav['favorites'])
+        if fav['favorites'] is not None:
+            fav_ret.append(fav['favorites'])
     return JsonResponse(status=200, data={'favorites': fav_ret})
 
 
@@ -258,7 +259,8 @@ def current_user(request):
         favorites = list(user.values('favorites'))
         fav_ret = []
         for fav in favorites:
-            fav_ret.append(fav['favorites'])
+            if fav['favorites'] is not None:
+                fav_ret.append(fav['favorites'])
         return JsonResponse({'portfolio': list(studies), 'favorites': fav_ret})
     else:
         # creates new user and portfolio if user does not exist.
