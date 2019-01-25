@@ -1,20 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import {
-  Container,
-  Divider,
-  Button,
-  Placeholder,
-  Header,
-  Image
-} from "semantic-ui-react";
+import { Container, Divider, Button, Header } from "semantic-ui-react";
 
 const Landing = () => (
   <Container fluid textAlign="center">
-    <Placeholder fluid style={{ height: 400, width: "100%" }}>
-      <Image src=".../images/stock.jpg" />
-    </Placeholder>
+    <div>
+      <img src=".../images/stock.jpg" alt="stock" />
+    </div>
     <Divider />
     <Container text>
       <Header as="h2">About</Header>
