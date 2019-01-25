@@ -17,6 +17,17 @@ class Favorites extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { data } = this.props;
+    const { currentLastItem } = this.props;
+    if (nextProps.data !== data) {
+      this.setState({
+        filteredList: nextProps.data,
+        items: nextProps.data.slice(0, currentLastItem)
+      });
+    }
+  }
+
   // big problem here is people with very vertical screens. this only triggers on scroll. Need to find a way to trigger if there's no overflow too.
   handleScroll = e => {
     const { currentLastItem, items, filteredList } = this.state;
@@ -63,7 +74,7 @@ class Favorites extends React.Component {
   };
 
   render() {
-    const { title } = this.props;
+    const { title, favorites, favoriteToggle } = this.props;
     const { items, showLoad, searchText } = this.state;
     return (
       <div className="favoritesHolder">
@@ -85,12 +96,17 @@ class Favorites extends React.Component {
           <List className="helpSearch" divided>
             {items.map(e => (
               <List.Item key={`${e.symbol}${e.name}`} className="favoritesItem">
-                <Stock symbol={e.symbol} name={e.name} />
+                <Stock
+                  favoriteToggle={favoriteToggle}
+                  favorites={favorites}
+                  symbol={e.symbol}
+                  name={e.name}
+                />
               </List.Item>
             ))}
             {showLoad ? (
               <List.Item>
-                <h3>Loadering...</h3>
+                <h3>Loading...</h3>
               </List.Item>
             ) : (
               ""

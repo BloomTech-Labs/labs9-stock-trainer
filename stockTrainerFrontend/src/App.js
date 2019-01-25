@@ -26,7 +26,6 @@ class App extends Component {
     this.state = {
       signIn: false,
       currentUser: "",
-      jwt: "TESTESTEST",
       stockData: {},
       favorites: [],
       modalOpen: false
@@ -80,7 +79,7 @@ class App extends Component {
         //   name: res.data.UserInfo
         // });
         this.setState({
-          favorites: res.data.portfolio // eslint-disable-line react/no-unused-state
+          favorites: res.data.favorites
         });
       })
       .catch(err => {
@@ -91,8 +90,9 @@ class App extends Component {
   };
 
   retrieveStock = async (nameOfStock, startDate, endDate, fields) => {
-    // this jwt is not actually where this is stored, it's a placeholder
-    const { jwt, stockData } = this.state;
+    const { stockData } = this.state;
+    const { auth } = this.props;
+
     // setting up for what we're grabbing from the backend, the ifs make it so those are optional. Defaults on the backend are currently 01-01-18 for date, and closing price
     const paramSettings = {
       NAME: nameOfStock
@@ -111,7 +111,7 @@ class App extends Component {
         method: "get",
         baseURL: `${process.env.REACT_APP_BACKEND_URL}stock/`,
         headers: {
-          Authorization: `Bearer ${jwt}`
+          Authorization: `Bearer ${auth.accessToken}`
         },
         params: paramSettings
       })
@@ -158,6 +158,38 @@ class App extends Component {
       });
   };
 
+  favoriteToggle = stockSymbol => {
+    const { auth } = this.props;
+    const { favorites } = this.state;
+    let way = "post";
+    if (!auth.isAuthenticated()) {
+      console.log("You gotta be logged in");
+      return;
+    }
+    if (favorites.find(x => x === stockSymbol)) {
+      way = "delete";
+    }
+    axios
+      .request({
+        method: way,
+        baseURL: `${process.env.REACT_APP_BACKEND_URL}favorite/`,
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`
+        },
+        data: { symbol: stockSymbol }
+      })
+      .then(res => {
+        this.setState({
+          favorites: res.data.favorites
+        });
+      })
+      .catch(err => {
+        // eslint-disable-next-line no-console
+        console.log(err); // for errors
+        // this.handleOpen();
+      });
+  };
+
   handleOpen = () => this.setState({ modalOpen: true });
 
   handleClose = () => this.setState({ modalOpen: false });
@@ -165,6 +197,11 @@ class App extends Component {
   render() {
     const { auth } = this.props;
     const { currentUser, signIn, stockData, favorites, modalOpen } = this.state;
+    // this is what we use for refresh relogin, debug later
+    // console.log(!auth.isAuthenticated());
+    // if (localStorage.getItem("isLoggedIn") && !auth.isAuthenticated()) {
+    //   auth.renewSession();
+    // }
     return (
       <div className="App">
         <TopBar
@@ -211,8 +248,10 @@ class App extends Component {
               <div className="lowerPageLayout">
                 <NavBar {...props} />
                 <Reports
+                  favoriteToggle={this.favoriteToggle}
                   retrieveStock={this.retrieveStock}
                   stockData={stockData}
+                  favorites={favorites}
                   {...props}
                 />
               </div>
@@ -224,7 +263,10 @@ class App extends Component {
             render={props => (
               <div className="lowerPageLayout">
                 <NavBar {...props} />
-                <Dashboard favorites={favorites} />
+                <Dashboard
+                  favoriteToggle={this.favoriteToggle}
+                  favorites={favorites}
+                />
               </div>
             )}
           />
