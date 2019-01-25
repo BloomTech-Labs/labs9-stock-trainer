@@ -143,7 +143,7 @@ export default function Help(props) {
             path={match.path}
             render={() => <Helpmain articles={articles} />}
           />
-         <Route path={`${match.path}/test`} component={Test} />
+          <Route path={`${match.path}/test`} component={Test} />
           <Redirect to="/404" />
         </Switch>
       </Segment>
