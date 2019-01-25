@@ -66,11 +66,11 @@ class Graph extends React.Component {
             data={data}
             x="date"
             y="close"
-            animate={{
-              // animation can be implemented
-              duration: 2000,
-              onLoad: { duration: 1000 }
-            }}
+            // animate={{
+            //   // animation can be implemented
+            //   duration: 2000,
+            //   onLoad: { duration: 1000 }
+            // }}
           />
           <VictoryAxis
             fixLabelOverlap
