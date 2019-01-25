@@ -1,7 +1,14 @@
 import React from "react";
 import { Segment } from "semantic-ui-react";
-import { VictoryChart, VictoryLine, VictoryAxis } from "victory";
+import {
+  VictoryChart,
+  VictoryLine,
+  VictoryAxis,
+  createContainer
+} from "victory";
 import "./Graph.css";
+
+const VictoryZoomVoronoiContainer = createContainer("zoom", "voronoi");
 
 class Graph extends React.Component {
   constructor(props) {
@@ -41,7 +48,16 @@ class Graph extends React.Component {
     // console.log(data);
     return (
       <Segment className="graph">
-        <VictoryChart scale={{ x: "time" }}>
+        <VictoryChart
+          width="600"
+          scale={{ x: "time" }}
+          containerComponent={
+            <VictoryZoomVoronoiContainer
+              // labels={d => `${d.y.toString()}`}
+              zoomDimension="x"
+            />
+          }
+        >
           <VictoryLine
             style={{
               data: { stroke: "#00b894" }, // color of the stroke
