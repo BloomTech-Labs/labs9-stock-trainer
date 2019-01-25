@@ -13,7 +13,7 @@ import {
 const Landing = () => (
   <Container fluid textAlign="center">
     <Placeholder fluid style={{ height: 400, width: "100%" }}>
-    <Image src="../images/stock.jpg" />
+      <Image src=".../images/stock.jpg" />
     </Placeholder>
     <Divider />
     <Container text>
