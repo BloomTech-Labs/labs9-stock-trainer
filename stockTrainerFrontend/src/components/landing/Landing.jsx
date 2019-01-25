@@ -6,13 +6,14 @@ import {
   Divider,
   Button,
   Placeholder,
-  Header
+  Header,
+  Image
 } from "semantic-ui-react";
 
 const Landing = () => (
   <Container fluid textAlign="center">
     <Placeholder fluid style={{ height: 400, width: "100%" }}>
-      <Placeholder.Image rectangular />
+    <Image src="../images/stock.jpg" />
     </Placeholder>
     <Divider />
     <Container text>
