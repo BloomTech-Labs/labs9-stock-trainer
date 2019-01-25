@@ -15,6 +15,7 @@ class Graph extends React.Component {
   // }
 
   componentWillReceiveProps(nextProps) {
+    // only if stockdata changes, will the convertData function be ran
     const { stockData } = this.props;
     if (nextProps.stockData !== stockData) {
       this.convertData(nextProps.stockData);
@@ -22,7 +23,7 @@ class Graph extends React.Component {
   }
 
   convertData = data => {
-    console.log(Object.keys(data));
+    // function converts incoming data to data readable by victory
     const key = Object.keys(data)[0];
 
     const dataCopy = JSON.parse(JSON.stringify(data[key].data));

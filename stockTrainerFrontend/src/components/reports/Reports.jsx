@@ -92,6 +92,7 @@ const PlaceholderPane = props => {
     </Tab.Pane>
   );
 };
+// props are being passed down from the Tab component into our panes
 const panes = [
   {
     menuItem: "Price",
