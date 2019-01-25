@@ -8,7 +8,7 @@ const Callback = props => {
     props.signinchange();
   });
 
-  return <h1>Loading profile...</h1>;
+  return <h1 style={{ textAlign: "center" }}>Loading profile...</h1>;
 };
 
 export default withRouter(Callback);
