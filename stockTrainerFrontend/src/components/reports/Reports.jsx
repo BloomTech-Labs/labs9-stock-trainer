@@ -7,9 +7,6 @@ import stockSymbolList from "../../util/test.json";
 import Stock from "../stock/Stock";
 import Graph from "../Graph/Graph";
 
-// used for default values on the date select
-const today = new Date().toISOString().substr(0, 10);
-
 // css for the suggest menu. There might be a way to move thise to the css file, look into that
 const theme = {
   container: {
@@ -138,8 +135,8 @@ export default class Reports extends React.Component {
     this.state = {
       value: "",
       suggestions: [],
-      startDate: today,
-      endDate: today,
+      startDate: "2018-02-01",
+      endDate: "2018-02-01",
       stockName: "Enter Stock",
       stockCardInfo: {},
       currentSymbol: ""
@@ -242,7 +239,30 @@ export default class Reports extends React.Component {
   };
 
   dateChange = e => {
-    const { id, value } = e.currentTarget;
+    const { id } = e.currentTarget;
+    let { value } = e.currentTarget;
+    const { startDate, endDate } = this.state;
+    const testDate = new Date(`${value} 00:00`);
+    if (testDate.getDay() === 0) {
+      testDate.setDate(testDate.getDate() + 1);
+      value = testDate.toISOString().substring(0, 10);
+    }
+    if (testDate.getDay() === 6) {
+      value = testDate.setDate(testDate.getDate() + 2);
+      value = testDate.toISOString().substring(0, 10);
+    }
+    if (id === "startDate" && Date.parse(value) > Date.parse(endDate)) {
+      this.setState({
+        [id]: endDate
+      });
+      return;
+    }
+    if (id === "endDate" && Date.parse(value) < Date.parse(startDate)) {
+      this.setState({
+        [id]: startDate
+      });
+      return;
+    }
     this.setState({
       [id]: value
     });
@@ -264,7 +284,6 @@ export default class Reports extends React.Component {
       onChange: this.onChange
     };
     const { match, favorites, favoriteToggle, stockData } = this.props;
-    console.log(favorites);
     return (
       <Segment className="reportsContainer">
         <Stock
@@ -291,7 +310,8 @@ export default class Reports extends React.Component {
           <h3>From:</h3>
           <Input
             className="reportDateInput"
-            max={today}
+            max="2018-02-01"
+            min="1996-02-01"
             type="date"
             value={startDate}
             id="startDate"
@@ -303,7 +323,8 @@ export default class Reports extends React.Component {
           <Input
             className="reportDateInput"
             value={endDate}
-            max={today}
+            max="2018-02-01"
+            min="1996-02-01"
             type="date"
             id="endDate"
             onChange={this.dateChange}
