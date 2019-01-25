@@ -1,30 +1,39 @@
 import React from "react";
 import { Segment } from "semantic-ui-react";
-import { VictoryChart, VictoryLine } from "victory";
+import {
+  VictoryChart,
+  VictoryLine,
+  VictoryAxis,
+  createContainer
+} from "victory";
 import "./Graph.css";
 
-// data should consist of an array of objects
-const testData = [
-  { date: "2015-12-07", close: "118.8" },
-  { date: "2015-12-08", close: "121.8" },
-  { date: "2015-12-09", close: "141.8" },
-  { date: "2015-12-10", close: "118.8" }
-];
+const VictoryZoomVoronoiContainer = createContainer("zoom", "voronoi");
 
-// currently throws some warnings about non-boolean attributes receiving boolean values, will need to fix
 class Graph extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { data: testData };
+    this.state = { data: [] };
   }
 
-  componentDidMount() {
-    this.convertData();
+  // componentDidMount() {
+  //   console.log(this.props);
+  //   this.convertData();
+  // }
+
+  componentWillReceiveProps(nextProps) {
+    // only if stockdata changes, will the convertData function be ran
+    const { stockData } = this.props;
+    console.log(stockData);
+    if (nextProps.stockData !== stockData) {
+      console.log(nextProps.stockData);
+      this.convertData(nextProps.stockData);
+    }
   }
 
-  convertData = () => {
-    const { data } = this.state;
-    const dataCopy = JSON.parse(JSON.stringify(data));
+  convertData = data => {
+    // function converts incoming data to data readable by victory
+    const dataCopy = JSON.parse(JSON.stringify(data.data));
     const newData = dataCopy.map(dataPoint => ({
       date: new Date(dataPoint.date),
       close: Number(dataPoint.close)
@@ -39,19 +48,44 @@ class Graph extends React.Component {
     // console.log(data);
     return (
       <Segment className="graph">
-        <VictoryChart scale={{ x: "time" }}>
+        <VictoryChart
+          // width=""
+          scale={{ x: "time" }}
+          containerComponent={
+            <VictoryZoomVoronoiContainer
+              labels={d => `${d.close}`}
+              zoomDimension="x"
+            />
+          }
+        >
           <VictoryLine
             style={{
-              data: { stroke: "#0984e3" }, // color of the stroke
+              data: { stroke: "#00b894" }, // color of the stroke
               parent: { border: "1px solid #ccc" }
             }}
             data={data}
             x="date"
             y="close"
-            animate={{
-              // animation can be implemented
-              duration: 2000,
-              onLoad: { duration: 1000 }
+            // animate={{
+            //   // animation can be implemented
+            //   duration: 2000,
+            //   onLoad: { duration: 1000 }
+            // }}
+          />
+          <VictoryAxis
+            fixLabelOverlap
+            label="Date"
+            style={{
+              axisLabel: { padding: 30 },
+              tickLabels: { fontSize: 15, padding: 5 }
+            }}
+          />
+          <VictoryAxis
+            dependentAxis
+            label="Closing Price (USD)"
+            style={{
+              axisLabel: { display: "block", padding: 35 },
+              tickLabels: { fontSize: 15, padding: 5 }
             }}
           />
         </VictoryChart>

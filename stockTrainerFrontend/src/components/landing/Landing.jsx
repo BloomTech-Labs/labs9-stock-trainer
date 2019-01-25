@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -19,17 +20,14 @@ const Landing = () => (
       <Header as="h2">About</Header>
 
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam itaque
-        pariatur odio dolor voluptatem minima quam dignissimos voluptas enim
-        quas voluptatibus atque optio modi, quaerat deserunt repellendus iure.
-        Sit neque veritatis necessitatibus corrupti eum distinctio quaerat
-        incidunt iure. Consequatur itaque unde nulla saepe exercitationem ex,
-        nemo accusamus esse, a porro amet quaerat? Quidem, natus totam velit
-        dicta dolores sint consequuntur quod tenetur quae rem soluta quisquam
-        molestias assumenda, rerum ipsam quia neque omnis repudiandae libero
-        illo sit, saepe eius deleniti similique. Maiores deleniti omnis
-        molestias tenetur inventore, sit enim minima aspernatur doloribus
-        tempore quos molestiae distinctio sint! Quae, reiciendis saepe!
+        Hey there. I bet you're here because you googled some combination of
+        "easy" and "stocks," right? You probably don't understand stocks. Don't
+        worry; we were once in your shoes. Here at Stock Trainer you can search
+        for stocks, save your favorites, and learn to understand stock
+        indicators. Get started by checking out the reports page, where you can
+        see and search stocks and visualize the information in an updated prices
+        graph. We're here for you, so check out the help page for definitions of
+        the stock indicators. We're glad you're here!
       </p>
       <Link to="/dashboard">
         <Button secondary>Demo now!</Button>
