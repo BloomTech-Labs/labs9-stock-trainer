@@ -141,7 +141,8 @@ export default class Reports extends React.Component {
       startDate: today,
       endDate: today,
       stockName: "Enter Stock",
-      stockCardInfo: {}
+      stockCardInfo: {},
+      currentSymbol: ""
     };
   }
 
@@ -164,7 +165,8 @@ export default class Reports extends React.Component {
         );
         this.setState({
           value: match.params.stockSymbol,
-          stockName: name
+          stockName: name,
+          currentSymbol: match.params.stockSymbol
         });
       } else {
         history.push(`/reports/`);
@@ -234,7 +236,8 @@ export default class Reports extends React.Component {
       change: changeCalc.toFixed(2)
     };
     this.setState({
-      stockCardInfo: newCard
+      stockCardInfo: newCard,
+      currentSymbol: value
     });
   };
 
@@ -252,7 +255,8 @@ export default class Reports extends React.Component {
       startDate,
       endDate,
       stockName,
-      stockCardInfo
+      stockCardInfo,
+      currentSymbol
     } = this.state;
     const inputProps = {
       placeholder: "Search for a Stock",
@@ -312,7 +316,11 @@ export default class Reports extends React.Component {
         >
           Search
         </Button>
-        <Tab className="chart" panes={panes} stockdata={stockData} />
+        <Tab
+          className="chart"
+          panes={panes}
+          stockdata={stockData[currentSymbol]}
+        />
       </Segment>
     );
   }
