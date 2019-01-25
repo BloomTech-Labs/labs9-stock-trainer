@@ -53,7 +53,7 @@ class Graph extends React.Component {
           scale={{ x: "time" }}
           containerComponent={
             <VictoryZoomVoronoiContainer
-              // labels={d => `${d.y.toString()}`}
+              labels={d => `${d.close}`}
               zoomDimension="x"
             />
           }
