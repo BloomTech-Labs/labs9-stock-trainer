@@ -49,7 +49,7 @@ class Graph extends React.Component {
     return (
       <Segment className="graph">
         <VictoryChart
-          width="600"
+          // width=""
           scale={{ x: "time" }}
           containerComponent={
             <VictoryZoomVoronoiContainer
