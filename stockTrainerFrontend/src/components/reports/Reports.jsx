@@ -84,33 +84,50 @@ const renderSuggestion = suggestion => (
   </div>
 );
 // format for panes, look into seperate component?
-const placeholderPane = (
-  <Segment className="chartArea">
-    <Tab.Pane>
-      <Graph />
+const PlaceholderPane = props => {
+  const { stockData } = props;
+  return (
+    <Tab.Pane className="chartArea">
+      <Graph stockData={stockData} />
     </Tab.Pane>
-  </Segment>
-);
+  );
+};
+// props are being passed down from the Tab component into our panes
 const panes = [
   {
     menuItem: "Price",
-    render: () => placeholderPane
+    render: props => {
+      const { stockdata } = props;
+      return <PlaceholderPane stockData={stockdata} />;
+    }
   },
   {
     menuItem: "Average True Range",
-    render: () => placeholderPane
+    render: props => {
+      const { stockdata } = props;
+      return <PlaceholderPane stockData={stockdata} />;
+    }
   },
   {
     menuItem: "Volumn Weighted Average",
-    render: () => placeholderPane
+    render: props => {
+      const { stockdata } = props;
+      return <PlaceholderPane stockData={stockdata} />;
+    }
   },
   {
     menuItem: "Moving Average Convergence",
-    render: () => placeholderPane
+    render: props => {
+      const { stockdata } = props;
+      return <PlaceholderPane stockData={stockdata} />;
+    }
   },
   {
     menuItem: "Moving Average",
-    render: () => placeholderPane
+    render: props => {
+      const { stockdata } = props;
+      return <PlaceholderPane stockData={stockdata} />;
+    }
   }
 ];
 
@@ -124,7 +141,8 @@ export default class Reports extends React.Component {
       startDate: today,
       endDate: today,
       stockName: "Enter Stock",
-      stockCardInfo: {}
+      stockCardInfo: {},
+      currentSymbol: ""
     };
   }
 
@@ -147,7 +165,8 @@ export default class Reports extends React.Component {
         );
         this.setState({
           value: match.params.stockSymbol,
-          stockName: name
+          stockName: name,
+          currentSymbol: match.params.stockSymbol
         });
       } else {
         history.push(`/reports/`);
@@ -217,7 +236,8 @@ export default class Reports extends React.Component {
       change: changeCalc.toFixed(2)
     };
     this.setState({
-      stockCardInfo: newCard
+      stockCardInfo: newCard,
+      currentSymbol: value
     });
   };
 
@@ -235,14 +255,15 @@ export default class Reports extends React.Component {
       startDate,
       endDate,
       stockName,
-      stockCardInfo
+      stockCardInfo,
+      currentSymbol
     } = this.state;
     const inputProps = {
       placeholder: "Search for a Stock",
       value,
       onChange: this.onChange
     };
-    const { match, favorites, favoriteToggle } = this.props;
+    const { match, favorites, favoriteToggle, stockData } = this.props;
     console.log(favorites);
     return (
       <Segment className="reportsContainer">
@@ -297,7 +318,11 @@ export default class Reports extends React.Component {
         >
           Search
         </Button>
-        <Tab className="chart" panes={panes} />
+        <Tab
+          className="chart"
+          panes={panes}
+          stockdata={stockData[currentSymbol]}
+        />
       </Segment>
     );
   }
