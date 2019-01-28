@@ -8,6 +8,7 @@ import Helpmain from "./Helpmain";
 import Test from "./Test";
 import OpeningPrice from "./Opening";
 import ClosingPrice from "./Closing";
+import AfterHours from "./After";
 
 const articles = [
   {
@@ -24,7 +25,7 @@ const articles = [
   },
   {
     title: "After Hours Trading",
-    link: "/help/test",
+    link: "/help/afterhours",
     text:
       "After hours trading is the buying and selling of stocks out side of the normal trading hours, i.e. 9:30am - 4pm EST."
   },
@@ -148,6 +149,7 @@ export default function Help(props) {
           <Route path={`${match.path}/test`} component={Test} />
           <Route path={`${match.path}/openingprice`} component={OpeningPrice} />
           <Route path={`${match.path}/closingprice`} component={ClosingPrice} />
+          <Route path={`${match.path}/afterhours`} component={AfterHours} />
           <Redirect to="/404" />
         </Switch>
       </Segment>
