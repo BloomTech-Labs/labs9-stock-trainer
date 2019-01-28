@@ -5,10 +5,24 @@ import { Input, Segment, Header } from "semantic-ui-react";
 import "./Help.css";
 
 import Helpmain from "./Helpmain";
-import Test from "./Test";
 import OpeningPrice from "./Opening";
 import ClosingPrice from "./Closing";
 import AfterHours from "./After";
+// import AdjustClosing from "./Adjust";
+// import RecordLow from "./Low";
+// import RecordHigh from "./High";
+// import Volume from "./Volume";
+// import Transactions from "./Transactions";
+// import Dividend from "./Dividend";
+// import ExDividend from "./ExDividend";
+// import StockSplit from "./StockSplit";
+// import SplitAdjusted from "./SplitAdjusted";
+// import AverageTrueRange from "./Average";
+// import VolumeWeighted from "./Weighted";
+// import MovingAverage from "./Moving";
+// import ConvergenceDivergence from "./Convergence";
+// import ExponentialMoving from "./Exponential";
+// import SimpleMoving from "./Simple";
 
 const articles = [
   {
@@ -31,91 +45,91 @@ const articles = [
   },
   {
     title: "Adjusted Closing Price",
-    link: "/help/test",
+    link: "/help/adjustclosing",
     text:
       "Adjusted closing price is the day's closing price ammended due to distributions and corporate actions that occur before the next open trading day."
   },
   {
     title: "Record Low",
-    link: "/help/test",
+    link: "/help/recordlow",
     text:
       "Is the lowest price a stock as ever reached over any given period of time, i.e. year, month, week, and day."
   },
   {
     title: "Record High",
-    link: "/help/test",
+    link: "/help/recordhigh",
     text:
       "Is the highest price a stock as ever reached over any given period of time. The price becomes a record high when is bypasses the previous record high recorded."
   },
   {
     title: "Volume",
-    link: "/help/test",
+    link: "/help/volume",
     text:
       "Volume is the number of shares traded during a period of time, i.e. if only 6 transactions happen in one day, the volume for that day is 6."
   },
   {
     title: "Transactions",
-    link: "/help/test",
+    link: "/help/transactions",
     text:
       "A transaction is when a buyer and seller agree on a certain price for the stock."
   },
   {
     title: "Dividend",
-    link: "/help/test",
+    link: "/help/dividend",
     text:
       "A dividend is a reward of distribution from a portion of a company's earnings. Dividends can be cash payments, shares of stock, or other property that is distributed to the company's shareholders."
   },
   {
     title: "Ex-Dividend",
-    link: "/help/test",
+    link: "/help/exdividend",
     text:
       "Ex-dividend is a stock that is traded without the value of the next divident payment. A buyer who buys a stock on or after the ex-dividend date is not entiled to the next divident payment."
   },
   {
     title: "Stock Split",
-    link: "/help/test",
+    link: "/help/stocksplit",
     text:
       "Stock split is an action made by a corporation that decides to divide it's existing shares into multiple shares to up the shares liquidity."
   },
   {
     title: "Split Adjusted",
-    link: "/help/test",
+    link: "/help/splitadjusted",
     text:
       "Split adjusted is a term used to describe data the has modifications given after a split has happen."
   },
   {
     title: "Average True Range (ATR)",
-    link: "/help/test",
+    link: "/help/averagetruerange",
     text:
       "Average True Range is a technical analysis indicator that measures the current high minus the current low over a price period."
   },
   {
     title: "Volume Weighted Average Price (VWAP)",
-    link: "/help/test",
+    link: "/help/volumeweighted",
     text:
       "Volume weighted average price is used in pension plans by adding up the price by the number of shares traded then divided by the total shares traded for the day."
   },
   {
     title: "Moving Average",
-    link: "/help/test",
+    link: "/help/movingaverage",
     text:
       "Is a widely used indicator that smooths out the busy noise from not important short-term price fluctuations. It's based on past prices."
   },
   {
     title: "Moving Average Convergence Divergence (MACD)",
-    link: "/help/test",
+    link: "/help/convergencedivergence",
     text:
       "Moving Average Convergence Divergence is the indicator that shows the relationship between two moving averages price. This is calculated by subtracting the 26-period from the 12-period exponential moving average."
   },
   {
     title: "Exponential Moving Average",
-    link: "/help/test",
+    link: "/help/exponentialmoving",
     text:
       "Exponential moving average is a type of moving average that places the significance on the most recent data points."
   },
   {
     title: "Simple Moving Average",
-    link: "/help/test",
+    link: "/help/simplemoving",
     text:
       "The simple moving average is calculated by adding the recent closing prices and dividing them by the number of time periods in the average."
   }
@@ -146,10 +160,24 @@ export default function Help(props) {
             path={match.path}
             render={() => <Helpmain articles={articles} />}
           />
-          <Route path={`${match.path}/test`} component={Test} />
           <Route path={`${match.path}/openingprice`} component={OpeningPrice} />
           <Route path={`${match.path}/closingprice`} component={ClosingPrice} />
           <Route path={`${match.path}/afterhours`} component={AfterHours} />
+          {/* <Route path={`${match.path}/adjustedclosing`} component={AdjustedClosing} /> */}
+          {/* <Route path={`${match.path}/recordlow`} component={RecordLow} /> */}
+          {/* <Route path={`${match.path}/recordHigh`} component={RecordHigh} /> */}
+          {/* <Route path={`${match.path}/volume`} component={Volume} /> */}
+          {/* <Route path={`${match.path}/transactions`} component={Transactions} /> */}
+          {/* <Route path={`${match.path}/dividend`} component={Dividend} /> */}
+          {/* <Route path={`${match.path}/exdividend`} component={ExDividend} /> */}
+          {/* <Route path={`${match.path}/stocksplit`} component={StockSplit} /> */}
+          {/* <Route path={`${match.path}/splitadjusted`} component={SplitAdjusted} /> */}
+          {/* <Route path={`${match.path}/averagetruerange`} component={AverageTrueRange} /> */}
+          {/* <Route path={`${match.path}/volumeweighted`} component={VolumeWeighted} /> */}
+          {/* <Route path={`${match.path}/movingaverage`} component={MovingAverage} /> */}
+          {/* <Route path={`${match.path}/convergencedivergence`} component={ConvergenceDivergence} /> */}
+          {/* <Route path={`${match.path}/exponentialmoving`} component={ExponentialMoving} /> */}
+          {/* <Route path={`${match.path}/simplemoving`} component={SimpleMoving} /> */}
           <Redirect to="/404" />
         </Switch>
       </Segment>
