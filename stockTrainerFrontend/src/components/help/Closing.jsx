@@ -27,7 +27,7 @@ const ClosingPrice = () => (
       closing prices is during periods of time when corporates don't take
       actions, i.e. stock splits, stock dividends, not issued cash dividends.
     </p>
-    <img src={Closing} alt="Apple Opening Price Graph" className="open" />
+    <img src={Closing} alt="Apple Graph" className="open" />
   </Container>
 );
 

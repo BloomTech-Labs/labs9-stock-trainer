@@ -31,7 +31,7 @@ const AfterHours = () => (
       information is given before the next trading day. It also gives investors
       the ability to trade during non-peak hours.
     </p>
-    <img src={After} alt="Apple Opening Price Graph" className="open" />
+    <img src={After} alt="Apple Graph" className="open" />
   </Container>
 );
 
