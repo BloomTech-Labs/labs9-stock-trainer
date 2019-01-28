@@ -7,7 +7,8 @@ import {
   Divider,
   Button,
   Placeholder,
-  Header
+  Header,
+  Segment
 } from "semantic-ui-react";
 
 const Landing = () => (
@@ -16,7 +17,7 @@ const Landing = () => (
       <Placeholder.Image rectangular />
     </Placeholder>
     <Divider />
-    <Container text>
+    <Segment text style={{ marginBottom: "1em" }}>
       <Header as="h2">About</Header>
 
       <p>
@@ -32,8 +33,7 @@ const Landing = () => (
       <Link to="/dashboard">
         <Button secondary>Demo now!</Button>
       </Link>
-    </Container>
-    {/* Add demo/way for users to see how the app functions */}
+    </Segment>
   </Container>
 );
 
