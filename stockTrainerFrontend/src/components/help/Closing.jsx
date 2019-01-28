@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { Container, Header } from "semantic-ui-react";
-import Opening from "./images/Opening.png";
+import Opening from "./images/opening.png";
 import "./Opening.css";
 
 const OpeningPrice = () => (
