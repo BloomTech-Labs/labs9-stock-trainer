@@ -17,7 +17,7 @@ const Landing = () => (
       <Placeholder.Image rectangular />
     </Placeholder>
     <Divider />
-    <Segment text style={{ marginBottom: "1em" }}>
+    <Segment style={{ marginBottom: "1em" }}>
       <Header as="h2">About</Header>
 
       <p>
