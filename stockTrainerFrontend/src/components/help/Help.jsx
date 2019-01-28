@@ -8,7 +8,7 @@ import Helpmain from "./Helpmain";
 import OpeningPrice from "./Opening";
 import ClosingPrice from "./Closing";
 import AfterHours from "./After";
-// import AdjustClosing from "./Adjust";
+import AdjustedClosing from "./Adjust";
 // import RecordLow from "./Low";
 // import RecordHigh from "./High";
 // import Volume from "./Volume";
@@ -163,7 +163,10 @@ export default function Help(props) {
           <Route path={`${match.path}/openingprice`} component={OpeningPrice} />
           <Route path={`${match.path}/closingprice`} component={ClosingPrice} />
           <Route path={`${match.path}/afterhours`} component={AfterHours} />
-          {/* <Route path={`${match.path}/adjustedclosing`} component={AdjustedClosing} /> */}
+          <Route
+            path={`${match.path}/adjustedclosing`}
+            component={AdjustedClosing}
+          />
           {/* <Route path={`${match.path}/recordlow`} component={RecordLow} /> */}
           {/* <Route path={`${match.path}/recordHigh`} component={RecordHigh} /> */}
           {/* <Route path={`${match.path}/volume`} component={Volume} /> */}
