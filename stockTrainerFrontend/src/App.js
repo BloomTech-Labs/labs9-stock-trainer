@@ -216,7 +216,7 @@ class App extends Component {
             path="/help"
             render={props => (
               <div className="lowerPageLayout">
-                <NavBar {...props} />
+                <NavBar signout={this.signOut} {...props} />
                 <Help {...props} />
               </div>
             )}
@@ -226,7 +226,7 @@ class App extends Component {
             path="/userinfo"
             render={props => (
               <div className="lowerPageLayout">
-                <NavBar {...props} />
+                <NavBar signout={this.signOut} {...props} />
                 <UserInfo />
               </div>
             )}
@@ -236,7 +236,7 @@ class App extends Component {
             path="/settings"
             render={props => (
               <div className="lowerPageLayout">
-                <NavBar {...props} />
+                <NavBar signout={this.signOut} {...props} />
                 <AccountSettings accessToken={auth.accessToken} />
               </div>
             )}
@@ -246,7 +246,7 @@ class App extends Component {
             path="/reports/:stockSymbol?"
             render={props => (
               <div className="lowerPageLayout">
-                <NavBar {...props} />
+                <NavBar signout={this.signOut} {...props} />
                 <Reports
                   favoriteToggle={this.favoriteToggle}
                   retrieveStock={this.retrieveStock}
@@ -262,7 +262,7 @@ class App extends Component {
             path="/dashboard"
             render={props => (
               <div className="lowerPageLayout">
-                <NavBar {...props} />
+                <NavBar signout={this.signOut} {...props} />
                 <Dashboard
                   favoriteToggle={this.favoriteToggle}
                   favorites={favorites}
@@ -275,7 +275,7 @@ class App extends Component {
             path="/testrequest"
             render={props => (
               <div className="lowerPageLayout">
-                <NavBar {...props} />
+                <NavBar signout={this.signOut} {...props} />
                 <TestRequest
                   retrieveStock={this.retrieveStock}
                   stockData={stockData}
@@ -302,7 +302,7 @@ class App extends Component {
           <Route
             render={props => (
               <div className="lowerPageLayout">
-                <NavBar {...props} />
+                <NavBar signout={this.signOut} {...props} />
                 <NoMatch />
               </div>
             )}

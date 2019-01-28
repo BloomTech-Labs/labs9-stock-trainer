@@ -24,7 +24,7 @@ export default class NavBar extends Component {
 
   render() {
     const { activeItem } = this.state;
-
+    const { signout } = this.props;
     return (
       <div className="NavBar">
         <Menu stackable inverted fluid size="massive">
@@ -37,13 +37,13 @@ export default class NavBar extends Component {
           />
           <Menu.Item
             name="Reports"
-            active={activeItem === "/reports"}
+            active={activeItem.substring(0, 8) === "/reports"}
             to="/reports"
             as={Link}
           />
           <Menu.Item
             name="Help"
-            active={activeItem === "/help"}
+            active={activeItem.substring(0, 5) === "/help"}
             to="/help"
             as={Link}
           />
@@ -53,6 +53,7 @@ export default class NavBar extends Component {
             to="/settings"
             as={Link}
           />
+          <Menu.Item name="Sign Out" onClick={signout} />
         </Menu>
       </div>
     );
