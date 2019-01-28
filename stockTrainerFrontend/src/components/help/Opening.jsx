@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { Container, Header } from "semantic-ui-react";
-import Opening from "./images/Opening.png";
+import Open from "./images/Open.png";
 import "./Opening.css";
 
 const OpeningPrice = () => (
@@ -31,7 +31,7 @@ const OpeningPrice = () => (
       opening price can be veered away from the prior closing day's price due to
       lack of supply and demand.
     </p>
-    <img src={Opening} alt="Apple Opening Price Graph" className="open" />
+    <img src={Open} alt="Apple Opening Price Graph" className="open" />
   </Container>
 );
 
