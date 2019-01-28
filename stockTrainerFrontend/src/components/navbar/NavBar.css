@@ -1,8 +1,17 @@
 .NavBar {
-  width:102%;
+  width: 102%;
   margin-bottom: 2rem;
-  
 }
-.ui.menu{
-  padding-left:2%;
+.ui.menu {
+  padding-left: 2%;
+}
+
+@media only screen and (max-width: 767px) {
+  .ui.menu {
+    padding-left: 0;
+  }
+  /* .NavBar{
+    z-index: 10;
+    position: absolute;
+  } */
 }
