@@ -32,7 +32,7 @@ class SignedOutContainer extends React.Component {
             open={modalOpen}
             dimmer="blurring"
             trigger={
-              <Button onClick={this.handleOpen} size="big" secondary>
+              <Button onClick={this.handleOpen} size="large" secondary>
                 Sign Out
               </Button>
             }

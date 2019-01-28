@@ -8,3 +8,8 @@
 .topBarContainer Button{
   min-width: 10em;
 }
+@media only screen and (max-width: 600px) {
+  .topBarContainer Button{
+    min-width: 6em;
+  }
+}
