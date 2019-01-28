@@ -13,7 +13,7 @@ class Favorites extends React.Component {
 
     this.state = {
       currentLastItem: 14,
-      items: [],
+      items: props.data.slice(0, 14),
       showLoad: false,
       searchText: "",
       filteredList: props.data,
@@ -22,16 +22,7 @@ class Favorites extends React.Component {
   }
 
   componentDidMount() {
-    const { data } = this.props;
-    // setState is not necessary, and can be done in constructor, but was trying to figure out
-    // a way for the left favorites to load. not sure if this is the right approach.
-    this.setState(
-      {
-        items: data.slice(0, 14)
-      },
-      // this call is necessary, allows for first load of data without scrolling
-      this.getStockData()
-    );
+    this.getStockData();
   }
 
   componentWillReceiveProps(nextProps) {
