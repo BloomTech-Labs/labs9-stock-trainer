@@ -13,7 +13,7 @@ class Favorites extends React.Component {
 
     this.state = {
       currentLastItem: 14,
-      items: props.data.slice(0, 14),
+      items: [],
       showLoad: false,
       searchText: "",
       filteredList: props.data,
@@ -22,7 +22,13 @@ class Favorites extends React.Component {
   }
 
   componentDidMount() {
-    this.getStockData();
+    const { data } = this.props;
+    this.setState(
+      {
+        items: data.slice(0, 14)
+      },
+      this.getStockData()
+    );
   }
 
   componentWillReceiveProps(nextProps) {
