@@ -2,36 +2,32 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { Container, Header } from "semantic-ui-react";
-import Opening from "./images/opening.png";
-import "./Opening.css";
+// import Opening from "./images/opening.png";
+// import "./Opening.css";
 
 const OpeningPrice = () => (
   <Container text>
-    <Header as="h1">Opening Price</Header>
+    <Header as="h1">Closing Price</Header>
     <p>
-      Opening Price is, as stated in{" "}
+      Closing Price is, as stated in{" "}
       <a
         target="_blank"
-        href="https://www.investopedia.com/terms/o/openingprice.asp"
+        href="https://www.investopedia.com/terms/c/closingprice.asp"
       >
         Investopedia
       </a>
-      "the price at which a security first trades upon the opening of an
-      exchange on a trading day." Which means investors take a look at the
-      previous day's closing price and uses that to determine the next open
-      trading day's opening price. But understand that the opening price will
-      not be the same as the previous day's closing cost. Investors look at
-      orders that have accumulated overnight during "after hours" trading.
+      "the final price at which a security is traded on a given trading day."
+      Which means it's the most up-to-date valuation of a security until the
+      opening price of the next trading day. Though the "after-hours" trading
+      price will differ from the day's closing price.
     </p>
     <p>
-      Opening prices can be effected by corporate announcements, natural
-      disasters, and or man-made disasters that happen during after hours when
-      the market is closed. "Not all orders are executed during after-hours" due
-      to the market being effected by those stated above. Because of this the
-      opening price can be veered away from the prior closing day's price due to
-      lack of supply and demand.
+      Closing prices don't show the "after-hours" prices and or corporate
+      actions that accure after the closing of the trading day. The main use
+      closing prices is during periods of time when corporates don't take
+      actions, i.e. stock splits, stock dividends, not issued cash dividends.
     </p>
-    <img src={Opening} alt="Apple Opening Price Graph" className="open" />
+    {/* <img src={Opening} alt="Apple Opening Price Graph" className="open" /> */}
   </Container>
 );
 
