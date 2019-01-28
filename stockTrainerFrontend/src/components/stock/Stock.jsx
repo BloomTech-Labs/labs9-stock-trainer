@@ -13,7 +13,7 @@ const Stock = props => {
       latestVolume: "",
       changePercent: 0
     };
-  } else {
+  } else if ("quote" in info) {
     info = info.quote;
   }
 
@@ -40,9 +40,15 @@ const Stock = props => {
         onClick={symbol ? () => favoriteToggle(symbol) : () => {}}
       />
       <div className="leftColumnInfobox">
-        <div className="upperRowInfobox">
-          Current Price: ${info.latestPrice}
-        </div>
+        {big ? (
+          <div className="upperRowInfobox">
+            Latest Price: ${info.latestPrice}
+          </div>
+        ) : (
+          <div className="upperRowInfobox">
+            Current Price: ${info.latestPrice}
+          </div>
+        )}
       </div>
       <div className="middleColumnInfobox">
         <div className="upperRowInfobox">Volume: {info.latestVolume}</div>
