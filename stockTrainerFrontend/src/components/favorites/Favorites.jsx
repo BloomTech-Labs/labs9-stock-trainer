@@ -16,18 +16,26 @@ class Favorites extends React.Component {
       items: props.data.slice(0, 14),
       showLoad: false,
       searchText: "",
-      filteredList: props.data
+      filteredList: props.data,
+      currentData: {}
     };
+  }
+
+  componentDidMount() {
+    this.getStockData();
   }
 
   componentWillReceiveProps(nextProps) {
     const { data } = this.props;
     const { currentLastItem } = this.props;
     if (nextProps.data !== data) {
-      this.setState({
-        filteredList: nextProps.data,
-        items: nextProps.data.slice(0, currentLastItem)
-      });
+      this.setState(
+        {
+          filteredList: nextProps.data,
+          items: nextProps.data.slice(0, currentLastItem)
+        },
+        this.getStockData()
+      );
     }
   }
 
@@ -72,29 +80,35 @@ class Favorites extends React.Component {
       },
       () => {
         const { filteredList, currentLastItem } = this.state;
-        this.setState({
-          items: filteredList.slice(0, currentLastItem)
-        });
+        this.setState(
+          {
+            items: filteredList.slice(0, currentLastItem)
+          },
+          this.getStockData()
+        );
       }
     );
   };
 
   getStockData = () => {
     const { items } = this.state;
+    if (items.length < 1) {
+      return;
+    }
     const stockArray = [];
     items.forEach(item => stockArray.push(item.symbol));
     const symbolString = stockArray.join(",");
     axios
       .get(`${iexURL}${symbolString}&types=quote`)
       .then(res => {
-        console.log(res.data);
+        this.setState({ currentData: res.data });
       })
       .catch(err => console.log(err));
   };
 
   render() {
     const { title, favorites, favoriteToggle } = this.props;
-    const { items, showLoad, searchText } = this.state;
+    const { items, showLoad, searchText, currentData } = this.state;
     return (
       <div className="favoritesHolder">
         <Header attached="top">
@@ -120,6 +134,7 @@ class Favorites extends React.Component {
                   favorites={favorites}
                   symbol={e.symbol}
                   name={e.name}
+                  info={currentData[e.symbol]}
                 />
               </List.Item>
             ))}

@@ -9,13 +9,12 @@ const Stock = props => {
   let isFavorite = "star outline";
   if (typeof info === "undefined") {
     info = {
-      startPrice: "",
-      endPrice: "",
-      volume: "",
-      days: 0,
-      change: 0,
-      changePercentage: 0
+      latestPrice: "",
+      latestVolume: "",
+      changePercent: 0
     };
+  } else {
+    info = info.quote;
   }
 
   if (favorites.find(x => x === symbol)) {
@@ -41,16 +40,15 @@ const Stock = props => {
         onClick={symbol ? () => favoriteToggle(symbol) : () => {}}
       />
       <div className="leftColumnInfobox">
-        <div className="upperRowInfobox">Start Price: {info.startPrice}</div>
-        <div className="lowerRowInfobox">Volume: {info.volume}</div>
+        <div className="upperRowInfobox">
+          Current Price: ${info.latestPrice}
+        </div>
       </div>
       <div className="middleColumnInfobox">
-        <div className="upperRowInfobox">End Price: {info.endPrice}</div>
-        <div className="lowerRowInfobox">Days Measured: {info.days}</div>
+        <div className="upperRowInfobox">Volume: {info.latestVolume}</div>
       </div>
       <div className="rightColumnInfobox">
-        <div className="upperRowInfobox">Change: {info.change}</div>
-        <div className="lowerRowInfobox">Change %: {info.changePercentage}</div>
+        <div className="upperRowInfobox">Change: {info.changePercent}%</div>
       </div>
     </div>
   );
