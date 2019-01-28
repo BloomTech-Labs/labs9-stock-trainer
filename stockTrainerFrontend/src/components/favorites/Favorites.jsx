@@ -1,8 +1,11 @@
 import React from "react";
 import { Input, Segment, Header, List } from "semantic-ui-react";
+import axios from "axios";
 import Stock from "../stock/Stock";
 
 import "./Favorites.css";
+
+const iexURL = "https://api.iextrading.com/1.0/stock/market/batch?symbols=";
 
 class Favorites extends React.Component {
   constructor(props) {
@@ -38,10 +41,13 @@ class Favorites extends React.Component {
       this.setState(
         { showLoad: true, currentLastItem: currentLastItem + 10 },
         () => {
-          this.setState({
-            items: filteredList.slice(0, currentLastItem),
-            showLoad: false
-          });
+          this.setState(
+            {
+              items: filteredList.slice(0, currentLastItem),
+              showLoad: false
+            },
+            () => this.getStockData()
+          );
         }
       );
     }
@@ -71,6 +77,19 @@ class Favorites extends React.Component {
         });
       }
     );
+  };
+
+  getStockData = () => {
+    const { items } = this.state;
+    const stockArray = [];
+    items.forEach(item => stockArray.push(item.symbol));
+    const symbolString = stockArray.join(",");
+    axios
+      .get(`${iexURL}${symbolString}&types=quote`)
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => console.log(err));
   };
 
   render() {
