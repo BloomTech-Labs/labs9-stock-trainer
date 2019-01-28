@@ -23,10 +23,13 @@ class Favorites extends React.Component {
 
   componentDidMount() {
     const { data } = this.props;
+    // setState is not necessary, and can be done in constructor, but was trying to figure out
+    // a way for the left favorites to load. not sure if this is the right approach.
     this.setState(
       {
         items: data.slice(0, 14)
       },
+      // this call is necessary, allows for first load of data without scrolling
       this.getStockData()
     );
   }
@@ -97,12 +100,16 @@ class Favorites extends React.Component {
   };
 
   getStockData = () => {
+    // this function will get stock data for whatever is in our items array
+    // this should be called every time the items state changes
     const { items } = this.state;
     if (items.length < 1) {
+      // if there are no items, we will not make the api call (prevents 400 error)
       return;
     }
     const stockArray = [];
     items.forEach(item => stockArray.push(item.symbol));
+    // concats every stock symbol to look like ABCD,EFGH,IJKL etc.
     const symbolString = stockArray.join(",");
     axios
       .get(`${iexURL}${symbolString}&types=quote`)
