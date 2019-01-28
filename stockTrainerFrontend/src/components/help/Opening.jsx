@@ -29,6 +29,7 @@ const OpeningPrice = () => (
       opening price can be veered away from the prior closing day's price due to
       lack of supply and demand.
     </p>
+    <img src="./images/opening.png" alt="Apple Opening Price Graph" />
   </Container>
 );
 
