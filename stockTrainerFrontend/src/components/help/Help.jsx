@@ -45,7 +45,7 @@ const articles = [
   },
   {
     title: "Adjusted Closing Price",
-    link: "/help/adjustclosing",
+    link: "/help/adjustedclosing",
     text:
       "Adjusted closing price is the day's closing price ammended due to distributions and corporate actions that occur before the next open trading day."
   },
