@@ -7,6 +7,7 @@ import "./Help.css";
 import Helpmain from "./Helpmain";
 import Test from "./Test";
 import OpeningPrice from "./Opening";
+import ClosingPrice from "./Closing";
 
 const articles = [
   {
@@ -17,7 +18,7 @@ const articles = [
   },
   {
     title: "Closing Price",
-    link: "/help/test",
+    link: "/help/closingprice",
     text:
       "The final price of any stock traded on any trading day. It's the most up-to-date value of a stock, not count after-hours price."
   },
@@ -146,6 +147,7 @@ export default function Help(props) {
           />
           <Route path={`${match.path}/test`} component={Test} />
           <Route path={`${match.path}/openingprice`} component={OpeningPrice} />
+          <Route path={`${match.path}/closingprice`} component={ClosingPrice} />
           <Redirect to="/404" />
         </Switch>
       </Segment>

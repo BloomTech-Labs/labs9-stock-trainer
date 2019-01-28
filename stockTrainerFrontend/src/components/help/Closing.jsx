@@ -2,10 +2,10 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { Container, Header } from "semantic-ui-react";
-// import Opening from "./images/opening.png";
-// import "./Opening.css";
+import Closing from "./images/Closing.png";
+import "./Opening.css";
 
-const OpeningPrice = () => (
+const ClosingPrice = () => (
   <Container text>
     <Header as="h1">Closing Price</Header>
     <p>
@@ -27,8 +27,8 @@ const OpeningPrice = () => (
       closing prices is during periods of time when corporates don't take
       actions, i.e. stock splits, stock dividends, not issued cash dividends.
     </p>
-    {/* <img src={Opening} alt="Apple Opening Price Graph" className="open" /> */}
+    <img src={Closing} alt="Apple Opening Price Graph" className="open" />
   </Container>
 );
 
-export default OpeningPrice;
+export default ClosingPrice;
