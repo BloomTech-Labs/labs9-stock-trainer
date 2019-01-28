@@ -11,7 +11,7 @@ import AfterHours from "./After";
 import AdjustedClosing from "./Adjust";
 import RecordLow from "./Low";
 import RecordHigh from "./High";
-// import Volume from "./Volume";
+import Volume from "./Volume";
 // import Transactions from "./Transactions";
 // import Dividend from "./Dividend";
 // import ExDividend from "./ExDividend";
@@ -169,7 +169,7 @@ export default function Help(props) {
           />
           <Route path={`${match.path}/recordlow`} component={RecordLow} />
           <Route path={`${match.path}/recordHigh`} component={RecordHigh} />
-          {/* <Route path={`${match.path}/volume`} component={Volume} /> */}
+          <Route path={`${match.path}/volume`} component={Volume} />
           {/* <Route path={`${match.path}/transactions`} component={Transactions} /> */}
           {/* <Route path={`${match.path}/dividend`} component={Dividend} /> */}
           {/* <Route path={`${match.path}/exdividend`} component={ExDividend} /> */}
