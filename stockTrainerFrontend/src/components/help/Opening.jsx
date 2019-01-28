@@ -1,16 +1,19 @@
+/* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { Container, Header } from "semantic-ui-react";
-import { Link } from "react-router-dom";
 
 const OpeningPrice = () => (
   <Container text>
     <Header as="h1">Opening Price</Header>
     <p>
       Opening Price is, as stated in{" "}
-      <Link to="https://www.investopedia.com/terms/o/openingprice.asp">
+      <a
+        target="_blank"
+        href="https://www.investopedia.com/terms/o/openingprice.asp"
+      >
         Investopedia
-      </Link>
+      </a>
       "the price at which a security first trades upon the opening of an
       exchange on a trading day." Which means investors take a look at the
       previous day's closing price and uses that to determine the next open

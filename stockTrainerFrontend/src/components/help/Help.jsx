@@ -6,11 +6,12 @@ import "./Help.css";
 
 import Helpmain from "./Helpmain";
 import Test from "./Test";
+import OpeningPrice from "./Opening";
 
 const articles = [
   {
     title: "Opening Price",
-    link: "/help/test",
+    link: "/help/openingprice",
     text:
       "The price at which investors value or expect from the day before's trading and after-hours trading to sell at on the opening of the next trading day."
   },
@@ -144,6 +145,7 @@ export default function Help(props) {
             render={() => <Helpmain articles={articles} />}
           />
           <Route path={`${match.path}/test`} component={Test} />
+          <Route path={`${match.path}/openingprice`} component={OpeningPrice} />
           <Redirect to="/404" />
         </Switch>
       </Segment>
