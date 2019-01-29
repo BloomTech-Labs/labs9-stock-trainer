@@ -41,7 +41,7 @@ const Stock = props => {
       />
       <div className="leftColumnInfobox">
         <div className="upperRowInfobox">Price:</div>
-        <div>${info.latestPrice}</div>
+        <div>${Number(info.latestPrice).toFixed(2)}</div>
       </div>
       <div className="middleColumnInfobox">
         <div className="upperRowInfobox">Volume: </div>
