@@ -1,5 +1,6 @@
 import React from "react";
 import { Icon } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import "./Stock.css";
 
 const Stock = props => {
@@ -28,10 +29,12 @@ const Stock = props => {
           {symbol ? ` (${symbol})` : ""}
         </h1>
       ) : (
-        <h3 className="stockName">
-          {name}
-          {symbol ? ` (${symbol})` : ""}
-        </h3>
+        <Link to={`/reports/${symbol}`}>
+          <h3 className="stockName">
+            {name}
+            {symbol ? ` (${symbol})` : ""}
+          </h3>
+        </Link>
       )}
       <Icon
         className="favoriteIcon"

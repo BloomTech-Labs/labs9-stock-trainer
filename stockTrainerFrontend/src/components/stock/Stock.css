@@ -1,6 +1,7 @@
 .stockName {
   grid-area: stockname;
   margin-bottom: 0px;
+  color: black;
 }
 .favoriteIcon {
   grid-area: favoriteStar;

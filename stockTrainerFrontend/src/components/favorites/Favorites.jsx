@@ -34,7 +34,7 @@ class Favorites extends React.Component {
           filteredList: nextProps.data,
           items: nextProps.data.slice(0, currentLastItem)
         },
-        this.getStockData()
+        () => this.getStockData()
       );
     }
   }
@@ -84,7 +84,7 @@ class Favorites extends React.Component {
           {
             items: filteredList.slice(0, currentLastItem)
           },
-          this.getStockData()
+          () => this.getStockData()
         );
       }
     );
@@ -105,7 +105,13 @@ class Favorites extends React.Component {
     axios
       .get(`${iexURL}${symbolString}&types=quote`)
       .then(res => {
-        this.setState({ currentData: res.data });
+        this.setState(prevState => ({
+          currentData: Object.assign(
+            // deep copy to prevent any bad state references
+            JSON.parse(JSON.stringify(prevState.currentData)),
+            res.data
+          )
+        }));
       })
       .catch(err => console.log(err));
   };
