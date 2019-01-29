@@ -359,10 +359,14 @@ export default class Reports extends React.Component {
             onChange={this.dateChange}
           />
         </div>
-        <Responsive className="chart" minWidth={769}>
-          <Tab panes={panes} stockdata={stockData[currentSymbol]} />
+        <Responsive className="chart" minWidth={1000}>
+          <Tab
+            panes={panes}
+            className="tabArea"
+            stockdata={stockData[currentSymbol]}
+          />
         </Responsive>
-        <Responsive className="chart" maxWidth={768}>
+        <Responsive className="chart" maxWidth={999}>
           <div className="tabSelectSmall">
             <Button
               onClick={() => {
@@ -379,6 +383,7 @@ export default class Reports extends React.Component {
             />
           </div>
           <Tab
+            className="tabArea"
             activeIndex={activeIndex}
             menu={{ className: "none" }}
             panes={panes}
