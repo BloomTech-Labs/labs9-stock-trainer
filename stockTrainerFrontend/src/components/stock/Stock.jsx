@@ -40,21 +40,16 @@ const Stock = props => {
         onClick={symbol ? () => favoriteToggle(symbol) : () => {}}
       />
       <div className="leftColumnInfobox">
-        {big ? (
-          <div className="upperRowInfobox">
-            Latest Price: ${info.latestPrice}
-          </div>
-        ) : (
-          <div className="upperRowInfobox">
-            Current Price: ${info.latestPrice}
-          </div>
-        )}
+        <div className="upperRowInfobox">Price:</div>
+        <div>${info.latestPrice}</div>
       </div>
       <div className="middleColumnInfobox">
-        <div className="upperRowInfobox">Volume: {info.latestVolume}</div>
+        <div className="upperRowInfobox">Volume: </div>
+        <div>{info.latestVolume}</div>
       </div>
       <div className="rightColumnInfobox">
-        <div className="upperRowInfobox">Change: {info.changePercent}%</div>
+        <div className="upperRowInfobox">Change: </div>
+        <div>{info.changePercent}%</div>
       </div>
     </div>
   );
