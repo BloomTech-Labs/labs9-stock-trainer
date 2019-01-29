@@ -1,5 +1,4 @@
 .gridContainer {
-  
   height: 100%;
 
   display: grid;
@@ -8,7 +7,7 @@
   grid-template-rows: 30% 68%;
   grid-row-gap: 2%;
 }
-.height{
+.height {
   height: 100%;
 }
 /* This overrides semantics default margin for segments */
@@ -23,20 +22,18 @@
   grid-column-end: 3;
 }
 .holderDiv {
-  height: 90%;
+  height: calc(95% - 3rem);
   width: 90%;
 }
-.tabDash{
+.tabDash {
   width: 50%;
   justify-content: center;
-  background:#eeeeee ;
+  background: #eeeeee;
   border-top-width: 1px;
-
-  
 }
 
-/* @media only screen and (max-width: 768px) {
-  .gridContainer {
+@media only screen and (max-width: 767px) {
+  /* .gridContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -53,5 +50,8 @@
   .leftColumn {
     height: 49%;
     width: 100%;
+  } */
+  .holderDiv {
+    height: calc(100% - 3rem);
   }
-} */
+}

@@ -26,10 +26,20 @@
 }
 @media only screen and (max-width: 768px) {
   .favoritesTitle {
-    font-size: 1.2em;
-    line-height: 1.8em;
+    display:none;
   }
-  /* .favoritesHolder{
-    height: 90%;
-  } */
+  .favoritesDisplay {
+    padding: .3em!important;
+  }
+  .favoritesHeader{
+    padding-top:1em !important;
+  }
+  .ui.attached.segment{
+    border-bottom-left-radius: .28571429rem;
+    border-bottom-right-radius: .28571429rem;
+
+  }
+  .ui.tabular.menu+.attached:not(.top).segment, .ui.tabular.menu+.attached:not(.top).segment+.attached:not(.top).segment{
+    height: calc(100% - 3em);
+  }
 }

@@ -63,7 +63,7 @@ const Dashboard = props => {
           ]}
         />
       </Responsive>
-      <Responsive minWidth={768} className="gridContainer">
+      <Responsive minWidth={769} className="gridContainer">
         <Segment className="ind">
           <Indicators />
         </Segment>
