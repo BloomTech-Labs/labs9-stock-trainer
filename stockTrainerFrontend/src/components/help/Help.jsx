@@ -15,7 +15,7 @@ import Volume from "./Volume";
 import Transactions from "./Transactions";
 import Dividend from "./Dividend";
 import ExDividend from "./ExDividend";
-// import StockSplit from "./StockSplit";
+import StockSplit from "./StockSplit";
 // import SplitAdjusted from "./SplitAdjusted";
 // import AverageTrueRange from "./Average";
 // import VolumeWeighted from "./Weighted";
@@ -173,7 +173,7 @@ export default function Help(props) {
           <Route path={`${match.path}/transactions`} component={Transactions} />
           <Route path={`${match.path}/dividend`} component={Dividend} />
           <Route path={`${match.path}/exdividend`} component={ExDividend} />
-          {/* <Route path={`${match.path}/stocksplit`} component={StockSplit} /> */}
+          <Route path={`${match.path}/stocksplit`} component={StockSplit} />
           {/* <Route path={`${match.path}/splitadjusted`} component={SplitAdjusted} /> */}
           {/* <Route path={`${match.path}/averagetruerange`} component={AverageTrueRange} /> */}
           {/* <Route path={`${match.path}/volumeweighted`} component={VolumeWeighted} /> */}
