@@ -143,14 +143,14 @@ class Favorites extends React.Component {
             ))}
             {showLoad ? (
               <List.Item>
-                <h3>Loading...</h3>
+                <h4>Loading...</h4>
               </List.Item>
             ) : (
               ""
             )}
             {items.length === 0 ? (
               <List.Item>
-                <h3>No Results Found</h3>
+                <h4>No Results Found</h4>
               </List.Item>
             ) : (
               ""
