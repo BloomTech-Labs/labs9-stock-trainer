@@ -1,5 +1,6 @@
 import React from "react";
 import Carousel from "re-carousel";
+import "indicators.css";
 
 export default function Indicators() {
   return (
