@@ -72,7 +72,7 @@ const Dashboard = props => {
             title="Favorites"
             favorites={favorites}
             favoriteToggle={favoriteToggle}
-            data={companyList}
+            data={favoriteObj}
           />
         </Segment>
         <Segment className="leftColumn">
