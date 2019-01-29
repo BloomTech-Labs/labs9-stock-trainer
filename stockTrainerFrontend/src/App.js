@@ -219,15 +219,13 @@ class App extends Component {
     // }
     return (
       <div className="App">
-        <button type="button" onClick={this.toggleNav}>
-          Test
-        </button>
         <TopBar
           currentUser={currentUser}
           signedInState={signIn}
           signOutFunc={this.signOut}
           signInFunc={this.signIn}
           register={this.register}
+          toggleNav={this.toggleNav}
         />
         <Switch>
           <Route
@@ -248,7 +246,7 @@ class App extends Component {
             exact
             path="/userinfo"
             render={props => (
-<Sidebar.Pushable className="lowerPageLayout">
+              <Sidebar.Pushable className="lowerPageLayout">
                 <NavBar
                   navVis={navbarVis}
                   onHide={this.toggleNav}
@@ -263,7 +261,7 @@ class App extends Component {
             exact
             path="/settings"
             render={props => (
-<Sidebar.Pushable className="lowerPageLayout">
+              <Sidebar.Pushable className="lowerPageLayout">
                 <NavBar
                   navVis={navbarVis}
                   onHide={this.toggleNav}
@@ -278,7 +276,7 @@ class App extends Component {
             exact
             path="/reports/:stockSymbol?"
             render={props => (
-<Sidebar.Pushable className="lowerPageLayout">
+              <Sidebar.Pushable className="lowerPageLayout">
                 <NavBar
                   navVis={navbarVis}
                   onHide={this.toggleNav}
@@ -318,7 +316,7 @@ class App extends Component {
             exact
             path="/testrequest"
             render={props => (
-<Sidebar.Pushable className="lowerPageLayout">
+              <Sidebar.Pushable className="lowerPageLayout">
                 <NavBar
                   navVis={navbarVis}
                   onHide={this.toggleNav}
@@ -350,7 +348,7 @@ class App extends Component {
           />
           <Route
             render={props => (
-<Sidebar.Pushable className="lowerPageLayout">
+              <Sidebar.Pushable className="lowerPageLayout">
                 <NavBar
                   navVis={navbarVis}
                   onHide={this.toggleNav}

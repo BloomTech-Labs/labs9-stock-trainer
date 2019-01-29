@@ -27,7 +27,6 @@ export default class NavBar extends Component {
     const { signout, navVis } = this.props;
     return (
       <div className="NavBar">
-        {" "}
         <Responsive maxWidth={768}>
           <Sidebar
             width="thin"
@@ -73,7 +72,7 @@ export default class NavBar extends Component {
             />
           </Sidebar>
         </Responsive>
-        <Responsive minWidth={768} >
+        <Responsive minWidth={768}>
           <Menu stackable inverted fluid size="massive">
             <Menu.Item
               name="Dashboard"
