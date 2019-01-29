@@ -1,58 +1,25 @@
 import React from "react";
-import { Container, Header, Placeholder } from "semantic-ui-react";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-import "./Indicators.css";
+import Carousel from "re-carousel";
 
-const settings = {
-  dots: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  autoplay: true,
-  adaptiveHeight: true,
-  pauseOnDotsHover: true,
-  pauseOnHover: true,
-  arrows: false
-};
-
-const Indicators = () => (
-  <Container className="slidersContainer">
-    <Slider className="slidersSlider" {...settings}>
+export default function Indicators() {
+  return (
+    <Carousel loop auto>
       <div>
-        <Header as="h3">Indicator 1</Header>
-        <Placeholder>
-          <Placeholder.Paragraph>
-            <Placeholder.Line />
-            <Placeholder.Line />
-            <Placeholder.Line />
-          </Placeholder.Paragraph>
-        </Placeholder>
+        <h3>Average True Range</h3>
+        <p>
+          Average True Range is an indicator that measures market volatility by
+          calulating the current high minus the current low, calulate the
+          absolute value of the current high minus the previous close, and
+          calulate the absolute value of the current low minus the previous
+          close during a 14 day period.
+        </p>
       </div>
       <div>
-        <Header as="h3">Indicator 2</Header>
-        <Placeholder>
-          <Placeholder.Paragraph>
-            <Placeholder.Line />
-            <Placeholder.Line />
-            <Placeholder.Line />
-          </Placeholder.Paragraph>
-        </Placeholder>
+        <h3>Indicator 2</h3>
       </div>
       <div>
-        <Header as="h3">Indicator 3</Header>
-        <Placeholder>
-          <Placeholder.Paragraph>
-            <Placeholder.Line />
-            <Placeholder.Line />
-            <Placeholder.Line />
-          </Placeholder.Paragraph>
-        </Placeholder>
+        <h3>Indicator 3</h3>
       </div>
-    </Slider>
-  </Container>
-);
-
-export default Indicators;
+    </Carousel>
+  );
+}
