@@ -11,7 +11,7 @@ import Graph from "../Graph/Graph";
 const theme = {
   container: {
     height: "90%",
-    fontSize: "24px"
+    fontSize: "1em"
   },
   suggestionsContainerOpen: {
     position: "absolute",
