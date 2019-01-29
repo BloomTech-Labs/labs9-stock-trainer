@@ -71,7 +71,7 @@
   .reportsContainer {
     padding: .5rem 1rem 0 !important;
     width: 90%;
-    height: 93%;
+    height: calc(100% - 1rem);
     grid-template-columns: calc(50% - .5rem)  calc(50% - .5rem);
     grid-template-rows: 10% 10% 10% 7% 18% 40%;
     grid-column-gap: 1rem;

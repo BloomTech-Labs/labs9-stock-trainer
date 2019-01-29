@@ -5,12 +5,16 @@
   align-items: center;
 }
 .frontPageBox{
-  width: 60%;
+  width: 50%;
   margin-left: auto!important;
   margin-right:auto!important;
 }
 @media only screen and (max-width: 767px) {
   .lowerPageLayout {
-    height: 95%; 
+    height: calc(95% - 27px); 
+  }
+  .frontPageBox{
+    width: 90%;
+    
   }
 }

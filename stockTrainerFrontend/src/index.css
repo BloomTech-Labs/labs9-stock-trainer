@@ -8,12 +8,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-image:url("./images/grey.png") !important;
   /* Background pattern from Toptal Subtle Patterns */
-
+min-height:100%;
 
 }
 
-html, body, #root, .App {
+html,  .App {
   height: 100%;
   box-sizing : border-box;
 
+}
+#root{
+  height: 100vh;
 }
