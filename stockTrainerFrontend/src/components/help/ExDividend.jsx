@@ -2,34 +2,33 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { Container, Header } from "semantic-ui-react";
-// import Adjust from "./images/Adjust.png";
+import Ex from "./images/ExDividend.jpg";
 import "./Opening.css";
 
 const ExDividend = () => (
   <Container text>
-    <Header as="h1">ExDividend</Header>
+    <Header as="h1">Ex-Dividend</Header>
     <p>
-      ExDividend is, as stated in{" "}
+      Ex-Dividend is, as stated in{" "}
       <a
         target="_blank"
-        href="https://www.investopedia.com/terms/a/adjusted_closing_price.asp"
+        href="https://www.investopedia.com/terms/e/ex-dividend.asp"
       >
         Investopedia
       </a>
-      "a stock's closing price on any given day of trading that has been
-      admended to include any distributions and corporate actions that occured
-      at any time before the next day's open." The price of a stock is usually
-      affected by supply and demand of participants in the market. Though the
-      price of a stock can be affected by corporate actions as well.
+      "a stock that is trading without the value of the next dividend payment."
+      If a buyer buys a stock on or after the ex-dividend date they are not
+      entitled to the dividend declared. It's still owned by the previous stock
+      owner before the ex-dividend date. The stock price usually drops by the
+      amount of the expected dividend.
     </p>
     <p>
-      It's a useful tool when analysts are examing the historical returns of a
-      stock because it gives an accurate representation of equity value beyond
-      the market price. It takes everything from corporate actions such as stock
-      splits, dividends, and distributions offerings to give an accurate
-      representation.
+      The board of directors at a company establish a record date when the
+      company decides to have dividends as well as a ex-dividend date. The
+      ex-dividend date is usally the day before the dividend date. It occurs
+      this way because of the way stock trades are settled.
     </p>
-    {/* <img src={Adjust} alt="Apple Graph" className="open" /> */}
+    <img src={Ex} alt="Apple Graph" className="open" />
   </Container>
 );
 
