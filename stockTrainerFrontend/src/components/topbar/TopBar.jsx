@@ -12,7 +12,8 @@ const TopBar = props => {
     currentUser,
     signOutFunc,
     signInFunc,
-    register
+    register,
+    toggleNav
   } = props;
   return (
     <div className="topBarContainer">
@@ -26,6 +27,7 @@ const TopBar = props => {
           <SignOutContainer
             signOutFunc={signOutFunc}
             currentUser={currentUser}
+            toggleNav={toggleNav}
           />
         ) : (
           <SignInContainer signInFunc={signInFunc} register={register} />

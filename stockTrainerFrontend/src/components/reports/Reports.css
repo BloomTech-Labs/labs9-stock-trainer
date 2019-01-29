@@ -1,12 +1,9 @@
 .reportsSearch {
   grid-area: search;
-  height: 100%;
   position: relative;
 }
 .searchButton {
   grid-area: searchButton;
-  align-self: end;
-  height: 100%;
   margin-right: 0 !important;
 
 }
@@ -33,12 +30,16 @@
 .reportDateInput{
   width: 100%;
 }
+.stock{
+  grid-area: stock;
+
+}
 .reportsContainer {
   width: 85%;
   height: 100%;
   padding: 1rem 2rem !important;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 10% 10% 80%;
   grid-column-gap: 2rem;
   /* grid-template-areas:
@@ -46,8 +47,63 @@
     "leftInfoColumn rightInfoColumn . . targetScore"
     "tabbedChart tabbedChart tabbedChart tabbedChart tabbedChart"; */
   grid-template-areas:
-    "stock stock search search search"
-    "stock stock from to searchButton"
-    "tabbedChart tabbedChart tabbedChart tabbedChart tabbedChart";
+    "stock stock stock search search search searchButton"
+    "stock stock stock from from to to"
+    "tabbedChart tabbedChart tabbedChart tabbedChart tabbedChart tabbedChart tabbedChart";
   align-items: center;
+}
+.tabArea{
+  height:100%
+}
+.none{
+  display:none!important;
+}
+.tabSelectSmall{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: .5em;
+}
+.reportsSearch{
+  font-size: 24px;
+}
+@media only screen and (max-width: 768px) {
+  .reportsContainer {
+    padding: .5rem 1rem 0 !important;
+    width: 90%;
+    height: calc(100% - 1rem);
+    grid-template-columns: calc(50% - .5rem)  calc(50% - .5rem);
+    grid-template-rows: 10% 10% 10% 7% 18% 40%;
+    grid-column-gap: 1rem;
+    grid-template-areas:
+      "search search"
+      "from from" 
+      "to to" 
+      "searchButton searchButton"
+      "stock stock"
+      "tabbedChart tabbedChart";
+  }
+  .dateSelect{
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 12px;
+  }
+  .reportDateInput{
+    width: 75%;
+  }
+  .ui.big.button, .ui.big.buttons .button, .ui.big.buttons .or{
+    font-size:1rem;
+  }
+ .reportsSearch{
+   font-size: 16px;
+ }
+  .tabArea{
+    height:90%
+  }
+  .ui.tab.chartArea{
+    padding: .5rem !important;
+  }
+  .stock{
+    padding: 0 !important;
+  }
 }
