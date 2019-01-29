@@ -34,7 +34,7 @@ class Favorites extends React.Component {
           filteredList: nextProps.data,
           items: nextProps.data.slice(0, currentLastItem)
         },
-        this.getStockData()
+        () => this.getStockData()
       );
     }
   }
