@@ -105,15 +105,13 @@ class Favorites extends React.Component {
     axios
       .get(`${iexURL}${symbolString}&types=quote`)
       .then(res => {
-        this.setState(prevState => {
-          return {
-            currentData: Object.assign(
-              // deep copy to prevent any bad state references
-              JSON.parse(JSON.stringify(prevState.currentData)),
-              res.data
-            )
-          };
-        });
+        this.setState(prevState => ({
+          currentData: Object.assign(
+            // deep copy to prevent any bad state references
+            JSON.parse(JSON.stringify(prevState.currentData)),
+            res.data
+          )
+        }));
       })
       .catch(err => console.log(err));
   };
