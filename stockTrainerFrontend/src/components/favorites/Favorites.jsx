@@ -78,8 +78,8 @@ class Favorites extends React.Component {
     const { items, showLoad, searchText } = this.state;
     return (
       <div className="favoritesHolder">
-        <Header attached="top">
-          <h2>{title}</h2>
+        <Header className="favoritesHeader" attached="top">
+          <div className="favoritesTitle">{title}</div>
           <Input
             placeholder="Search for stock"
             value={searchText}
@@ -87,7 +87,6 @@ class Favorites extends React.Component {
             fluid
           />
         </Header>
-
         <Segment
           className="favoritesDisplay"
           onScroll={this.handleScroll}

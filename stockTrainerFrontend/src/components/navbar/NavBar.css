@@ -10,8 +10,8 @@
   .ui.menu {
     padding-left: 0;
   }
-  /* .NavBar{
-    z-index: 10;
-    position: absolute;
-  } */
+  .NavBar{
+    margin-bottom: 1rem;
+
+  }
 }
