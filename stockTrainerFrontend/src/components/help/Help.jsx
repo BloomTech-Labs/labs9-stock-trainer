@@ -13,7 +13,7 @@ import RecordLow from "./Low";
 import RecordHigh from "./High";
 import Volume from "./Volume";
 import Transactions from "./Transactions";
-// import Dividend from "./Dividend";
+import Dividend from "./Dividend";
 // import ExDividend from "./ExDividend";
 // import StockSplit from "./StockSplit";
 // import SplitAdjusted from "./SplitAdjusted";
@@ -171,7 +171,7 @@ export default function Help(props) {
           <Route path={`${match.path}/recordHigh`} component={RecordHigh} />
           <Route path={`${match.path}/volume`} component={Volume} />
           <Route path={`${match.path}/transactions`} component={Transactions} />
-          {/* <Route path={`${match.path}/dividend`} component={Dividend} /> */}
+          <Route path={`${match.path}/dividend`} component={Dividend} />
           {/* <Route path={`${match.path}/exdividend`} component={ExDividend} /> */}
           {/* <Route path={`${match.path}/stocksplit`} component={StockSplit} /> */}
           {/* <Route path={`${match.path}/splitadjusted`} component={SplitAdjusted} /> */}
