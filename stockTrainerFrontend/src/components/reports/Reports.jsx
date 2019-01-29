@@ -234,9 +234,11 @@ export default class Reports extends React.Component {
       changePercent: changePerc.toFixed(2),
       change: changeCalc.toFixed(2)
     };
+    const { name } = stockSymbolList.find(x => x.symbol === value);
     this.setState({
       stockCardInfo: newCard,
-      currentSymbol: value
+      currentSymbol: value,
+      stockName: name
     });
   };
 
