@@ -42,4 +42,7 @@
   .ui.tabular.menu+.attached:not(.top).segment, .ui.tabular.menu+.attached:not(.top).segment+.attached:not(.top).segment{
     height: calc(100% - 3em);
   }
+  .item,h3{
+    padding-left: 1em;
+  }
 }
