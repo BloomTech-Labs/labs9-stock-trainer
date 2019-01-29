@@ -1,11 +1,10 @@
 .stockName {
   grid-area: stockname;
-  margin-bottom:0px;
+  margin-bottom: 0px;
 }
 .favoriteIcon {
   grid-area: favoriteStar;
   justify-self: end;
-
 }
 
 .leftColumnInfobox {
@@ -22,7 +21,6 @@
   flex-direction: column;
   height: 100%;
   justify-self: end;
-
 }
 .middleColumnInfobox {
   grid-area: middleInfoColumn;
@@ -31,14 +29,14 @@
   flex-direction: column;
   height: 100%;
   justify-self: center;
-
 }
 .stock {
-  margin: .5em 0;
+  margin: 0.5em 0;
   display: grid;
+  padding: 0.7rem;
   height: 100%;
   align-items: center;
-  grid-row-gap: .5em;
+  grid-row-gap: 0.5em;
   grid-template-columns: 35% 35% 30%;
   grid-template-rows: 50% 50%;
   grid-template-areas:

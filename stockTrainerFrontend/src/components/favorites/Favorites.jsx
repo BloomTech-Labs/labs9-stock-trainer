@@ -1,8 +1,11 @@
 import React from "react";
 import { Input, Segment, Header, List } from "semantic-ui-react";
+import axios from "axios";
 import Stock from "../stock/Stock";
 
 import "./Favorites.css";
+
+const iexURL = "https://api.iextrading.com/1.0/stock/market/batch?symbols=";
 
 class Favorites extends React.Component {
   constructor(props) {
@@ -13,18 +16,26 @@ class Favorites extends React.Component {
       items: props.data.slice(0, 14),
       showLoad: false,
       searchText: "",
-      filteredList: props.data
+      filteredList: props.data,
+      currentData: {}
     };
+  }
+
+  componentDidMount() {
+    this.getStockData();
   }
 
   componentWillReceiveProps(nextProps) {
     const { data } = this.props;
     const { currentLastItem } = this.props;
     if (nextProps.data !== data) {
-      this.setState({
-        filteredList: nextProps.data,
-        items: nextProps.data.slice(0, currentLastItem)
-      });
+      this.setState(
+        {
+          filteredList: nextProps.data,
+          items: nextProps.data.slice(0, currentLastItem)
+        },
+        this.getStockData()
+      );
     }
   }
 
@@ -38,10 +49,13 @@ class Favorites extends React.Component {
       this.setState(
         { showLoad: true, currentLastItem: currentLastItem + 10 },
         () => {
-          this.setState({
-            items: filteredList.slice(0, currentLastItem),
-            showLoad: false
-          });
+          this.setState(
+            {
+              items: filteredList.slice(0, currentLastItem),
+              showLoad: false
+            },
+            () => this.getStockData()
+          );
         }
       );
     }
@@ -66,16 +80,39 @@ class Favorites extends React.Component {
       },
       () => {
         const { filteredList, currentLastItem } = this.state;
-        this.setState({
-          items: filteredList.slice(0, currentLastItem)
-        });
+        this.setState(
+          {
+            items: filteredList.slice(0, currentLastItem)
+          },
+          this.getStockData()
+        );
       }
     );
   };
 
+  getStockData = () => {
+    // this function will get stock data for whatever is in our items array
+    // this should be called every time the items state changes
+    const { items } = this.state;
+    if (items.length < 1) {
+      // if there are no items, we will not make the api call (prevents 400 error)
+      return;
+    }
+    const stockArray = [];
+    items.forEach(item => stockArray.push(item.symbol));
+    // concats every stock symbol to look like ABCD,EFGH,IJKL etc.
+    const symbolString = stockArray.join(",");
+    axios
+      .get(`${iexURL}${symbolString}&types=quote`)
+      .then(res => {
+        this.setState({ currentData: res.data });
+      })
+      .catch(err => console.log(err));
+  };
+
   render() {
     const { title, favorites, favoriteToggle } = this.props;
-    const { items, showLoad, searchText } = this.state;
+    const { items, showLoad, searchText, currentData } = this.state;
     return (
       <div className="favoritesHolder">
         <Header attached="top">
@@ -101,6 +138,7 @@ class Favorites extends React.Component {
                   favorites={favorites}
                   symbol={e.symbol}
                   name={e.name}
+                  info={currentData[e.symbol]}
                 />
               </List.Item>
             ))}
