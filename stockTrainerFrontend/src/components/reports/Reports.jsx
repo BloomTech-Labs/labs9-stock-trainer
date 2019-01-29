@@ -226,10 +226,11 @@ export default class Reports extends React.Component {
     const newCard = {
       endPrice: last,
       startPrice: first,
+      latestPrice: last,
       days: dataArr.length,
-      volume: parseFloat(dataArr[dataArr.length - 1].volume),
+      latestVolume: parseFloat(dataArr[dataArr.length - 1].volume),
       // I'm not sure I like this .toFixed, it makes it a string again
-      changePercentage: changePerc.toFixed(2),
+      changePercent: changePerc.toFixed(2),
       change: changeCalc.toFixed(2)
     };
     this.setState({
