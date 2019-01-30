@@ -232,7 +232,7 @@ class App extends Component {
             path="/help"
             render={props => (
               <Sidebar.Pushable className="lowerPageLayout">
-                <NavBar
+                <NavBar toggleNav={this.toggleNav} 
                   navVis={navbarVis}
                   onHide={this.toggleNav}
                   signout={this.signOut}
@@ -247,7 +247,7 @@ class App extends Component {
             path="/userinfo"
             render={props => (
               <Sidebar.Pushable className="lowerPageLayout">
-                <NavBar
+                <NavBar toggleNav={this.toggleNav} 
                   navVis={navbarVis}
                   onHide={this.toggleNav}
                   signout={this.signOut}
@@ -262,7 +262,7 @@ class App extends Component {
             path="/settings"
             render={props => (
               <Sidebar.Pushable className="lowerPageLayout">
-                <NavBar
+                <NavBar toggleNav={this.toggleNav} 
                   navVis={navbarVis}
                   onHide={this.toggleNav}
                   signout={this.signOut}
@@ -277,7 +277,7 @@ class App extends Component {
             path="/reports/:stockSymbol?"
             render={props => (
               <Sidebar.Pushable className="lowerPageLayout">
-                <NavBar
+                <NavBar toggleNav={this.toggleNav} 
                   navVis={navbarVis}
                   onHide={this.toggleNav}
                   signout={this.signOut}
@@ -298,7 +298,7 @@ class App extends Component {
             path="/dashboard"
             render={props => (
               <Sidebar.Pushable className="lowerPageLayout">
-                <NavBar
+                <NavBar toggleNav={this.toggleNav} 
                   navVis={navbarVis}
                   onHide={this.toggleNav}
                   signout={this.signOut}
@@ -317,7 +317,7 @@ class App extends Component {
             path="/testrequest"
             render={props => (
               <Sidebar.Pushable className="lowerPageLayout">
-                <NavBar
+                <NavBar toggleNav={this.toggleNav} 
                   navVis={navbarVis}
                   onHide={this.toggleNav}
                   signout={this.signOut}
@@ -349,7 +349,7 @@ class App extends Component {
           <Route
             render={props => (
               <Sidebar.Pushable className="lowerPageLayout">
-                <NavBar
+                <NavBar toggleNav={this.toggleNav} 
                   navVis={navbarVis}
                   onHide={this.toggleNav}
                   signout={this.signOut}

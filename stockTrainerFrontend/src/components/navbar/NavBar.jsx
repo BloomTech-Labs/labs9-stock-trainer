@@ -24,7 +24,7 @@ export default class NavBar extends Component {
 
   render() {
     const { activeItem } = this.state;
-    const { signout, navVis } = this.props;
+    const { signout, navVis, toggleNav } = this.props;
     return (
       <div className="NavBar">
         <Responsive maxWidth={768}>
@@ -40,6 +40,7 @@ export default class NavBar extends Component {
             size="massive"
           >
             <Menu.Item
+              onClick={toggleNav}
               name="Dashboard"
               active={activeItem === "/dashboard"}
               // you need this / in the to field or this will break on the help page!
@@ -47,18 +48,21 @@ export default class NavBar extends Component {
               as={Link}
             />
             <Menu.Item
+              onClick={toggleNav}
               name="Reports"
               active={activeItem.substring(0, 8) === "/reports"}
               to="/reports"
               as={Link}
             />
             <Menu.Item
+              onClick={toggleNav}
               name="Help"
               active={activeItem.substring(0, 5) === "/help"}
               to="/help"
               as={Link}
             />
             <Menu.Item
+              onClick={toggleNav}
               name="Settings"
               active={activeItem === "/settings"}
               to="/settings"
