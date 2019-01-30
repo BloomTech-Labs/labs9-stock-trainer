@@ -1,0 +1,23 @@
+.bannerImage {
+  height: 30vmax;
+  max-height: 30em;
+  width: 100% !important;
+  background-image: url("../../images/pexels-photo-210607.jpeg");
+  background-repeat: no-repeat;
+  background-color: black;
+  margin-bottom: 2vmax;
+  background-size: cover;
+
+}
+.frontPageBox {
+  width: 50em;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center;
+}
+
+@media only screen and (max-width: 767px) {
+  .frontPageBox {
+    width: 90%;
+  }
+}
