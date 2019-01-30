@@ -12,15 +12,52 @@ import {
 import { XAxis, YAxis } from "react-stockcharts/lib/axes";
 import {
   CrossHairCursor,
+  CurrentCoordinate,
   MouseCoordinateX,
   MouseCoordinateY
 } from "react-stockcharts/lib/coordinates";
 
 import { discontinuousTimeScaleProvider } from "react-stockcharts/lib/scale";
-import { OHLCTooltip } from "react-stockcharts/lib/tooltip";
+import {
+  OHLCTooltip,
+  MovingAverageTooltip
+} from "react-stockcharts/lib/tooltip";
+import { sma } from "react-stockcharts/lib/indicator";
 import { fitWidth } from "react-stockcharts/lib/helper";
 import { last } from "react-stockcharts/lib/utils";
 import "./Graph.css";
+
+function indicatorGraph(indicator, indicatorHelper) {
+  switch (indicator) {
+    case "sma":
+      return (
+        <>
+          <LineSeries
+            yAccessor={indicatorHelper.accessor()}
+            stroke={indicatorHelper.stroke()}
+          />
+          <CurrentCoordinate
+            yAccessor={indicatorHelper.accessor()}
+            fill={indicatorHelper.stroke()}
+          />
+          <MovingAverageTooltip
+            origin={[-38, 15]}
+            options={[
+              {
+                yAccessor: indicatorHelper.accessor(),
+                type: "SMA",
+                stroke: indicatorHelper.stroke(),
+                windowSize: indicatorHelper.options().windowSize,
+                echo: "some echo here"
+              }
+            ]}
+          />
+        </>
+      );
+    default:
+      return null;
+  }
+}
 
 class LineAndScatterChart extends React.Component {
   constructor(props) {
@@ -73,14 +110,34 @@ class LineAndScatterChart extends React.Component {
   }
 
   render() {
-    const { type, currentSymbol } = this.props;
-    const { data: initialData, chartHeight, chartWidth } = this.state;
+    const { type, currentSymbol, indicator, ratio } = this.props;
+    const { chartHeight, chartWidth } = this.state;
+    let { data: initialData } = this.state;
     if (initialData.length < 1) {
       return (
         <div ref={this.contain} className="graph">
           <h1>Search for stock data above!</h1>
         </div>
       );
+    }
+    let indicatorHelper = 0;
+    switch (indicator) {
+      case "sma":
+        console.log("inside sma");
+        indicatorHelper = sma()
+          .options({ windowSize: 20 })
+          .merge((d, c) => {
+            d.indicatorHelper = c;
+          })
+          .accessor(d => d.indicatorHelper);
+        break;
+      default:
+        break;
+    }
+    if (indicatorHelper) {
+      initialData = indicatorHelper(initialData);
+      console.log("HELP!");
+      console.log(initialData);
     }
     const xScaleProvider = discontinuousTimeScaleProvider.inputDateAccessor(
       d => d.date
@@ -92,6 +149,7 @@ class LineAndScatterChart extends React.Component {
     return (
       <div ref={this.contain} className="graph">
         <ChartCanvas
+          ratio={ratio}
           width={chartWidth}
           height={chartHeight - 50}
           margin={{ left: 70, right: 70, top: 20, bottom: 30 }}
@@ -104,7 +162,7 @@ class LineAndScatterChart extends React.Component {
           xScale={xScale}
           xExtents={xExtents}
         >
-          <Chart id={1} yExtents={d => [d.high, d.low, d.AAPLClose, d.GEClose]}>
+          <Chart id={1} yExtents={d => [d.high, d.low]}>
             <XAxis axisAt="bottom" orient="bottom" />
             <YAxis axisAt="right" orient="right" ticks={5} />
             <MouseCoordinateX
@@ -123,6 +181,7 @@ class LineAndScatterChart extends React.Component {
               marker={CircleMarker}
               markerProps={{ r: 3 }}
             />
+            {indicatorGraph(indicator, indicatorHelper)}
             <OHLCTooltip forChart={1} origin={[-40, 0]} />
           </Chart>
 

@@ -82,10 +82,14 @@ const renderSuggestion = suggestion => (
 );
 // format for panes, look into seperate component?
 const PlaceholderPane = props => {
-  const { stockData, currentSymbol } = props;
+  const { stockData, currentSymbol, indicator } = props;
   return (
     <Tab.Pane className="chartArea">
-      <NewGraph stockData={stockData} currentSymbol={currentSymbol} />
+      <NewGraph
+        stockData={stockData}
+        currentSymbol={currentSymbol}
+        indicator={indicator}
+      />
     </Tab.Pane>
   );
 };
@@ -132,7 +136,11 @@ const panes = [
     render: props => {
       const { stockdata, currentsymbol } = props;
       return (
-        <PlaceholderPane stockData={stockdata} currentSymbol={currentsymbol} />
+        <PlaceholderPane
+          stockData={stockdata}
+          currentSymbol={currentsymbol}
+          indicator="sma"
+        />
       );
     }
   }
