@@ -48,6 +48,7 @@ const accelerationFactor = 0.02;
 const maxAccelerationFactor = 0.2;
 
 function indicatorGraph(indicator, indicatorHelper) {
+  // switch statement to help us decide what to render
   switch (indicator) {
     case "sma":
       return (
@@ -214,6 +215,7 @@ class LineAndScatterChart extends React.Component {
     }
     let indicatorHelper = 0;
     switch (indicator) {
+      // switch statement to help us decide which function to use depending on indicator
       case "sma":
         indicatorHelper = sma()
           .options({ windowSize: 20 })
@@ -274,7 +276,7 @@ class LineAndScatterChart extends React.Component {
         <ChartCanvas
           ratio={ratio}
           width={chartWidth}
-          height={chartHeight - 50}
+          height={chartHeight}
           margin={{ left: 70, right: 70, top: 20, bottom: 30 }}
           type={type}
           pointsPerPxThreshold={1}
