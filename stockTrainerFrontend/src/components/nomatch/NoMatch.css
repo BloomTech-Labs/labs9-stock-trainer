@@ -1,19 +1,18 @@
-.warning{
+.warning {
   width: 85%;
-  height: 100%;
+  margin-top: 10vmax !important;
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
-  font-family: 'Abril Fatface', cursive !important;
-
+  font-family: "Abril Fatface", cursive !important;
+  padding-bottom: 5vmax !important;
 }
-.four{
-  font-size: 200px;
+.four {
+  font-size: 20vmax;
   line-height: 1em;
 }
-.sorryMessage{
+.sorryMessage {
   margin-top: 1em;
   font-size: 42px;
-
+  line-height: 1.2em;
 }
