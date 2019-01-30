@@ -7,7 +7,8 @@ import {
   ScatterSeries,
   BollingerSeries,
   CircleMarker,
-  LineSeries
+  LineSeries,
+  SARSeries
 } from "react-stockcharts/lib/series";
 import { XAxis, YAxis } from "react-stockcharts/lib/axes";
 import {
@@ -24,7 +25,13 @@ import {
   SingleValueTooltip,
   BollingerBandTooltip
 } from "react-stockcharts/lib/tooltip";
-import { sma, atr, ema, bollingerBand } from "react-stockcharts/lib/indicator";
+import {
+  sma,
+  atr,
+  ema,
+  bollingerBand,
+  sar
+} from "react-stockcharts/lib/indicator";
 import { fitWidth } from "react-stockcharts/lib/helper";
 import { last } from "react-stockcharts/lib/utils";
 import "./Graph.css";
@@ -36,6 +43,9 @@ const bbStroke = {
 };
 
 const bbFill = "#4682B4";
+
+const accelerationFactor = 0.02;
+const maxAccelerationFactor = 0.2;
 
 function indicatorGraph(indicator, indicatorHelper) {
   switch (indicator) {
@@ -122,6 +132,17 @@ function indicatorGraph(indicator, indicatorHelper) {
             origin={[-38, 20]}
             yAccessor={d => d.indicatorHelper}
             options={indicatorHelper.options()}
+          />
+        </>
+      );
+    case "sar":
+      return (
+        <>
+          <SARSeries yAccessor={d => d.sar} />
+          <SingleValueTooltip
+            yLabel={`SAR (${accelerationFactor}, ${maxAccelerationFactor})`}
+            yAccessor={d => d.sar}
+            origin={[-40, 20]}
           />
         </>
       );
@@ -223,6 +244,17 @@ class LineAndScatterChart extends React.Component {
             d.indicatorHelper = c; // eslint-disable-line
           })
           .accessor(d => d.indicatorHelper);
+        break;
+      case "sar":
+        indicatorHelper = sar()
+          .options({
+            accelerationFactor,
+            maxAccelerationFactor
+          })
+          .merge((d, c) => {
+            d.sar = c; // eslint-disable-line
+          })
+          .accessor(d => d.sar);
         break;
       default:
         break;

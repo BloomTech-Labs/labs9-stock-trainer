@@ -155,6 +155,19 @@ const panes = [
         />
       );
     }
+  },
+  {
+    menuItem: "SAR",
+    render: props => {
+      const { stockdata, currentsymbol } = props;
+      return (
+        <PlaceholderPane
+          stockData={stockdata}
+          currentSymbol={currentsymbol}
+          indicator="sar"
+        />
+      );
+    }
   }
 ];
 
