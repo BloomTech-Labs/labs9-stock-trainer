@@ -188,7 +188,6 @@ class App extends Component {
         data: { symbol: stockSymbol }
       })
       .then(res => {
-        console.log(res);
         this.setState({
           favorites: res.data.favorites
         });
