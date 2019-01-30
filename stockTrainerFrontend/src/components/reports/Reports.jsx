@@ -5,7 +5,7 @@ import Autosuggest from "react-autosuggest";
 import stockSymbolList from "../../util/test.json";
 
 import Stock from "../stock/Stock";
-import Graph from "../Graph/Graph";
+import NewGraph from "../Graph/NewGraph";
 
 // css for the suggest menu. There might be a way to move thise to the css file, look into that
 const theme = {
@@ -82,10 +82,14 @@ const renderSuggestion = suggestion => (
 );
 // format for panes, look into seperate component?
 const PlaceholderPane = props => {
-  const { stockData } = props;
+  const { stockData, currentSymbol, indicator } = props;
   return (
     <Tab.Pane className="chartArea">
-      <Graph stockData={stockData} />
+      <NewGraph
+        stockData={stockData}
+        currentSymbol={currentSymbol}
+        indicator={indicator}
+      />
     </Tab.Pane>
   );
 };
@@ -94,36 +98,75 @@ const panes = [
   {
     menuItem: "Price",
     render: props => {
-      const { stockdata } = props;
-      return <PlaceholderPane stockData={stockdata} />;
+      const { stockdata, currentsymbol } = props;
+      return (
+        <PlaceholderPane stockData={stockdata} currentSymbol={currentsymbol} />
+      );
     }
   },
   {
-    menuItem: "Average True Range",
+    menuItem: "ATR",
     render: props => {
-      const { stockdata } = props;
-      return <PlaceholderPane stockData={stockdata} />;
+      const { stockdata, currentsymbol } = props;
+      return (
+        <PlaceholderPane
+          stockData={stockdata}
+          currentSymbol={currentsymbol}
+          indicator="atr"
+        />
+      );
     }
   },
   {
-    menuItem: "Volumn Weighted Average",
+    menuItem: "SMA",
     render: props => {
-      const { stockdata } = props;
-      return <PlaceholderPane stockData={stockdata} />;
+      const { stockdata, currentsymbol } = props;
+      return (
+        <PlaceholderPane
+          stockData={stockdata}
+          currentSymbol={currentsymbol}
+          indicator="sma"
+        />
+      );
     }
   },
   {
-    menuItem: "Moving Average Convergence",
+    menuItem: "EMA",
     render: props => {
-      const { stockdata } = props;
-      return <PlaceholderPane stockData={stockdata} />;
+      const { stockdata, currentsymbol } = props;
+      return (
+        <PlaceholderPane
+          stockData={stockdata}
+          currentSymbol={currentsymbol}
+          indicator="ema"
+        />
+      );
     }
   },
   {
-    menuItem: "Moving Average",
+    menuItem: "Bollinger Band",
     render: props => {
-      const { stockdata } = props;
-      return <PlaceholderPane stockData={stockdata} />;
+      const { stockdata, currentsymbol } = props;
+      return (
+        <PlaceholderPane
+          stockData={stockdata}
+          currentSymbol={currentsymbol}
+          indicator="bb"
+        />
+      );
+    }
+  },
+  {
+    menuItem: "SAR",
+    render: props => {
+      const { stockdata, currentsymbol } = props;
+      return (
+        <PlaceholderPane
+          stockData={stockdata}
+          currentSymbol={currentsymbol}
+          indicator="sar"
+        />
+      );
     }
   }
 ];
@@ -366,6 +409,7 @@ export default class Reports extends React.Component {
             panes={panes}
             className="tabArea"
             stockdata={stockData[currentSymbol]}
+            currentsymbol={currentSymbol}
           />
         </Responsive>
         <Responsive className="chart" maxWidth={999}>
@@ -390,6 +434,7 @@ export default class Reports extends React.Component {
             menu={{ className: "none" }}
             panes={panes}
             stockdata={stockData[currentSymbol]}
+            currentsymbol={currentSymbol}
           />
         </Responsive>
       </Segment>
