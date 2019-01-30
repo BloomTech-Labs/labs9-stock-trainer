@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
-import { Switch, Route, withRouter } from "react-router-dom";
+import { Switch, Route, withRouter, Link } from "react-router-dom";
 import { Button, Header, Icon, Modal, Sidebar } from "semantic-ui-react";
 
 import TopBar from "./components/topbar/TopBar";
@@ -29,7 +29,8 @@ class App extends Component {
       stockData: {},
       favorites: [],
       modalOpen: false,
-      navbarVis: false
+      navbarVis: false,
+      favModal: false
     };
   }
 
@@ -187,20 +188,28 @@ class App extends Component {
         data: { symbol: stockSymbol }
       })
       .then(res => {
+        console.log(res);
         this.setState({
           favorites: res.data.favorites
         });
       })
       .catch(err => {
         // eslint-disable-next-line no-console
-        console.log(err); // for errors
-        // this.handleOpen();
+        if (err.response.status === 405) {
+          this.favOpen();
+        } else {
+          this.handleOpen();
+        }
       });
   };
 
   handleOpen = () => this.setState({ modalOpen: true });
 
   handleClose = () => this.setState({ modalOpen: false });
+
+  favOpen = () => this.setState({ favModal: true });
+
+  favClose = () => this.setState({ favModal: false });
 
   render() {
     const { auth } = this.props;
@@ -210,7 +219,8 @@ class App extends Component {
       stockData,
       favorites,
       modalOpen,
-      navbarVis
+      navbarVis,
+      favModal
     } = this.state;
     // this is what we use for refresh relogin, debug later
     // console.log(!auth.isAuthenticated());
@@ -368,6 +378,29 @@ class App extends Component {
           <Modal.Actions>
             <Button color="green" onClick={this.handleClose} inverted>
               <Icon name="checkmark" /> Ok
+            </Button>
+          </Modal.Actions>
+        </Modal>
+        <Modal open={favModal} basic size="small" onClose={this.favClose}>
+          <Header icon="star" content="Maximum Amount of Favorites!" />
+          <Modal.Content>
+            <p>
+              To add more than 10 favorites, you must be a premium member. Would
+              you like to upgrade?
+            </p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button basic color="red" inverted onClick={this.favClose}>
+              <Icon name="remove" /> No
+            </Button>
+            <Button
+              color="green"
+              inverted
+              as={Link}
+              to="/settings"
+              onClick={this.favClose}
+            >
+              <Icon name="checkmark" /> Upgrade
             </Button>
           </Modal.Actions>
         </Modal>
