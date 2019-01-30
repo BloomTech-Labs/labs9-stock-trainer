@@ -169,6 +169,8 @@ def favorite(request):
         # user is found, and then stock is added to favorite
         user = User.objects.all().filter(username=username).first()
         stock = Stock.objects.all().filter(symbol=body.get('symbol')).first()
+        if not user.premium and len(list(user.favorites.all())) >= 10:
+            return JsonResponse(status=405, data={'message': 'You must be a premium user to have more than 10 favorites'})
         if not stock:
             # if stock doesn't exist in DB, creates one
             stock = Stock(symbol=body.get('symbol'))

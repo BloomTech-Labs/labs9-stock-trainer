@@ -2,22 +2,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import {
-  Container,
-  Divider,
-  Button,
-  Placeholder,
-  Header,
-  Segment
-} from "semantic-ui-react";
+import { Button, Header, Segment } from "semantic-ui-react";
+
+import "./Landing.css";
 
 const Landing = () => (
-  <Container fluid textAlign="center">
-    <Placeholder fluid style={{ height: 400, width: "100%" }}>
-      <Placeholder.Image rectangular />
-    </Placeholder>
-    <Divider />
-    <Segment className="frontPageBox" style={{ marginBottom: "1em" }}>
+  <div>
+    <div className="bannerImage" />
+    <Segment className="frontPageBox">
       <Header as="h2">About</Header>
 
       <p>
@@ -34,7 +26,7 @@ const Landing = () => (
         <Button secondary>Demo now!</Button>
       </Link>
     </Segment>
-  </Container>
+  </div>
 );
 
 export default Landing;
