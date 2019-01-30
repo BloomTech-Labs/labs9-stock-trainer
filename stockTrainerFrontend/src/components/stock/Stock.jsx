@@ -38,7 +38,7 @@ const Stock = props => {
           {symbol ? ` (${symbol})` : ""}
         </h1>
       ) : (
-        <Link to={`/reports/${symbol}`}>
+        <Link className="stockName" to={`/reports/${symbol}`}>
           <h3 className="stockName">
             {name}
             {symbol ? ` (${symbol})` : ""}

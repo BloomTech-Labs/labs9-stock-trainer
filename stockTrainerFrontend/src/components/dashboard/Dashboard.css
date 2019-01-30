@@ -22,7 +22,7 @@
   grid-column-end: 3;
 }
 .holderDiv {
-  height: calc(95% - 3rem);
+  height: calc(100% - 6rem);
   width: 90%;
 }
 .tabDash {
