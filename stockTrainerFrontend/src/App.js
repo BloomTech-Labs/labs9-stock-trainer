@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
-import { Switch, Route, withRouter, Link } from "react-router-dom";
+import { Switch, Route, withRouter, Redirect, Link } from "react-router-dom";
 import { Button, Header, Icon, Modal, Sidebar } from "semantic-ui-react";
 
 import TopBar from "./components/topbar/TopBar";
@@ -12,12 +12,10 @@ import AccountSettings from "./components/accountSettings/AccountSettings";
 import Landing from "./components/landing/Landing";
 
 import Reports from "./components/reports/Reports";
-import UserInfo from "./components/userinfo/UserInfo";
 import Dashboard from "./components/dashboard/Dashboard";
 import Help from "./components/help/Help";
 import NoMatch from "./components/nomatch/NoMatch";
 import Callback from "./Auth/Callback";
-import TestRequest from "./components/TestRequest";
 
 class App extends Component {
   constructor(props) {
@@ -239,105 +237,96 @@ class App extends Component {
         <Switch>
           <Route
             path="/help"
-            render={props => (
-              <Sidebar.Pushable className="lowerPageLayout">
-                <NavBar
-                  navVis={navbarVis}
-                  onHide={this.toggleNav}
-                  signout={this.signOut}
-                  {...props}
+            render={props =>
+              auth.isAuthenticated() ? (
+                <Sidebar.Pushable className="lowerPageLayout">
+                  <NavBar
+                    toggleNav={this.toggleNav}
+                    navVis={navbarVis}
+                    signout={this.signOut}
+                    {...props}
+                  />
+                  <Help {...props} />
+                </Sidebar.Pushable>
+              ) : (
+                <Redirect
+                  to={{ pathname: "/", state: { from: props.location } }}
                 />
-                <Help {...props} />
-              </Sidebar.Pushable>
-            )}
-          />
-          <Route
-            exact
-            path="/userinfo"
-            render={props => (
-              <Sidebar.Pushable className="lowerPageLayout">
-                <NavBar
-                  navVis={navbarVis}
-                  onHide={this.toggleNav}
-                  signout={this.signOut}
-                  {...props}
-                />
-                <UserInfo />
-              </Sidebar.Pushable>
-            )}
+              )
+            }
           />
           <Route
             exact
             path="/settings"
-            render={props => (
-              <Sidebar.Pushable className="lowerPageLayout">
-                <NavBar
-                  navVis={navbarVis}
-                  onHide={this.toggleNav}
-                  signout={this.signOut}
-                  {...props}
+            render={props =>
+              auth.isAuthenticated() ? (
+                <Sidebar.Pushable className="lowerPageLayout">
+                  <NavBar
+                    toggleNav={this.toggleNav}
+                    navVis={navbarVis}
+                    signout={this.signOut}
+                    {...props}
+                  />
+                  <AccountSettings accessToken={auth.accessToken} />
+                </Sidebar.Pushable>
+              ) : (
+                <Redirect
+                  to={{ pathname: "/", state: { from: props.location } }}
                 />
-                <AccountSettings accessToken={auth.accessToken} />
-              </Sidebar.Pushable>
-            )}
+              )
+            }
           />
           <Route
             exact
             path="/reports/:stockSymbol?"
-            render={props => (
-              <Sidebar.Pushable className="lowerPageLayout">
-                <NavBar
-                  navVis={navbarVis}
-                  onHide={this.toggleNav}
-                  signout={this.signOut}
-                  {...props}
+            render={props =>
+              auth.isAuthenticated() ? (
+                <Sidebar.Pushable className="lowerPageLayout">
+                  <NavBar
+                    toggleNav={this.toggleNav}
+                    navVis={navbarVis}
+                    signout={this.signOut}
+                    {...props}
+                  />
+                  <Reports
+                    favoriteToggle={this.favoriteToggle}
+                    retrieveStock={this.retrieveStock}
+                    stockData={stockData}
+                    favorites={favorites}
+                    {...props}
+                  />
+                </Sidebar.Pushable>
+              ) : (
+                <Redirect
+                  to={{ pathname: "/", state: { from: props.location } }}
                 />
-                <Reports
-                  favoriteToggle={this.favoriteToggle}
-                  retrieveStock={this.retrieveStock}
-                  stockData={stockData}
-                  favorites={favorites}
-                  {...props}
-                />
-              </Sidebar.Pushable>
-            )}
+              )
+            }
           />
           <Route
             exact
             path="/dashboard"
-            render={props => (
-              <Sidebar.Pushable className="lowerPageLayout">
-                <NavBar
-                  navVis={navbarVis}
-                  onHide={this.toggleNav}
-                  signout={this.signOut}
-                  {...props}
+            render={props =>
+              auth.isAuthenticated() ? (
+                <Sidebar.Pushable className="lowerPageLayout">
+                  <NavBar
+                    toggleNav={this.toggleNav}
+                    navVis={navbarVis}
+                    signout={this.signOut}
+                    {...props}
+                  />
+                  <Sidebar.Pusher
+                    favoriteToggle={this.favoriteToggle}
+                    favorites={favorites}
+                    as={Dashboard}
+                  />
+                </Sidebar.Pushable>
+              ) : (
+                <Redirect
+                  to={{ pathname: "/", state: { from: props.location } }}
                 />
-                <Sidebar.Pusher
-                  favoriteToggle={this.favoriteToggle}
-                  favorites={favorites}
-                  as={Dashboard}
-                />
-              </Sidebar.Pushable>
-            )}
-          />
-          <Route
-            exact
-            path="/testrequest"
-            render={props => (
-              <Sidebar.Pushable className="lowerPageLayout">
-                <NavBar
-                  navVis={navbarVis}
-                  onHide={this.toggleNav}
-                  signout={this.signOut}
-                  {...props}
-                />
-                <TestRequest
-                  retrieveStock={this.retrieveStock}
-                  stockData={stockData}
-                />
-              </Sidebar.Pushable>
-            )}
+              )
+            }
           />
           <Route
             exact
@@ -359,8 +348,9 @@ class App extends Component {
             render={props => (
               <Sidebar.Pushable className="lowerPageLayout">
                 <NavBar
+                  toggleNav={this.toggleNav}
+                  isAuth={() => {}}
                   navVis={navbarVis}
-                  onHide={this.toggleNav}
                   signout={this.signOut}
                   {...props}
                 />

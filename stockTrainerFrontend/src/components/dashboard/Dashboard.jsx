@@ -34,7 +34,11 @@ const Dashboard = props => {
           className="height"
           panes={[
             {
-              menuItem: <Menu.Item className="tabDash">Stock Ticker</Menu.Item>,
+              menuItem: (
+                <Menu.Item key="favorites" className="tabDash">
+                  Stock Ticker
+                </Menu.Item>
+              ),
               pane: {
                 content: (
                   <Favorites
@@ -43,21 +47,29 @@ const Dashboard = props => {
                     favorites={favorites}
                     title="Stock Ticker"
                     data={companyList}
+                    key="3"
                   />
-                )
+                ),
+                key: "Stock"
               }
             },
             {
-              menuItem: <Menu.Item className="tabDash">Favorites</Menu.Item>,
+              menuItem: (
+                <Menu.Item key="stockticker" className="tabDash">
+                  Favorites
+                </Menu.Item>
+              ),
               pane: {
                 content: (
                   <Favorites
+                    key="32"
                     title="Favorites"
                     favorites={favorites}
                     favoriteToggle={favoriteToggle}
                     data={favoriteObj}
                   />
-                )
+                ),
+                key: "Favorites"
               }
             }
           ]}
