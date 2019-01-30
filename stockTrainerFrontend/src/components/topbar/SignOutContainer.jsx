@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Modal, Icon } from "semantic-ui-react";
+import { Button, Modal, Icon, Responsive } from "semantic-ui-react";
 import "./SignoutContainer.css";
 // import Auth from "../../Auth/Auth";
 
@@ -22,17 +22,19 @@ class SignedOutContainer extends React.Component {
   };
 
   render() {
-    const { currentUser } = this.props;
+    const { currentUser, toggleNav } = this.props;
     const { modalOpen } = this.state;
     return (
       <div className="signoutContainer">
-        <div className="currentUserText">{currentUser}</div>
-        <div>
+        <Responsive minWidth={768}>
+          <div className="currentUserText">{currentUser}</div>
+        </Responsive>
+        <Responsive minWidth={768}>
           <Modal
             open={modalOpen}
             dimmer="blurring"
             trigger={
-              <Button onClick={this.handleOpen} size="big" secondary>
+              <Button onClick={this.handleOpen} size="large" secondary>
                 Sign Out
               </Button>
             }
@@ -53,7 +55,12 @@ class SignedOutContainer extends React.Component {
               </Button>
             </Modal.Actions>
           </Modal>
-        </div>
+        </Responsive>
+        <Responsive maxWidth={768}>
+          <Button id="logout" onClick={toggleNav} secondary>
+            <Icon size="large" name="bars" />
+          </Button>
+        </Responsive>
       </div>
     );
   }

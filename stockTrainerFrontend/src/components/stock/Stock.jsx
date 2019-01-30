@@ -8,7 +8,7 @@ const Stock = props => {
   const { name, symbol, big, favorites, favoriteToggle } = props;
   let { info } = props;
   let isFavorite = "star outline";
-  if (typeof info === "undefined") {
+  if (typeof info === "undefined" && !big) {
     info = {
       latestPrice: "",
       latestVolume: "",
@@ -16,6 +16,15 @@ const Stock = props => {
     };
   } else if ("quote" in info) {
     info = info.quote;
+  } else if (typeof info === "undefined" && big) {
+    info = {
+      startPrice: "",
+      endPrice: "",
+      volume: "",
+      days: 0,
+      change: 0,
+      changePercentage: 0
+    };
   }
 
   if (favorites.find(x => x === symbol)) {
@@ -42,23 +51,39 @@ const Stock = props => {
         size="big"
         onClick={symbol ? () => favoriteToggle(symbol) : () => {}}
       />
-      <div className="leftColumnInfobox">
-        {big ? (
-          <div className="upperRowInfobox">
-            Latest Price: ${info.latestPrice}
-          </div>
-        ) : (
-          <div className="upperRowInfobox">
-            Current Price: ${info.latestPrice}
-          </div>
-        )}
-      </div>
-      <div className="middleColumnInfobox">
-        <div className="upperRowInfobox">Volume: {info.latestVolume}</div>
-      </div>
-      <div className="rightColumnInfobox">
-        <div className="upperRowInfobox">Change: {info.changePercent}%</div>
-      </div>
+      {big ? (
+        <div className="leftColumnInfobox">
+          <div className="upperRowInfobox">Start Price: {info.startPrice}</div>
+          <div className="lowerRowInfobox">Volume: {info.latestVolume}</div>
+        </div>
+      ) : (
+        <div className="leftColumnInfobox">
+          <div className="upperRowInfobox">Price:</div>
+          <div>${Number(info.latestPrice).toFixed(2)}</div>
+        </div>
+      )}
+      {big ? (
+        <div className="middleColumnInfobox">
+          <div className="upperRowInfobox">End Price: {info.endPrice}</div>
+          <div className="lowerRowInfobox">Days Measured: {info.days}</div>
+        </div>
+      ) : (
+        <div className="middleColumnInfobox">
+          <div className="upperRowInfobox">Volume: </div>
+          <div>{info.latestVolume}</div>
+        </div>
+      )}
+      {big ? (
+        <div className="rightColumnInfobox">
+          <div className="upperRowInfobox">Change: {info.change}</div>
+          <div className="lowerRowInfobox">Change %: {info.changePercent}</div>
+        </div>
+      ) : (
+        <div className="rightColumnInfobox">
+          <div className="upperRowInfobox">Change: </div>
+          <div>{info.changePercent}%</div>
+        </div>
+      )}
     </div>
   );
 };

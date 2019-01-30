@@ -3,17 +3,46 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
-.helpSearch{
+.helpSearch {
   box-sizing: border-box;
   overflow-y: auto;
   overflow-x: hidden;
   height: 100%;
 }
-.favoritesHolder{
-  height:100%;
-  display:flex;
+.favoritesHolder {
+  height: 100%;
+  display: flex;
   flex-direction: column;
 }
-.favoritesItem{
-  margin-right: .3em !important;
+.favoritesItem {
+  margin-right: 0.3em !important;
+}
+.favoritesTitle {
+  font-size: 1.8em;
+  line-height: 1.8em;
+}
+.favoritesHeader {
+  padding-top: 0 !important;
+}
+@media only screen and (max-width: 768px) {
+  .favoritesTitle {
+    display:none;
+  }
+  .favoritesDisplay {
+    padding: .3em!important;
+  }
+  .favoritesHeader{
+    padding-top:1em !important;
+  }
+  .ui.attached.segment{
+    border-bottom-left-radius: .28571429rem;
+    border-bottom-right-radius: .28571429rem;
+
+  }
+  .ui.tabular.menu+.attached:not(.top).segment, .ui.tabular.menu+.attached:not(.top).segment+.attached:not(.top).segment{
+    height: calc(100% - 3em);
+  }
+  .item h4{
+    padding-left: 1em;
+  }
 }

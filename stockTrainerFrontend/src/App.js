@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
 import { Switch, Route, withRouter } from "react-router-dom";
-import { Button, Header, Icon, Modal } from "semantic-ui-react";
+import { Button, Header, Icon, Modal, Sidebar } from "semantic-ui-react";
 
 import TopBar from "./components/topbar/TopBar";
 import NavBar from "./components/navbar/NavBar";
@@ -28,9 +28,17 @@ class App extends Component {
       currentUser: "",
       stockData: {},
       favorites: [],
-      modalOpen: false
+      modalOpen: false,
+      navbarVis: false
     };
   }
+
+  toggleNav = () => {
+    const { navbarVis } = this.state;
+    this.setState({
+      navbarVis: !navbarVis
+    });
+  };
 
   signOut = () => {
     const { auth, history } = this.props;
@@ -196,7 +204,14 @@ class App extends Component {
 
   render() {
     const { auth } = this.props;
-    const { currentUser, signIn, stockData, favorites, modalOpen } = this.state;
+    const {
+      currentUser,
+      signIn,
+      stockData,
+      favorites,
+      modalOpen,
+      navbarVis
+    } = this.state;
     // this is what we use for refresh relogin, debug later
     // console.log(!auth.isAuthenticated());
     // if (localStorage.getItem("isLoggedIn") && !auth.isAuthenticated()) {
@@ -210,43 +225,64 @@ class App extends Component {
           signOutFunc={this.signOut}
           signInFunc={this.signIn}
           register={this.register}
+          toggleNav={this.toggleNav}
         />
         <Switch>
           <Route
             path="/help"
             render={props => (
-              <div className="lowerPageLayout">
-                <NavBar {...props} />
+              <Sidebar.Pushable className="lowerPageLayout">
+                <NavBar
+                  navVis={navbarVis}
+                  onHide={this.toggleNav}
+                  signout={this.signOut}
+                  {...props}
+                />
                 <Help {...props} />
-              </div>
+              </Sidebar.Pushable>
             )}
           />
           <Route
             exact
             path="/userinfo"
             render={props => (
-              <div className="lowerPageLayout">
-                <NavBar {...props} />
+              <Sidebar.Pushable className="lowerPageLayout">
+                <NavBar
+                  navVis={navbarVis}
+                  onHide={this.toggleNav}
+                  signout={this.signOut}
+                  {...props}
+                />
                 <UserInfo />
-              </div>
+              </Sidebar.Pushable>
             )}
           />
           <Route
             exact
             path="/settings"
             render={props => (
-              <div className="lowerPageLayout">
-                <NavBar {...props} />
+              <Sidebar.Pushable className="lowerPageLayout">
+                <NavBar
+                  navVis={navbarVis}
+                  onHide={this.toggleNav}
+                  signout={this.signOut}
+                  {...props}
+                />
                 <AccountSettings accessToken={auth.accessToken} />
-              </div>
+              </Sidebar.Pushable>
             )}
           />
           <Route
             exact
             path="/reports/:stockSymbol?"
             render={props => (
-              <div className="lowerPageLayout">
-                <NavBar {...props} />
+              <Sidebar.Pushable className="lowerPageLayout">
+                <NavBar
+                  navVis={navbarVis}
+                  onHide={this.toggleNav}
+                  signout={this.signOut}
+                  {...props}
+                />
                 <Reports
                   favoriteToggle={this.favoriteToggle}
                   retrieveStock={this.retrieveStock}
@@ -254,33 +290,44 @@ class App extends Component {
                   favorites={favorites}
                   {...props}
                 />
-              </div>
+              </Sidebar.Pushable>
             )}
           />
           <Route
             exact
             path="/dashboard"
             render={props => (
-              <div className="lowerPageLayout">
-                <NavBar {...props} />
-                <Dashboard
+              <Sidebar.Pushable className="lowerPageLayout">
+                <NavBar
+                  navVis={navbarVis}
+                  onHide={this.toggleNav}
+                  signout={this.signOut}
+                  {...props}
+                />
+                <Sidebar.Pusher
                   favoriteToggle={this.favoriteToggle}
                   favorites={favorites}
+                  as={Dashboard}
                 />
-              </div>
+              </Sidebar.Pushable>
             )}
           />
           <Route
             exact
             path="/testrequest"
             render={props => (
-              <div className="lowerPageLayout">
-                <NavBar {...props} />
+              <Sidebar.Pushable className="lowerPageLayout">
+                <NavBar
+                  navVis={navbarVis}
+                  onHide={this.toggleNav}
+                  signout={this.signOut}
+                  {...props}
+                />
                 <TestRequest
                   retrieveStock={this.retrieveStock}
                   stockData={stockData}
                 />
-              </div>
+              </Sidebar.Pushable>
             )}
           />
           <Route
@@ -301,10 +348,15 @@ class App extends Component {
           />
           <Route
             render={props => (
-              <div className="lowerPageLayout">
-                <NavBar {...props} />
+              <Sidebar.Pushable className="lowerPageLayout">
+                <NavBar
+                  navVis={navbarVis}
+                  onHide={this.toggleNav}
+                  signout={this.signOut}
+                  {...props}
+                />
                 <NoMatch />
-              </div>
+              </Sidebar.Pushable>
             )}
           />
         </Switch>

@@ -121,8 +121,8 @@ class Favorites extends React.Component {
     const { items, showLoad, searchText, currentData } = this.state;
     return (
       <div className="favoritesHolder">
-        <Header attached="top">
-          <h2>{title}</h2>
+        <Header className="favoritesHeader" attached="top">
+          <div className="favoritesTitle">{title}</div>
           <Input
             placeholder="Search for stock"
             value={searchText}
@@ -130,7 +130,6 @@ class Favorites extends React.Component {
             fluid
           />
         </Header>
-
         <Segment
           className="favoritesDisplay"
           onScroll={this.handleScroll}
@@ -150,14 +149,14 @@ class Favorites extends React.Component {
             ))}
             {showLoad ? (
               <List.Item>
-                <h3>Loading...</h3>
+                <h4>Loading...</h4>
               </List.Item>
             ) : (
               ""
             )}
             {items.length === 0 ? (
               <List.Item>
-                <h3>No Results Found</h3>
+                <h4>No Results Found</h4>
               </List.Item>
             ) : (
               ""
