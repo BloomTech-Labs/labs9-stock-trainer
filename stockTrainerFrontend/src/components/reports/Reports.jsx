@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Input, Tab, Segment } from "semantic-ui-react";
+import { Button, Input, Tab, Segment, Responsive } from "semantic-ui-react";
 import "./Reports.css";
 import Autosuggest from "react-autosuggest";
 import stockSymbolList from "../../util/test.json";
@@ -11,7 +11,7 @@ import Graph from "../Graph/Graph";
 const theme = {
   container: {
     height: "90%",
-    fontSize: "24px"
+    fontSize: "1em"
   },
   suggestionsContainerOpen: {
     position: "absolute",
@@ -136,10 +136,11 @@ export default class Reports extends React.Component {
       value: "",
       suggestions: [],
       startDate: "2018-02-01",
-      endDate: "2018-02-01",
+      endDate: "2018-02-02",
       stockName: "Enter Stock",
       stockCardInfo: {},
-      currentSymbol: ""
+      currentSymbol: "",
+      activeIndex: 0
     };
   }
 
@@ -233,9 +234,11 @@ export default class Reports extends React.Component {
       changePercent: changePerc.toFixed(2),
       change: changeCalc.toFixed(2)
     };
+    const { name } = stockSymbolList.find(x => x.symbol === value);
     this.setState({
       stockCardInfo: newCard,
-      currentSymbol: value
+      currentSymbol: value,
+      stockName: name
     });
   };
 
@@ -269,6 +272,24 @@ export default class Reports extends React.Component {
     });
   };
 
+  changeTab = direction => {
+    const { activeIndex } = this.state;
+
+    if (direction === "up") {
+      if (activeIndex === panes.length - 1) {
+        this.setState({ activeIndex: 0 });
+      } else {
+        this.setState({ activeIndex: activeIndex + 1 });
+      }
+      return;
+    }
+    if (activeIndex === 0) {
+      this.setState({ activeIndex: panes.length - 1 });
+    } else {
+      this.setState({ activeIndex: activeIndex - 1 });
+    }
+  };
+
   render() {
     const {
       value,
@@ -277,7 +298,8 @@ export default class Reports extends React.Component {
       endDate,
       stockName,
       stockCardInfo,
-      currentSymbol
+      currentSymbol,
+      activeIndex
     } = this.state;
     const inputProps = {
       placeholder: "Search for a Stock",
@@ -288,6 +310,7 @@ export default class Reports extends React.Component {
     return (
       <Segment className="reportsContainer">
         <Stock
+          className="stock"
           big
           symbol={match.params.stockSymbol}
           name={stockName}
@@ -306,7 +329,14 @@ export default class Reports extends React.Component {
             theme={theme}
           />
         </div>
-
+        <Button
+          className="searchButton"
+          size="big"
+          onClick={this.searchStock}
+          secondary
+        >
+          Search
+        </Button>
         <div id="from" className="dateSelect">
           <h3>From:</h3>
           <Input
@@ -324,27 +354,44 @@ export default class Reports extends React.Component {
           <Input
             className="reportDateInput"
             value={endDate}
-            max="2018-02-01"
+            max="2018-02-02"
             min="1996-02-01"
             type="date"
             id="endDate"
             onChange={this.dateChange}
           />
         </div>
-
-        <Button
-          className="searchButton"
-          size="massive"
-          onClick={this.searchStock}
-          secondary
-        >
-          Search
-        </Button>
-        <Tab
-          className="chart"
-          panes={panes}
-          stockdata={stockData[currentSymbol]}
-        />
+        <Responsive className="chart" minWidth={1000}>
+          <Tab
+            panes={panes}
+            className="tabArea"
+            stockdata={stockData[currentSymbol]}
+          />
+        </Responsive>
+        <Responsive className="chart" maxWidth={999}>
+          <div className="tabSelectSmall">
+            <Button
+              onClick={() => {
+                this.changeTab("down");
+              }}
+              icon="arrow left"
+            />
+            {panes[activeIndex].menuItem}
+            <Button
+              onClick={() => {
+                this.changeTab("up");
+              }}
+              icon="arrow right"
+            />
+          </div>
+          <Tab
+            className="tabArea"
+            activeIndex={activeIndex}
+            menu={{ className: "none" }}
+            panes={panes}
+            stockdata={stockData[currentSymbol]}
+          />
+        </Responsive>
       </Segment>
     );
   }

@@ -1,6 +1,6 @@
 .helpContainer {
   width: 90%;
-  height: 85%;
+  height: 95%;
 }
 .articlesDisplay {
   height: 100%;
@@ -17,4 +17,10 @@
 }
 .ui.list>.item{
   padding: .4em 0 !important;
+}
+@media only screen and (max-width: 768px) {
+
+.helpContainer{
+  height: calc(100% - 5rem);
+}
 }

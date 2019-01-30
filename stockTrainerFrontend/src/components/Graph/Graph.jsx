@@ -1,5 +1,4 @@
 import React from "react";
-import { Segment } from "semantic-ui-react";
 import {
   VictoryChart,
   VictoryLine,
@@ -13,13 +12,19 @@ const VictoryZoomVoronoiContainer = createContainer("zoom", "voronoi");
 class Graph extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { data: [] };
+    this.contain = React.createRef();
+
+    this.state = { data: [], chartWidth: 0 };
   }
 
-  // componentDidMount() {
-  //   console.log(this.props);
-  //   this.convertData();
-  // }
+  componentDidMount() {
+    this.setState({
+      chartWidth: this.contain.current.offsetWidth,
+      chartHeight: this.contain.current.offsetHeight
+    });
+    window.addEventListener("resize", this.updateDimensions.bind(this));
+    // remove this on unmount
+  }
 
   componentWillReceiveProps(nextProps) {
     // only if stockdata changes, will the convertData function be ran
@@ -43,13 +48,27 @@ class Graph extends React.Component {
     });
   };
 
+  updateDimensions() {
+    if (this.contain.current) {
+      this.setState({
+        chartWidth: this.contain.current.offsetWidth,
+        chartHeight: this.contain.current.offsetHeight
+      });
+    }
+  }
+
   render() {
-    const { data } = this.state;
+    const { data, chartWidth, chartHeight } = this.state;
     // console.log(data);
     return (
-      <Segment className="graph">
+      <div ref={this.contain} className="graph">
         <VictoryChart
-          // width=""
+          viewBox={`0 0 ${chartWidth} ${chartHeight}`}
+          preserveAspectRatio="none"
+          width={chartWidth}
+          height={chartHeight}
+          padding={{ top: 15, bottom: 50, right: 15, left: 50 }}
+          // padding= "50px"
           scale={{ x: "time" }}
           containerComponent={
             <VictoryZoomVoronoiContainer
@@ -89,7 +108,7 @@ class Graph extends React.Component {
             }}
           />
         </VictoryChart>
-      </Segment>
+      </div>
     );
   }
 }

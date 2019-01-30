@@ -1,6 +1,12 @@
 .lowerPageLayout {
   display: flex;
-  height: 90%;
+  height: 93%;
   flex-direction: column;
   align-items: center;
+}
+
+@media only screen and (max-width: 767px) {
+  .lowerPageLayout {
+    height: calc(95% - 27px);
+  }
 }

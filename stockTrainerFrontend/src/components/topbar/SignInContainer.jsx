@@ -8,7 +8,7 @@ const SignInContainer = props => {
       {/* <Button onClick={register} size="big" primary>
         Register
       </Button> */}
-      <Button onClick={signInFunc} size="big" secondary>
+      <Button onClick={signInFunc} size="large" secondary>
         Sign In
       </Button>
     </div>

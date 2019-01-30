@@ -3,8 +3,19 @@
   justify-content: space-between;
   align-items: center;
   padding: .5rem;
-  background-color: #63D471;
+  background-color: #398252;
 }
 .topBarContainer Button{
   min-width: 10em;
+}
+@media only screen and (max-width: 768px) {
+  .topBarContainer Button{
+    min-width: 6em;
+  }
+  #logout{
+    min-width: 1em;
+  }
+  .ui.button:not(.icon)>.icon:not(.button):not(.dropdown){
+    margin: 0 !important;
+  }
 }

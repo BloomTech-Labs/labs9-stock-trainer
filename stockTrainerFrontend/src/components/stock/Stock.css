@@ -1,6 +1,7 @@
 .stockName {
   grid-area: stockname;
   margin-bottom: 0px;
+  color: black;
 }
 .favoriteIcon {
   grid-area: favoriteStar;
@@ -20,11 +21,13 @@
   justify-content: space-around;
   flex-direction: column;
   height: 100%;
+  align-items: flex-end;
   justify-self: end;
 }
 .middleColumnInfobox {
   grid-area: middleInfoColumn;
   display: flex;
+  align-items: center;
   justify-content: space-around;
   flex-direction: column;
   height: 100%;
@@ -43,4 +46,34 @@
     "stockname stockname favoriteStar"
     "leftInfoColumn middleInfoColumn rightInfoColumn";
   grid-area: stock;
+}
+
+@media only screen and (max-width: 767px) {
+  .stock {
+    grid-template-columns: 33% 33% 16.5% 16.5%;
+    grid-template-areas:
+    "stockname stockname stockname favoriteStar"
+    "leftInfoColumn middleInfoColumn rightInfoColumn rightInfoColumn";
+    margin: 0;
+    grid-row-gap: .6em;
+    grid-template-rows: calc(60% - .6em) 40%;
+    padding: inherit;
+
+  }
+  /* .upperRowInfobox{
+    text-align: center;
+  } */
+  h3.stockName{
+    padding-left: 0!important;
+    font-size: 16px !important;
+  }
+  h1.stockName {
+    font-size: 18px !important;
+  }
+  .favoriteIcon {
+    font-size: 18px !important;
+  }
+  .lowerRowInfobox{
+    display:none;
+  }
 }

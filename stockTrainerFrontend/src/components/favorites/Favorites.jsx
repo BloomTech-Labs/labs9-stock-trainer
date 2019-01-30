@@ -34,7 +34,7 @@ class Favorites extends React.Component {
           filteredList: nextProps.data,
           items: nextProps.data.slice(0, currentLastItem)
         },
-        this.getStockData()
+        () => this.getStockData()
       );
     }
   }
@@ -84,7 +84,7 @@ class Favorites extends React.Component {
           {
             items: filteredList.slice(0, currentLastItem)
           },
-          this.getStockData()
+          () => this.getStockData()
         );
       }
     );
@@ -105,7 +105,13 @@ class Favorites extends React.Component {
     axios
       .get(`${iexURL}${symbolString}&types=quote`)
       .then(res => {
-        this.setState({ currentData: res.data });
+        this.setState(prevState => ({
+          currentData: Object.assign(
+            // deep copy to prevent any bad state references
+            JSON.parse(JSON.stringify(prevState.currentData)),
+            res.data
+          )
+        }));
       })
       .catch(err => console.log(err));
   };
@@ -115,8 +121,8 @@ class Favorites extends React.Component {
     const { items, showLoad, searchText, currentData } = this.state;
     return (
       <div className="favoritesHolder">
-        <Header attached="top">
-          <h2>{title}</h2>
+        <Header className="favoritesHeader" attached="top">
+          <div className="favoritesTitle">{title}</div>
           <Input
             placeholder="Search for stock"
             value={searchText}
@@ -124,7 +130,6 @@ class Favorites extends React.Component {
             fluid
           />
         </Header>
-
         <Segment
           className="favoritesDisplay"
           onScroll={this.handleScroll}
@@ -144,14 +149,14 @@ class Favorites extends React.Component {
             ))}
             {showLoad ? (
               <List.Item>
-                <h3>Loading...</h3>
+                <h4>Loading...</h4>
               </List.Item>
             ) : (
               ""
             )}
             {items.length === 0 ? (
               <List.Item>
-                <h3>No Results Found</h3>
+                <h4>No Results Found</h4>
               </List.Item>
             ) : (
               ""

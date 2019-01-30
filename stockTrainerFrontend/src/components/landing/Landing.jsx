@@ -2,21 +2,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import {
-  Container,
-  Divider,
-  Button,
-  Placeholder,
-  Header
-} from "semantic-ui-react";
+import { Button, Header, Segment } from "semantic-ui-react";
+
+import "./Landing.css";
 
 const Landing = () => (
-  <Container fluid textAlign="center">
-    <Placeholder fluid style={{ height: 400, width: "100%" }}>
-      <Placeholder.Image rectangular />
-    </Placeholder>
-    <Divider />
-    <Container text>
+  <div>
+    <div className="bannerImage" />
+    <Segment className="frontPageBox">
       <Header as="h2">About</Header>
 
       <p>
@@ -32,9 +25,8 @@ const Landing = () => (
       <Link to="/dashboard">
         <Button secondary>Demo now!</Button>
       </Link>
-    </Container>
-    {/* Add demo/way for users to see how the app functions */}
-  </Container>
+    </Segment>
+  </div>
 );
 
 export default Landing;
