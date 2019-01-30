@@ -1,10 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import Carousel from "re-carousel";
+import IndicatorDots from "./Indicator-Dots";
 
 export default function Indicators() {
   return (
-    <Carousel loop auto>
+    <Carousel loop auto widgets={[IndicatorDots]}>
       <div>
         <h3>Average True Range</h3>
         <p>
