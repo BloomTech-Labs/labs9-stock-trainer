@@ -21,7 +21,7 @@ import AverageTrueRange from "./Average";
 import VolumeWeighted from "./Weighted";
 import MovingAverage from "./Moving";
 import ConvergenceDivergence from "./Convergence";
-// import ExponentialMoving from "./Exponential";
+import ExponentialMoving from "./Exponential";
 // import SimpleMoving from "./Simple";
 
 const articles = [
@@ -194,7 +194,10 @@ export default function Help(props) {
             path={`${match.path}/convergencedivergence`}
             component={ConvergenceDivergence}
           />
-          {/* <Route path={`${match.path}/exponentialmoving`} component={ExponentialMoving} /> */}
+          <Route
+            path={`${match.path}/exponentialmoving`}
+            component={ExponentialMoving}
+          />
           {/* <Route path={`${match.path}/simplemoving`} component={SimpleMoving} /> */}
           <Redirect to="/404" />
         </Switch>
