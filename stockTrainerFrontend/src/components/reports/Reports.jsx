@@ -5,7 +5,7 @@ import Autosuggest from "react-autosuggest";
 import stockSymbolList from "../../util/test.json";
 
 import Stock from "../stock/Stock";
-import Graph from "../Graph/Graph";
+import NewGraph from "../Graph/NewGraph";
 
 // css for the suggest menu. There might be a way to move thise to the css file, look into that
 const theme = {
@@ -85,7 +85,7 @@ const PlaceholderPane = props => {
   const { stockData } = props;
   return (
     <Tab.Pane className="chartArea">
-      <Graph stockData={stockData} />
+      <NewGraph stockData={stockData} />
     </Tab.Pane>
   );
 };

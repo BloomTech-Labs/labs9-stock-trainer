@@ -116,18 +116,18 @@ def stock(request):
     for index, row in df_r.iterrows():
         rowObj = {'date': row['Date']}
 
-        if 'OPEN' in fields:
-            rowObj['open'] = row['Open']
-        if 'CLOSE' in fields:
-            rowObj['close'] = row['Close']
-        if 'LOW' in fields:
-            rowObj['low'] = row['Low']
-        if 'HIGH' in fields:
-            rowObj['high'] = row['High']
+        # if 'OPEN' in fields:
+        rowObj['open'] = row['Open']
+        # if 'CLOSE' in fields:
+        rowObj['close'] = row['Close']
+        # if 'LOW' in fields:
+        rowObj['low'] = row['Low']
+        # if 'HIGH' in fields:
+        rowObj['high'] = row['High']
         if 'EXDIVIDEND' in fields:
             rowObj['exdividend'] = row['Ex-Dividend']
-        if 'VOLUME' in fields:
-            rowObj['volume'] = row['Volume']
+        # if 'VOLUME' in fields:
+        rowObj['volume'] = row['Volume']
         if 'SPLITRATIO' in fields:
             rowObj['splitRatio'] = row['Split Ratio']
         if 'ADJHIGH' in fields:
