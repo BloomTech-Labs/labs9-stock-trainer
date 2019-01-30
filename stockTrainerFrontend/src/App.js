@@ -12,12 +12,10 @@ import AccountSettings from "./components/accountSettings/AccountSettings";
 import Landing from "./components/landing/Landing";
 
 import Reports from "./components/reports/Reports";
-import UserInfo from "./components/userinfo/UserInfo";
 import Dashboard from "./components/dashboard/Dashboard";
 import Help from "./components/help/Help";
 import NoMatch from "./components/nomatch/NoMatch";
 import Callback from "./Auth/Callback";
-import TestRequest from "./components/TestRequest";
 
 class App extends Component {
   constructor(props) {
