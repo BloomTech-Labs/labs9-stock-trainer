@@ -18,8 +18,8 @@ import ExDividend from "./ExDividend";
 import StockSplit from "./StockSplit";
 import SplitAdjusted from "./SplitAdjusted";
 import AverageTrueRange from "./Average";
-// import VolumeWeighted from "./Weighted";
-// import MovingAverage from "./Moving";
+import VolumeWeighted from "./Weighted";
+import MovingAverage from "./Moving";
 // import ConvergenceDivergence from "./Convergence";
 // import ExponentialMoving from "./Exponential";
 // import SimpleMoving from "./Simple";
@@ -182,8 +182,14 @@ export default function Help(props) {
             path={`${match.path}/averagetruerange`}
             component={AverageTrueRange}
           />
-          {/* <Route path={`${match.path}/volumeweighted`} component={VolumeWeighted} /> */}
-          {/* <Route path={`${match.path}/movingaverage`} component={MovingAverage} /> */}
+          <Route
+            path={`${match.path}/volumeweighted`}
+            component={VolumeWeighted}
+          />
+          <Route
+            path={`${match.path}/movingaverage`}
+            component={MovingAverage}
+          />
           {/* <Route path={`${match.path}/convergencedivergence`} component={ConvergenceDivergence} /> */}
           {/* <Route path={`${match.path}/exponentialmoving`} component={ExponentialMoving} /> */}
           {/* <Route path={`${match.path}/simplemoving`} component={SimpleMoving} /> */}
