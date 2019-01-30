@@ -6,8 +6,6 @@ import { timeFormat } from "d3-time-format";
 import { ChartCanvas, Chart } from "react-stockcharts";
 import {
   ScatterSeries,
-  SquareMarker,
-  TriangleMarker,
   CircleMarker,
   LineSeries
 } from "react-stockcharts/lib/series";
@@ -27,7 +25,18 @@ import "./Graph.css";
 class LineAndScatterChart extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { data: [] };
+    this.contain = React.createRef();
+
+    this.state = { data: [], chartWidth: 0, chartHeight: 0 };
+  }
+
+  componentDidMount() {
+    this.setState({
+      chartWidth: this.contain.current.offsetWidth,
+      chartHeight: this.contain.current.offsetHeight
+    });
+    window.addEventListener("resize", this.updateDimensions.bind(this));
+    // remove this on unmount
   }
 
   componentWillReceiveProps(nextProps) {
@@ -54,11 +63,24 @@ class LineAndScatterChart extends React.Component {
     });
   };
 
+  updateDimensions() {
+    if (this.contain.current) {
+      this.setState({
+        chartWidth: this.contain.current.offsetWidth,
+        chartHeight: this.contain.current.offsetHeight
+      });
+    }
+  }
+
   render() {
-    const { type, width, ratio } = this.props;
-    const { data: initialData } = this.state;
+    const { type, currentSymbol } = this.props;
+    const { data: initialData, chartHeight, chartWidth } = this.state;
     if (initialData.length < 1) {
-      return <h1>Search for stock data above!</h1>;
+      return (
+        <div ref={this.contain} className="graph">
+          <h1>Search for stock data above!</h1>
+        </div>
+      );
     }
     const xScaleProvider = discontinuousTimeScaleProvider.inputDateAccessor(
       d => d.date
@@ -68,67 +90,45 @@ class LineAndScatterChart extends React.Component {
     );
     const xExtents = [xAccessor(last(data)), xAccessor(data[data.length - 20])];
     return (
-      <ChartCanvas
-        ratio={ratio}
-        width={width}
-        height={400}
-        margin={{ left: 70, right: 70, top: 20, bottom: 30 }}
-        type={type}
-        pointsPerPxThreshold={1}
-        seriesName="MSFT"
-        data={data}
-        xAccessor={xAccessor}
-        displayXAccessor={displayXAccessor}
-        xScale={xScale}
-        xExtents={xExtents}
-      >
-        <Chart id={1} yExtents={d => [d.high, d.low, d.AAPLClose, d.GEClose]}>
-          <XAxis axisAt="bottom" orient="bottom" />
-          <YAxis
-            axisAt="right"
-            orient="right"
-            // tickInterval={5}
-            // tickValues={[40, 60]}
-            ticks={5}
-          />
-          <MouseCoordinateX
-            at="bottom"
-            orient="bottom"
-            displayFormat={timeFormat("%Y-%m-%d")}
-          />
-          <MouseCoordinateY
-            at="right"
-            orient="right"
-            displayFormat={format(".2f")}
-          />
+      <div ref={this.contain} className="graph">
+        <ChartCanvas
+          width={chartWidth}
+          height={chartHeight - 50}
+          margin={{ left: 70, right: 70, top: 20, bottom: 30 }}
+          type={type}
+          pointsPerPxThreshold={1}
+          seriesName={currentSymbol}
+          data={data}
+          xAccessor={xAccessor}
+          displayXAccessor={displayXAccessor}
+          xScale={xScale}
+          xExtents={xExtents}
+        >
+          <Chart id={1} yExtents={d => [d.high, d.low, d.AAPLClose, d.GEClose]}>
+            <XAxis axisAt="bottom" orient="bottom" />
+            <YAxis axisAt="right" orient="right" ticks={5} />
+            <MouseCoordinateX
+              at="bottom"
+              orient="bottom"
+              displayFormat={timeFormat("%Y-%m-%d")}
+            />
+            <MouseCoordinateY
+              at="right"
+              orient="right"
+              displayFormat={format(".2f")}
+            />
+            <LineSeries yAccessor={d => d.close} strokeDasharray="LongDash" />
+            <ScatterSeries
+              yAccessor={d => d.close}
+              marker={CircleMarker}
+              markerProps={{ r: 3 }}
+            />
+            <OHLCTooltip forChart={1} origin={[-40, 0]} />
+          </Chart>
 
-          <LineSeries
-            yAccessor={d => d.AAPLClose}
-            stroke="#ff7f0e"
-            strokeDasharray="Dot"
-          />
-          <ScatterSeries
-            yAccessor={d => d.AAPLClose}
-            marker={SquareMarker}
-            markerProps={{ width: 6, stroke: "#ff7f0e", fill: "#ff7f0e" }}
-          />
-          <LineSeries yAccessor={d => d.GEClose} stroke="#2ca02c" />
-          <ScatterSeries
-            yAccessor={d => d.GEClose}
-            marker={TriangleMarker}
-            markerProps={{ width: 8, stroke: "#2ca02c", fill: "#2ca02c" }}
-          />
-          <LineSeries yAccessor={d => d.close} strokeDasharray="LongDash" />
-          <ScatterSeries
-            yAccessor={d => d.close}
-            marker={CircleMarker}
-            markerProps={{ r: 3 }}
-          />
-          <OHLCTooltip forChart={1} origin={[-40, 0]} />
-        </Chart>
-
-        <CrossHairCursor />
-      </ChartCanvas>
+          <CrossHairCursor />
+        </ChartCanvas>
+      </div>
     );
   }
 }

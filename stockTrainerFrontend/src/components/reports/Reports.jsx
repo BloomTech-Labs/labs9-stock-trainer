@@ -82,10 +82,10 @@ const renderSuggestion = suggestion => (
 );
 // format for panes, look into seperate component?
 const PlaceholderPane = props => {
-  const { stockData } = props;
+  const { stockData, currentSymbol } = props;
   return (
     <Tab.Pane className="chartArea">
-      <NewGraph stockData={stockData} />
+      <NewGraph stockData={stockData} currentSymbol={currentSymbol} />
     </Tab.Pane>
   );
 };
@@ -94,36 +94,46 @@ const panes = [
   {
     menuItem: "Price",
     render: props => {
-      const { stockdata } = props;
-      return <PlaceholderPane stockData={stockdata} />;
+      const { stockdata, currentsymbol } = props;
+      return (
+        <PlaceholderPane stockData={stockdata} currentSymbol={currentsymbol} />
+      );
     }
   },
   {
     menuItem: "Average True Range",
     render: props => {
-      const { stockdata } = props;
-      return <PlaceholderPane stockData={stockdata} />;
+      const { stockdata, currentsymbol } = props;
+      return (
+        <PlaceholderPane stockData={stockdata} currentSymbol={currentsymbol} />
+      );
     }
   },
   {
     menuItem: "Volumn Weighted Average",
     render: props => {
-      const { stockdata } = props;
-      return <PlaceholderPane stockData={stockdata} />;
+      const { stockdata, currentsymbol } = props;
+      return (
+        <PlaceholderPane stockData={stockdata} currentSymbol={currentsymbol} />
+      );
     }
   },
   {
     menuItem: "Moving Average Convergence",
     render: props => {
-      const { stockdata } = props;
-      return <PlaceholderPane stockData={stockdata} />;
+      const { stockdata, currentsymbol } = props;
+      return (
+        <PlaceholderPane stockData={stockdata} currentSymbol={currentsymbol} />
+      );
     }
   },
   {
     menuItem: "Moving Average",
     render: props => {
-      const { stockdata } = props;
-      return <PlaceholderPane stockData={stockdata} />;
+      const { stockdata, currentsymbol } = props;
+      return (
+        <PlaceholderPane stockData={stockdata} currentSymbol={currentsymbol} />
+      );
     }
   }
 ];
@@ -366,6 +376,7 @@ export default class Reports extends React.Component {
             panes={panes}
             className="tabArea"
             stockdata={stockData[currentSymbol]}
+            currentsymbol={currentSymbol}
           />
         </Responsive>
         <Responsive className="chart" maxWidth={999}>
@@ -390,6 +401,7 @@ export default class Reports extends React.Component {
             menu={{ className: "none" }}
             panes={panes}
             stockdata={stockData[currentSymbol]}
+            currentsymbol={currentSymbol}
           />
         </Responsive>
       </Segment>
