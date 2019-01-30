@@ -105,34 +105,20 @@ const panes = [
     }
   },
   {
-    menuItem: "Average True Range",
+    menuItem: "ATR",
     render: props => {
       const { stockdata, currentsymbol } = props;
       return (
-        <PlaceholderPane stockData={stockdata} currentSymbol={currentsymbol} />
+        <PlaceholderPane
+          stockData={stockdata}
+          currentSymbol={currentsymbol}
+          indicator="atr"
+        />
       );
     }
   },
   {
-    menuItem: "Volumn Weighted Average",
-    render: props => {
-      const { stockdata, currentsymbol } = props;
-      return (
-        <PlaceholderPane stockData={stockdata} currentSymbol={currentsymbol} />
-      );
-    }
-  },
-  {
-    menuItem: "Moving Average Convergence",
-    render: props => {
-      const { stockdata, currentsymbol } = props;
-      return (
-        <PlaceholderPane stockData={stockdata} currentSymbol={currentsymbol} />
-      );
-    }
-  },
-  {
-    menuItem: "Moving Average",
+    menuItem: "SMA",
     render: props => {
       const { stockdata, currentsymbol } = props;
       return (
@@ -140,6 +126,32 @@ const panes = [
           stockData={stockdata}
           currentSymbol={currentsymbol}
           indicator="sma"
+        />
+      );
+    }
+  },
+  {
+    menuItem: "EMA",
+    render: props => {
+      const { stockdata, currentsymbol } = props;
+      return (
+        <PlaceholderPane
+          stockData={stockdata}
+          currentSymbol={currentsymbol}
+          indicator="ema"
+        />
+      );
+    }
+  },
+  {
+    menuItem: "Bollinger Band",
+    render: props => {
+      const { stockdata, currentsymbol } = props;
+      return (
+        <PlaceholderPane
+          stockData={stockdata}
+          currentSymbol={currentsymbol}
+          indicator="bb"
         />
       );
     }

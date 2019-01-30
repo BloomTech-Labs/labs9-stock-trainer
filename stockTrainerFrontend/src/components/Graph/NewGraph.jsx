@@ -1,11 +1,11 @@
 import React from "react";
-
-import { format } from "d3-format";
-import { timeFormat } from "d3-time-format";
+import { format } from "d3-format"; // eslint-disable-line
+import { timeFormat } from "d3-time-format"; // eslint-disable-line
 
 import { ChartCanvas, Chart } from "react-stockcharts";
 import {
   ScatterSeries,
+  BollingerSeries,
   CircleMarker,
   LineSeries
 } from "react-stockcharts/lib/series";
@@ -20,12 +20,22 @@ import {
 import { discontinuousTimeScaleProvider } from "react-stockcharts/lib/scale";
 import {
   OHLCTooltip,
-  MovingAverageTooltip
+  MovingAverageTooltip,
+  SingleValueTooltip,
+  BollingerBandTooltip
 } from "react-stockcharts/lib/tooltip";
-import { sma } from "react-stockcharts/lib/indicator";
+import { sma, atr, ema, bollingerBand } from "react-stockcharts/lib/indicator";
 import { fitWidth } from "react-stockcharts/lib/helper";
 import { last } from "react-stockcharts/lib/utils";
 import "./Graph.css";
+
+const bbStroke = {
+  top: "#964B00",
+  middle: "#000000",
+  bottom: "#964B00"
+};
+
+const bbFill = "#4682B4";
 
 function indicatorGraph(indicator, indicatorHelper) {
   switch (indicator) {
@@ -51,6 +61,67 @@ function indicatorGraph(indicator, indicatorHelper) {
                 echo: "some echo here"
               }
             ]}
+          />
+        </>
+      );
+    case "atr":
+      return (
+        <>
+          {/* atr values are too small to be seen on graph */}
+          {/* might have to make a new chart below and then switch case that as well */}
+          <LineSeries
+            yAccessor={indicatorHelper.accessor()}
+            stroke={indicatorHelper.stroke()}
+          />
+          <CurrentCoordinate
+            yAccessor={indicatorHelper.accessor()}
+            fill={indicatorHelper.stroke()}
+          />
+          <SingleValueTooltip
+            origin={[-38, 15]}
+            yAccessor={indicatorHelper.accessor()}
+            yLabel={`ATR (${indicatorHelper.options().windowSize})`}
+            yDisplayFormat={format(".2f")}
+          />
+        </>
+      );
+    case "ema":
+      return (
+        <>
+          <LineSeries
+            yAccessor={indicatorHelper.accessor()}
+            stroke={indicatorHelper.stroke()}
+          />
+          <CurrentCoordinate
+            yAccessor={indicatorHelper.accessor()}
+            fill={indicatorHelper.stroke()}
+          />
+          <MovingAverageTooltip
+            origin={[-38, 15]}
+            options={[
+              {
+                yAccessor: indicatorHelper.accessor(),
+                type: "EMA",
+                stroke: indicatorHelper.stroke(),
+                windowSize: indicatorHelper.options().windowSize,
+                echo: "some echo here"
+              }
+            ]}
+          />
+        </>
+      );
+    case "bb":
+      return (
+        <>
+          <BollingerSeries
+            yAccessor={d => d.indicatorHelper}
+            stroke={bbStroke}
+            fill={bbFill}
+          />
+          <BollingerBandTooltip
+            origin={[-38, 20]}
+            yAccessor={d => d.indicatorHelper}
+            options={indicatorHelper.options()}
           />
         </>
       );
@@ -123,11 +194,33 @@ class LineAndScatterChart extends React.Component {
     let indicatorHelper = 0;
     switch (indicator) {
       case "sma":
-        console.log("inside sma");
         indicatorHelper = sma()
           .options({ windowSize: 20 })
           .merge((d, c) => {
-            d.indicatorHelper = c;
+            d.indicatorHelper = c; // eslint-disable-line
+          })
+          .accessor(d => d.indicatorHelper);
+        break;
+      case "atr":
+        indicatorHelper = atr()
+          .options({ windowSize: 14 })
+          .merge((d, c) => {
+            d.indicatorHelper = c; // eslint-disable-line
+          })
+          .accessor(d => d.indicatorHelper);
+        break;
+      case "ema":
+        indicatorHelper = ema()
+          .options({ windowSize: 20 })
+          .merge((d, c) => {
+            d.indicatorHelper = c; // eslint-disable-line
+          })
+          .accessor(d => d.indicatorHelper);
+        break;
+      case "bb":
+        indicatorHelper = bollingerBand()
+          .merge((d, c) => {
+            d.indicatorHelper = c; // eslint-disable-line
           })
           .accessor(d => d.indicatorHelper);
         break;
@@ -136,8 +229,6 @@ class LineAndScatterChart extends React.Component {
     }
     if (indicatorHelper) {
       initialData = indicatorHelper(initialData);
-      console.log("HELP!");
-      console.log(initialData);
     }
     const xScaleProvider = discontinuousTimeScaleProvider.inputDateAccessor(
       d => d.date
