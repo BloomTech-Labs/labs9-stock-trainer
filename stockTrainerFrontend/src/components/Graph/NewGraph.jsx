@@ -271,6 +271,7 @@ class LineAndScatterChart extends React.Component {
       initialData
     );
     const xExtents = [xAccessor(last(data)), xAccessor(data[0])];
+
     return (
       <div ref={this.contain} className="graph">
         <ChartCanvas
