@@ -135,73 +135,109 @@ const articles = [
   }
 ];
 
-export default function Help(props) {
-  const { match } = props;
-  return (
-    <div className="helpContainer">
-      {/* This is how we can add more pages */}
-      <Header attached="top">
-        <Input
-          placeholder="Search for a help article"
-          value=""
-          onChange=""
-          fluid
-          action={{
-            content: "search",
-            onClick: () => {}
-          }}
-        />
-      </Header>
+export default class Help extends React.Component {
+  constructor(props) {
+    super(props);
 
-      <Segment className="articlesDisplay" attached>
-        <Switch>
-          <Route
-            exact
-            path={match.path}
-            render={() => <Helpmain articles={articles} />}
+    this.state = {
+      searchText: "",
+      displayList: articles
+    };
+  }
+
+  handleChange = event => {
+    if (event.target.value === "") {
+      this.setState({
+        searchText: event.target.value,
+        displayList: articles
+      });
+      return;
+    }
+    this.setState({
+      searchText: event.target.value,
+      displayList: articles.filter(e =>
+        e.title.toLocaleLowerCase().includes(event.target.value)
+      )
+    });
+  };
+
+  render() {
+    const { match } = this.props;
+    const { searchText, displayList } = this.state;
+    return (
+      <div className="helpContainer">
+        {/* This is how we can add more pages */}
+        <Header attached="top">
+          <Input
+            placeholder="Search for a help article"
+            value={searchText}
+            onChange={this.handleChange}
+            fluid
           />
-          <Route path={`${match.path}/openingprice`} component={OpeningPrice} />
-          <Route path={`${match.path}/closingprice`} component={ClosingPrice} />
-          <Route path={`${match.path}/afterhours`} component={AfterHours} />
-          <Route
-            path={`${match.path}/adjustedclosing`}
-            component={AdjustedClosing}
-          />
-          <Route path={`${match.path}/recordlow`} component={RecordLow} />
-          <Route path={`${match.path}/recordHigh`} component={RecordHigh} />
-          <Route path={`${match.path}/volume`} component={Volume} />
-          <Route path={`${match.path}/transactions`} component={Transactions} />
-          <Route path={`${match.path}/dividend`} component={Dividend} />
-          <Route path={`${match.path}/exdividend`} component={ExDividend} />
-          <Route path={`${match.path}/stocksplit`} component={StockSplit} />
-          <Route
-            path={`${match.path}/splitadjusted`}
-            component={SplitAdjusted}
-          />
-          <Route
-            path={`${match.path}/averagetruerange`}
-            component={AverageTrueRange}
-          />
-          <Route
-            path={`${match.path}/volumeweighted`}
-            component={VolumeWeighted}
-          />
-          <Route
-            path={`${match.path}/movingaverage`}
-            component={MovingAverage}
-          />
-          <Route
-            path={`${match.path}/convergencedivergence`}
-            component={ConvergenceDivergence}
-          />
-          <Route
-            path={`${match.path}/exponentialmoving`}
-            component={ExponentialMoving}
-          />
-          <Route path={`${match.path}/simplemoving`} component={SimpleMoving} />
-          <Redirect to="/404" />
-        </Switch>
-      </Segment>
-    </div>
-  );
+        </Header>
+
+        <Segment className="articlesDisplay" attached>
+          <Switch>
+            <Route
+              exact
+              path={match.path}
+              render={() => <Helpmain articles={displayList} />}
+            />
+            <Route
+              path={`${match.path}/openingprice`}
+              component={OpeningPrice}
+            />
+            <Route
+              path={`${match.path}/closingprice`}
+              component={ClosingPrice}
+            />
+            <Route path={`${match.path}/afterhours`} component={AfterHours} />
+            <Route
+              path={`${match.path}/adjustedclosing`}
+              component={AdjustedClosing}
+            />
+            <Route path={`${match.path}/recordlow`} component={RecordLow} />
+            <Route path={`${match.path}/recordHigh`} component={RecordHigh} />
+            <Route path={`${match.path}/volume`} component={Volume} />
+            <Route
+              path={`${match.path}/transactions`}
+              component={Transactions}
+            />
+            <Route path={`${match.path}/dividend`} component={Dividend} />
+            <Route path={`${match.path}/exdividend`} component={ExDividend} />
+            <Route path={`${match.path}/stocksplit`} component={StockSplit} />
+            <Route
+              path={`${match.path}/splitadjusted`}
+              component={SplitAdjusted}
+            />
+            <Route
+              path={`${match.path}/averagetruerange`}
+              component={AverageTrueRange}
+            />
+            <Route
+              path={`${match.path}/volumeweighted`}
+              component={VolumeWeighted}
+            />
+            <Route
+              path={`${match.path}/movingaverage`}
+              component={MovingAverage}
+            />
+            <Route
+              path={`${match.path}/convergencedivergence`}
+              component={ConvergenceDivergence}
+            />
+            <Route
+              path={`${match.path}/exponentialmoving`}
+              component={ExponentialMoving}
+            />
+            <Route
+              path={`${match.path}/simplemoving`}
+              component={SimpleMoving}
+            />
+            <Redirect to="/404" />
+          </Switch>
+        </Segment>
+      </div>
+    );
+  }
 }
