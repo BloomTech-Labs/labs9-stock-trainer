@@ -4,15 +4,15 @@ Welcome to our application that teaches and guides you on trading stocks.
 
 ## Team
 
-| Andrew McLaughlin                                                                                                                          | Haywood D. Johnson                                                                                                                                   | Jennifer Player                                                                                                                                    | Jun Kim                                                                                                                             | Punit Rawal                                                                                                                                   | Tylar Pierson                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Pic here                                                                                                                                   | Pic here                                                                                                                                             | Pic here                                                                                                                                           | Pic here                                                                                                                            | Pic here                                                                                                                                      | Pic here                                                                                                                                         |
-| [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/LaikaFusion)                                             | [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/LordOrbnauticus)                                                   | [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/chainchompa)                                                     | [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/junhyukee)                                        | [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/rawalpunit)                                                 | [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/tylarpierson)                                                  |
-| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> LinkedIn](https://www.linkedin.com/in/andrewbmclaughlin/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> LinkedIn](https://www.linkedin.com/in/haywood-d-johnson-2ba181121/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> LinkedIn](https://www.linkedin.com/in/jennifer-player-92a6a5153/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> LinkedIn](https://www.linkedin.com/in/junhyukkim/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> LinkedIn](https://www.linkedin.com/in/punit-rawal-b7012123/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> LinkedIn](https://www.linkedin.com/in/tylar-pierson-370916166/) |
+| Andrew McLaughlin                                                                                                                          | Jun Kim                                                                                                                             | Tylar Pierson                                                                                             |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------| ------------------------------------------------------------------------------------------------------------ | 
+| Pic here                                                                                                                                   | Pic here                                                                                                                            | Pic here                                                                                         | 
+| [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/LaikaFusion)                                             | [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/junhyukee)                                        | [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/tylarpierson)           |
+| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> LinkedIn](https://www.linkedin.com/in/andrewbmclaughlin/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> LinkedIn](https://www.linkedin.com/in/junhyukkim/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> LinkedIn](https://www.linkedin.com/in/tylar-pierson-370916166/) |
 
 # Table of Contents
 
-- [Test the Site](#test-the-site)
+- [Test the Site and Setup](#test-the-site-and-setup)
 - [Styling Guidelines](#styling-guidelines)
 - [Tech-Stack](#tech-stack)
   - [Front-End Dependencies (Production)](#front-end-dependencies-production)
@@ -20,9 +20,11 @@ Welcome to our application that teaches and guides you on trading stocks.
     - [React Router](#react-router)
     - [Axios](#axios)
     - [Semantic UI](#semantic-ui)
-    - [Victory](#victory)
-    - [React Slick](#react-slick)
+    - [React-stockcharts](#react-stockcharts)
+    - [Re-carousel](#re-carousel)
     - [Auth0](#auth0)
+    - [React-Stripe-Elements](#react-stripe-elements)
+    - [React-autosuggest](#react-autosuggest)
   - [Front-End Dependencies (Development)](#front-end-dependencies-development)
     - [ESLint](#eslint)
     - [Prettier](#prettier)
@@ -39,6 +41,7 @@ Welcome to our application that teaches and guides you on trading stocks.
     - [Psycopg2-binary](#psycopg2-binary)
     - [Dj-database-url](#dj-database-url)
     - [Cryptography](#cryptography)
+    - [Stripe](#stripe-django)
   - [Back-End Dependencies (Development)](#back-end-dependencies-development)
     - [pylint](#pylint)
     - [autopep8](#autopep8)
@@ -48,11 +51,11 @@ Welcome to our application that teaches and guides you on trading stocks.
     - [Quantopian](#quantopian)
   - [Backend API](#backend-api)
 
-## Test the Site
+## Test the Site and Setup
 
 Start by cloning the repository to your local machine. Once cloned `cd` into the folder and open it in your preferred editor of choice.
 The Front End of the app will be located on `localhost:3000`.
-The Back End of the app will be located on `127.0.0.1/8000`.
+The Back End of the app will be located on `localhost:8000`.
 
 ### Front End
 Once you are in the project folder `cd` into `stockTrainerFrontend` and `yarn install` to install all of the dependencies in `package.json`.
@@ -80,7 +83,7 @@ To scaffold the structure of tables, within Models.py, on the DB type:
 To make the tables and DB type:
 `python manage.py migrate`
 
-To run the server locally on `127.0.0.1/8000` type:
+To run the server locally on `localhost:8000` type:
 `python manage.py runserver`
 append `admin` to the local browser to log in and see your DB.
 
@@ -89,7 +92,7 @@ append `admin` to the local browser to log in and see your DB.
 
 The JavaScript code follows [Airbnb's Javascript Style Guide](https://github.com/airbnb/javascript) and is integrated via ESLint and Prettier.
 
-The Python code follows [Pep 8 Style Guide](https://www.python.org/dev/peps/pep-0008/) and is integrated via \_\_\_\_
+The Python code follows [Pep 8 Style Guide](https://www.python.org/dev/peps/pep-0008/) 
 
 # Tech Stack
 
@@ -114,18 +117,26 @@ the Promise API, and so allows us to use the power of Promises. | [View Dependen
 
 A styling library used to quickly build elegant layouts and components. | [View Dependency](https://react.semantic-ui.com/)
 
-### Victory
+### React-Stockcharts
 
-An opinionated collection of React Components used for data visualization. | [View Dependency](https://formidable.com/open-source/victory/)
+A charting library that uses D3 to graph data points. Contains helper functions to help display indicators | [View Dependency](https://github.com/rrag/react-stockcharts)
 
-### React Slick
+### Re-carousel
 
-A complex, yet easy to use library for custom carousels. | [View Dependency](https://react-slick.neostack.com/)
+Minimal carousel component for React | [View Dependency](https://github.com/amio/re-carousel)
 
 ### Auth0
 
 An OAuth (Open Authorization) platform to help users login using their accounts from third party
 websites. | [View Dependency](https://auth0.com/)
+
+### React-stripe-elements
+
+A stripe component that allows for easy integration with stripe. | [View Dependency](https://github.com/stripe/react-stripe-elements)
+
+### React-autosuggest
+
+A library that helps suggest different search terms for users | [View Dependency](https://github.com/moroshko/react-autosuggest)
 
 ## Front-End Dependencies Development
 
@@ -189,6 +200,10 @@ Allows Django apps to use Database URLs. | [View Dependency](https://github.com/
 
 Used alongside Pyjwt and Jose to encrypt. | [View Dependency](https://cryptography.io/en/latest/)
 
+### Stripe-Django
+
+Used for easy integration with Stripe. | [View Dependency](https://pypi.org/project/stripe/)
+
 ## Back-End Dependencies Development
 
 ### Pylint
@@ -196,6 +211,8 @@ Used alongside Pyjwt and Jose to encrypt. | [View Dependency](https://cryptograp
 Allows for consistent styling in code contributed by different team members.
 
 ### Autopep8
+
+See above
 
 # API Documentation
 
@@ -213,4 +230,32 @@ token, and sends a request to the Stripe server for payment. Depending on the re
 payment, user account status may be upgraded, or there may be further steps to complete
 payment. 
 
-### Quantopian
+### IEX
+
+API that allows for stock data retrieval. Data provided for free by [IEX](https://iextrading.com/developer/). View 
+[IEX's Term of Use](https://iextrading.com/api-exhibit-a/)
+
+#### Implementation:
+
+The front-end uses IEX's API in order to get real-time stock data. This populates the
+stock data in the dashboard. A `get` request is made to `https://api.iextrading.com/1.0/stock/market/batch?symbols=${stockshere}&types=quote`, which turns necessary information to populate the stock cards.
+
+### Quandl
+
+The backend uses Quandl's API to get stock data in a certain date range.
+
+#### Implementation
+
+When a user queries for stock data in the reports page in the front-end, this sends a request to
+the back-end, which looks to see if the stock data is currently in the database. If not, the server
+requests information from Quandl, saves it to the database, and then returns it to the user
+
+### Auth0
+
+Authentication made simple with Auth0!
+
+#### Implementation
+
+We are using the JWT flow in order to authenticate users in our back-end. When the user logs in with 
+Auth0 in the front-end, we send a token to the back-end to identify the user and find the user within
+our database.
