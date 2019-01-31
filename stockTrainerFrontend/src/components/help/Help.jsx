@@ -154,7 +154,10 @@ export default class Help extends React.Component {
       return;
     }
     this.setState({
-      searchText: event.target.value
+      searchText: event.target.value,
+      displayList: articles.filter(e =>
+        e.title.toLocaleLowerCase().includes(event.target.value)
+      )
     });
   };
 
@@ -170,10 +173,6 @@ export default class Help extends React.Component {
             value={searchText}
             onChange={this.handleChange}
             fluid
-            action={{
-              content: "Search",
-              onClick: () => {}
-            }}
           />
         </Header>
 
