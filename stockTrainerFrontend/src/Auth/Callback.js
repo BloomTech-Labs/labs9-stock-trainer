@@ -5,8 +5,8 @@ import Loading from "../components/loading/Loading";
 const Callback = props => {
   const { auth } = props;
   auth.handleAuthentication().then(() => {
-    props.history.push("/dashboard");
     props.signinchange();
+    props.history.push("/dashboard");
   });
 
   return (
