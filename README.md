@@ -14,6 +14,8 @@ Welcome to our application that teaches and guides you on trading stocks.
 
 - [Test the Site and Setup](#test-the-site-and-setup)
 - [Styling Guidelines](#styling-guidelines)
+- [Front-End Documentation](stockTrainerBackEnd/Readme.md)
+- [Back-End Documentation](stockTrainerFrontend/README.md)
 - [Tech-Stack](#tech-stack)
   - [Front-End Dependencies (Production)](#front-end-dependencies-production)
     - [React](#react)
@@ -49,13 +51,50 @@ Welcome to our application that teaches and guides you on trading stocks.
   - [Third-Party APIs](#third-party-apis)
     - [Stripe](#stripe)
     - [Quantopian](#quantopian)
-  - [Backend API](#backend-api)
 
 ## Test the Site and Setup
 
 Start by cloning the repository to your local machine. Once cloned `cd` into the folder and open it in your preferred editor of choice.
 The Front End of the app will be located on `localhost:3000`.
 The Back End of the app will be located on `localhost:8000`.
+
+### .env Requirements
+
+A .env file must be included in the root folder, as well as the front-end folder.
+
+The root .env should look similar to:
+
+```
+# blanks require your own key
+
+SECRET_KEY =
+DEBUG = True
+ALLOWED_HOSTS=localhost,127.0.0.1
+DATABASE_URL="sqlite:///db.sqlite3"
+# Stripe API Keys
+STRIPE_SECRET_KEY = 
+STRIPE_PUBLISHABLE_KEY =
+# Stripe Test Keys
+STRIPE_SECRET_TEST_KEY =
+STRIPE_PUBLISHABLE_TEST_KEY =
+# QUANDL API
+QUANDL_API_KEY =
+```
+
+The front-end .env should look similar to:
+```
+# blanks require your own key
+
+REACT_APP_BACKEND_URL=http://127.0.0.1:8000/
+REACT_APP_URL=http://localhost:3000/
+
+# Stripe Test Keys
+REACT_APP_STRIPE_SECRET_TEST_KEY =
+REACT_APP_STRIPE_PUBLISHABLE_TEST_KEY =
+
+```
+
+When deploying, make sure that env variables are set.
 
 ### Front End
 Once you are in the project folder `cd` into `stockTrainerFrontend` and `yarn install` to install all of the dependencies in `package.json`.
