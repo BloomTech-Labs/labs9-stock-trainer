@@ -178,7 +178,7 @@ export default class Reports extends React.Component {
     this.state = {
       value: "",
       suggestions: [],
-      startDate: "2018-02-01",
+      startDate: "2018-01-01",
       endDate: "2018-02-02",
       stockName: "Enter Stock",
       stockCardInfo: {},
@@ -397,7 +397,7 @@ export default class Reports extends React.Component {
           <Input
             className="reportDateInput"
             value={endDate}
-            max="2018-02-02"
+            max="2018-02-01"
             min="1996-03-01"
             type="date"
             id="endDate"
