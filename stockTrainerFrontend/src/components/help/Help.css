@@ -1,9 +1,12 @@
 .helpContainer {
   width: 90%;
-  height: 95%;
+  display:flex;
+  flex-direction: column;
+  height: 100%;
+
 }
 .articlesDisplay {
-  height: 100%;
+  height: calc(100% - 60px);
 }
 .helpSearch{
   box-sizing: border-box;
