@@ -1,8 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
-import { Link } from "react-router-dom";
-
-import { Button, Header, Segment } from "semantic-ui-react";
+import { Header, Segment } from "semantic-ui-react";
 
 import "./Landing.css";
 
@@ -10,8 +8,6 @@ const Landing = () => (
   <div>
     <div className="bannerImage" />
     <Segment className="frontPageBox">
-      <Header as="h2">About</Header>
-
       <p>
         Hey there. I bet you're here because you googled some combination of
         "easy" and "stocks," right? You probably don't understand stocks. Don't
@@ -22,9 +18,7 @@ const Landing = () => (
         graph. We're here for you, so check out the help page for definitions of
         the stock indicators. We're glad you're here!
       </p>
-      <Link to="/dashboard">
-        <Button secondary>Demo now!</Button>
-      </Link>
+      <Header as="h3">Sign in above to begin!</Header>
     </Segment>
   </div>
 );
