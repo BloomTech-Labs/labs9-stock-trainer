@@ -6,6 +6,7 @@ import stockSymbolList from "../../util/test.json";
 
 import Stock from "../stock/Stock";
 import NewGraph from "../Graph/NewGraph";
+import Loading from "../loading/Loading";
 
 // css for the suggest menu. There might be a way to move thise to the css file, look into that
 const theme = {
@@ -183,7 +184,8 @@ export default class Reports extends React.Component {
       stockName: "Enter Stock",
       stockCardInfo: {},
       currentSymbol: "",
-      activeIndex: 0
+      activeIndex: 0,
+      loading: false
     };
   }
 
@@ -192,6 +194,7 @@ export default class Reports extends React.Component {
     const { stockData } = this.props;
     if (nextProps.stockData !== stockData) {
       this.useGottenData(nextProps.stockData);
+      this.setState({ loading: false });
     }
   }
 
@@ -253,6 +256,7 @@ export default class Reports extends React.Component {
 
     // for those following along, this goes back to App.js runs the axios request. Notice despite being async nothing actually is run after it, that's because it was easier to just watch props for changes rather then hope they happened before the async part responded
     retrieveStock(value, startDate, endDate, "volume,close");
+    this.setState({ loading: true });
     // .then(r=>
     //   // this.useGottenData()
     // );
@@ -342,7 +346,8 @@ export default class Reports extends React.Component {
       stockName,
       stockCardInfo,
       currentSymbol,
-      activeIndex
+      activeIndex,
+      loading
     } = this.state;
     const inputProps = {
       placeholder: "Search for a Stock",
@@ -405,6 +410,7 @@ export default class Reports extends React.Component {
           />
         </div>
         <Responsive className="chart" minWidth={1000}>
+          <Loading active={loading} />
           <Tab
             panes={panes}
             className="tabArea"
@@ -413,6 +419,7 @@ export default class Reports extends React.Component {
           />
         </Responsive>
         <Responsive className="chart" maxWidth={999}>
+          <Loading active={loading} />
           <div className="tabSelectSmall">
             <Button
               onClick={() => {
