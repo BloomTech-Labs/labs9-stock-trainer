@@ -384,7 +384,7 @@ export default class Reports extends React.Component {
           <h3>From:</h3>
           <Input
             className="reportDateInput"
-            max="2018-02-01"
+            max="2018-01-01"
             min="1996-02-01"
             type="date"
             value={startDate}
@@ -398,7 +398,7 @@ export default class Reports extends React.Component {
             className="reportDateInput"
             value={endDate}
             max="2018-02-02"
-            min="1996-02-01"
+            min="1996-03-01"
             type="date"
             id="endDate"
             onChange={this.dateChange}
