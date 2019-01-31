@@ -5,7 +5,7 @@ import Autosuggest from "react-autosuggest";
 import stockSymbolList from "../../util/test.json";
 
 import Stock from "../stock/Stock";
-import NewGraph from "../Graph/NewGraph";
+import NewGraph from "../Graph/Graph";
 import Loading from "../loading/Loading";
 
 // css for the suggest menu. There might be a way to move thise to the css file, look into that
