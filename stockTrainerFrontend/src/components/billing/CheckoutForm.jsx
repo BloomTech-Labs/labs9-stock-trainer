@@ -95,12 +95,11 @@ class CheckoutForm extends Component {
           <button type="submit">Pay</button>
         </form>
         <p>
-          Your subscription will automatically renew every month. You will be
-          charged $9.99 on each renewal until you cancel in the billing
-          settings. If you cancel, previous charges will not be refunded, but
-          you may continue to use the service until the end of the term you paid
-          for. Unless I can&apos;t figure out how to implement that then you
-          will just lose your premium service immediately.
+          This is a one time payment for premium status. Terms will most likely
+          change in the near future and payments will be collected monthly. We
+          thank you for the support while our app is in the early stages.
+          Upgrading to premium status today will make you a lifetime premium
+          member.
         </p>
       </div>
     );

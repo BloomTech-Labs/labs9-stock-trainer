@@ -7,12 +7,20 @@
   background-color: black;
   margin-bottom: 2vmax;
   background-size: cover;
-
 }
+
 .frontPageBox {
   width: 50em;
   margin-left: auto !important;
   margin-right: auto !important;
+}
+
+.frontPageBox p {
+  font-size: 1.1rem;
+  padding: 0.5rem;
+}
+
+.frontPageBox h3 {
   text-align: center;
 }
 

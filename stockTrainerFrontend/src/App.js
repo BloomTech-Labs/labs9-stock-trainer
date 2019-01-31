@@ -81,7 +81,6 @@ class App extends Component {
       .then(res => {
         // your response is going to see the res here, including http code and whatever. res.data normally has whatever is given back to you
         // res.data();
-        console.log(res);
         // this.switchSignInState({
         //   name: res.data.UserInfo
         // });
