@@ -25,7 +25,6 @@ class CheckoutForm extends Component {
     event.preventDefault();
     const { cardNumber, cvc, expiry, zip } = this.state;
     if (!cardNumber || !cvc || !expiry || !zip) {
-      console.log("need all fields");
       this.setState({ error: true });
       return;
     }
@@ -56,8 +55,8 @@ class CheckoutForm extends Component {
       )
       .then(response => {
         if (response.status === 200) this.setState({ complete: true });
-        console.log(response);
       })
+      // eslint-disable-next-line no-console
       .catch(err => console.log(err));
   };
 
