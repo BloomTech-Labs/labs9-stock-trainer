@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import Loading from "../components/loading/Loading";
 
 const Callback = props => {
   const { auth } = props;
@@ -8,7 +9,11 @@ const Callback = props => {
     props.signinchange();
   });
 
-  return <h1 style={{ textAlign: "center" }}>Loading profile...</h1>;
+  return (
+    <div>
+      <Loading active />
+    </div>
+  );
 };
 
 export default withRouter(Callback);
