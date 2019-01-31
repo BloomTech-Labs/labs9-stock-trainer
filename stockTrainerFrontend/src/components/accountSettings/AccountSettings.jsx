@@ -27,7 +27,7 @@ class AccountSettings extends Component {
             <div className="free">
               <h3>Free User</h3>
               <p>
-                Save your favorite 12 stocks to your user profile or portfolio.
+                Save your favorite 10 stocks to your user profile or portfolio.
               </p>
             </div>
           </div>
