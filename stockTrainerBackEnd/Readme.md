@@ -40,11 +40,11 @@ To run the server and see your project on local host:
 
 ```python manage.py runserver```
 
-This will 'publish' the project on your local browser at '127.0.0.1/8000'. To log in and view your DB just append '/admin'
+Visit `localhost:8000`. To log in and view your DB just append `/admin`
 
 
 
-This is what the models and consequently, the DB is structured as, for this project:
+This is what the models and consequently, the DB is structured as:
 
 ```
 User Model:
@@ -133,6 +133,32 @@ Example:
             "adjLow": "1045.23",
             "adjVolume": "1223114.0"
         }
+    ]
+}
+```
+
+`/current_user/`
+
+*GET*
+
+##### Authentication
+
+The accessToken from the frontend should be attached as an authentication token. This
+will allow for our server to correctly identify the user, and return the user's
+information. Make sure to attach the token to the header before making the request.
+
+##### Parameters
+
+The server is expecting a JWT token in the header.
+
+##### Return Format
+Data will be returned with a status code 200, in a json format.
+Example:
+```
+{
+    "favorites": [
+        "AAPL",
+        "AMZN"
     ]
 }
 ```
