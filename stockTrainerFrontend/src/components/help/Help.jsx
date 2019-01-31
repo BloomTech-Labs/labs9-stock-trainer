@@ -135,18 +135,32 @@ const articles = [
   }
 ];
 
-export default class Help extends Component {
+export default class Help extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      searchText: ""
+      searchText: "",
+      displayList: articles
     };
   }
 
+  handleChange = event => {
+    if (event.target.value === "") {
+      this.setState({
+        searchText: event.target.value,
+        displayList: articles
+      });
+      return;
+    }
+    this.setState({
+      searchText: event.target.value
+    });
+  };
+
   render() {
     const { match } = this.props;
-    const { searchText } = this.state;
+    const { searchText, displayList } = this.state;
     return (
       <div className="helpContainer">
         {/* This is how we can add more pages */}
@@ -168,7 +182,7 @@ export default class Help extends Component {
             <Route
               exact
               path={match.path}
-              render={() => <Helpmain articles={articles} />}
+              render={() => <Helpmain articles={displayList} />}
             />
             <Route
               path={`${match.path}/openingprice`}
