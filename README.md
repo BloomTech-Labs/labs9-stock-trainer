@@ -82,7 +82,7 @@ To make the tables and DB type:
 
 To run the server locally on `127.0.0.1/8000` type:
 `python manage.py runserver`
-append `admin` to the above local browser to log in and see your DB.
+append `admin` to the local browser to log in and see your DB.
 
 
 ## Styling Guidelines
