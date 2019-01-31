@@ -40,50 +40,39 @@ To run the server and see your project on local host:
 
 ```python manage.py runserver```
 
-This will 'publish' the project on your local browser at '127.0.0.1/8000'. To log in and view your DB just append '/admin'
+Visit `localhost:8000`. To log in and view your DB just append `/admin`
 
 
 
-This is what the models and consequently, the DB is structured as, for this project:
+This is what the models and consequently, the DB is structured as:
 
 ```
 User Model:
-    username -       Character field for the Username adopted by the user
-    firstname  -     Chatacter field for the First name of the user
-    lastname -       Chatacter field for the Last name of the user
-    study_name -     Character field for the name of the study that user has saved
-    portfolio_name - Character filed for the name of the Portfolio saved by user.
+    username -       Character field for the username determined by Auth0
+    portfolio_id -   Foreign key to a portfolio.
                      A portfolio holds the user's studies.
+    premium -        Boolean if user is premium or not
+    favorites -      ManytoMany field connecting to favorites
 ```
 
 ```
 Study Model:
-    (A study is a combination of a Stock name, a date range and indicators with attendant parameters.)
-
-    study_name -     Character field for the name of the study that user has saved
-    stock_name -     Character field for the name of the stock
-    indicator_name - Character field for the name of the indicator
+    stock_name -     Foreign Key to stock symbol
+    portfolio_id     Foreign Key to a portfolio
     start_date -     Date Field
     end_date -       Date Field
+    data -           Text Field to hold stringified JSON data
 ```
 
 ```
 Portfolio Model:
-    portfolio_name - Character field for the name of the portfolio
-    study_name -     Character field for the name of the study (in portfolio)
+    id -             Primary key to identify portfolio
 ```
 
 ```
 Stock Model:
     symbol - Character field to store the symbol for the Stock. E.g AMZN
     name -   Character field to store the name of the stock. E.g Amazon
-    price -  Numeric field. Currently only stores the closing price. WIP
-```
-
-```
-Indicator Model:
-    indicator_name -   Character field for the name of the indicator
-    Indicator_params - Numeric field for the Indicator parameters. WIP
 ```
 
 ### Endpoints
@@ -92,7 +81,7 @@ Indicator Model:
 
 ##### Authentication
 
-This is gonna require a JWT at some point but does not at present
+Utilizes a JWT to identify the user.
 
 ##### Parameters
 
@@ -144,6 +133,32 @@ Example:
             "adjLow": "1045.23",
             "adjVolume": "1223114.0"
         }
+    ]
+}
+```
+
+`/current_user/`
+
+*GET*
+
+##### Authentication
+
+The accessToken from the frontend should be attached as an authentication token. This
+will allow for our server to correctly identify the user, and return the user's
+information. Make sure to attach the token to the header before making the request.
+
+##### Parameters
+
+The server is expecting a JWT token in the header.
+
+##### Return Format
+Data will be returned with a status code 200, in a json format.
+Example:
+```
+{
+    "favorites": [
+        "AAPL",
+        "AMZN"
     ]
 }
 ```
