@@ -280,8 +280,8 @@ class App extends Component {
             exact
             path="/reports/:stockSymbol?"
             render={props =>
-
-              <Sidebar.Pushable className="lowerPageLayout">
+              auth.isAuthenticated() ? (
+                <Sidebar.Pushable className="lowerPageLayout">
                   <NavBar
                     toggleNav={this.toggleNav}
                     navVis={navbarVis}
@@ -296,27 +296,11 @@ class App extends Component {
                     {...props}
                   />
                 </Sidebar.Pushable>
-              // auth.isAuthenticated() ? (
-              //   <Sidebar.Pushable className="lowerPageLayout">
-              //     <NavBar
-              //       toggleNav={this.toggleNav}
-              //       navVis={navbarVis}
-              //       signout={this.signOut}
-              //       {...props}
-              //     />
-              //     <Reports
-              //       favoriteToggle={this.favoriteToggle}
-              //       retrieveStock={this.retrieveStock}
-              //       stockData={stockData}
-              //       favorites={favorites}
-              //       {...props}
-              //     />
-              //   </Sidebar.Pushable>
-              // ) : (
-              //   <Redirect
-              //     to={{ pathname: "/", state: { from: props.location } }}
-              //   />
-              // )
+              ) : (
+                <Redirect
+                  to={{ pathname: "/", state: { from: props.location } }}
+                />
+              )
             }
           />
           <Route
