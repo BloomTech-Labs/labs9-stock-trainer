@@ -270,7 +270,7 @@ class LineAndScatterChart extends React.Component {
     const { data, xScale, xAccessor, displayXAccessor } = xScaleProvider(
       initialData
     );
-    const xExtents = [xAccessor(last(data)), xAccessor(data[data.length - 20])];
+    const xExtents = [xAccessor(last(data)), xAccessor(data[0])];
     return (
       <div ref={this.contain} className="graph">
         <ChartCanvas
@@ -279,9 +279,10 @@ class LineAndScatterChart extends React.Component {
           height={chartHeight}
           margin={{ left: 70, right: 70, top: 20, bottom: 30 }}
           type={type}
-          pointsPerPxThreshold={1}
+          pointsPerPxThreshold={40}
           seriesName={currentSymbol}
           data={data}
+          clamp
           xAccessor={xAccessor}
           displayXAccessor={displayXAccessor}
           xScale={xScale}
@@ -289,7 +290,7 @@ class LineAndScatterChart extends React.Component {
         >
           <Chart id={1} yExtents={d => [d.high, d.low]}>
             <XAxis axisAt="bottom" orient="bottom" />
-            <YAxis axisAt="right" orient="right" ticks={5} />
+            <YAxis axisAt="right" orient="right" />
             <MouseCoordinateX
               at="bottom"
               orient="bottom"
