@@ -113,6 +113,7 @@ class Favorites extends React.Component {
           )
         }));
       })
+      // eslint-disable-next-line no-console
       .catch(err => console.log(err));
   };
 

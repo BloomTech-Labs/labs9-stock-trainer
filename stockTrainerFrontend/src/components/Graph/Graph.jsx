@@ -29,9 +29,7 @@ class Graph extends React.Component {
   componentWillReceiveProps(nextProps) {
     // only if stockdata changes, will the convertData function be ran
     const { stockData } = this.props;
-    console.log(stockData);
     if (nextProps.stockData !== stockData) {
-      console.log(nextProps.stockData);
       this.convertData(nextProps.stockData);
     }
   }
@@ -59,7 +57,6 @@ class Graph extends React.Component {
 
   render() {
     const { data, chartWidth, chartHeight } = this.state;
-    // console.log(data);
     return (
       <div ref={this.contain} className="graph">
         <VictoryChart
