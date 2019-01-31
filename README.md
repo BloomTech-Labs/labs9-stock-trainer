@@ -12,6 +12,7 @@ Welcome to our application that teaches and guides you on trading stocks.
 
 # Table of Contents
 
+- [Test the Site](#test-the-site)
 - [Styling Guidelines](#styling-guidelines)
 - [Tech-Stack](#tech-stack)
   - [Front-End Dependencies (Production)](#front-end-dependencies-production)
@@ -46,6 +47,43 @@ Welcome to our application that teaches and guides you on trading stocks.
     - [Stripe](#stripe)
     - [Quantopian](#quantopian)
   - [Backend API](#backend-api)
+
+## Test the Site
+
+Start by cloning the repository to your local machine. Once cloned `cd` into the folder and open it in your preferred editor of choice.
+The Front End of the app will be located on `localhost:3000`.
+The Back End of the app will be located on `127.0.0.1/8000`.
+
+### Front End
+Once you are in the project folder `cd` into `stockTrainerFrontend` and `yarn install` to install all of the dependencies in `package.json`.
+Once everything has install run `yarn start` to get the project up and running on `localhost:3000`.
+
+### Back End Prerequities
+You will need Django installed for this project. Please see https://www.djangoproject.com/download/ for a guide to installing it on your system.
+
+This project uses PEP8 as a style guide.
+
+### Back End
+It's time to get the server running locally. Open a new terminal window and `cd` into `stockTrainerBackEnd`. Most Django projects live within a virtual environment. The choices are typically, VirtualEnv or Pipenv. This project uses Pipenv. Invoke it by typing:
+`pipenv shell`
+
+To download all dependencies type:
+`pipenv install`
+
+To be able to log into the admin interface type: 
+`python manage.py createsuperuser `
+and follow the prompts.
+
+To scaffold the structure of tables, within Models.py, on the DB type:
+`python manage.py makemigrations`
+
+To make the tables and DB type:
+`python manage.py migrate`
+
+To run the server locally on `127.0.0.1/8000` type:
+`python manage.py runserver`
+append `admin` to the local browser to log in and see your DB.
+
 
 ## Styling Guidelines
 
