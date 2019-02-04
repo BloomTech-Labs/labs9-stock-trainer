@@ -24,6 +24,7 @@ import ConvergenceDivergence from "./Convergence";
 import ExponentialMoving from "./Exponential";
 import SimpleMoving from "./Simple";
 import BollingerBand from "./Bollinger";
+import StockAppreciation from "./SAR";
 
 const articles = [
   {
@@ -123,13 +124,13 @@ const articles = [
       "Moving Average Convergence Divergence is the indicator that shows the relationship between two moving averages price. This is calculated by subtracting the 26-period from the 12-period exponential moving average."
   },
   {
-    title: "Exponential Moving Average",
+    title: "Exponential Moving Average (EMA)",
     link: "/help/exponentialmoving",
     text:
       "Exponential moving average is a type of moving average that places the significance on the most recent data points."
   },
   {
-    title: "Simple Moving Average",
+    title: "Simple Moving Average (SMA)",
     link: "/help/simplemoving",
     text:
       "The simple moving average is calculated by adding the recent closing prices and dividing them by the number of time periods in the average."
@@ -139,6 +140,12 @@ const articles = [
     link: "/help/bollingerband",
     text:
       "A bollinger band is a tool for analysis's to use that are defined by two lines, postive and negetive, plotted away from the simple moving average, but is adjustable to user's prefrences."
+  },
+  {
+    title: "Stock Appreciation Right (SAR)",
+    link: "/help/Stockappreciation",
+    text:
+      "Stock appreciation right is a bonus that is equal to the appreciation of a company stock over a time period given to employees."
   }
 ];
 
@@ -244,6 +251,10 @@ export default class Help extends React.Component {
             <Route
               path={`${match.path}/bollingerband`}
               component={BollingerBand}
+            />
+            <Route
+              path={`${match.path}/Stockappreciation`}
+              component={StockAppreciation}
             />
             <Redirect to="/404" />
           </Switch>
