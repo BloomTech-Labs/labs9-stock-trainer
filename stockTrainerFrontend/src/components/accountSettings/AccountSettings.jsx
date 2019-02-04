@@ -24,27 +24,28 @@ class AccountSettings extends Component {
       <>
         <Accordion styled className="settingsAccordion">
           <div>
-            <div className="free">
+            <div className="infoSettings">
               <h3>Free User</h3>
+              <p>Save your favorite 10 stocks to your user profile.</p>
+            </div>
+
+            <div className="infoSettings">
+              <h3>Premium User</h3>
               <p>
-                Save your favorite 10 stocks to your user profile or portfolio.
+                Save an unlimited amount of your favorite stocks to your
+                portfolio.
               </p>
             </div>
           </div>
-          <div className="premimum">
-            <h3>Premimum User</h3>
-            <p>
-              Save an unlimited amount of your favorite stocks to your
-              portfolio.
-            </p>
-          </div>
+          <br />
           <Accordion.Title
             active={activeIndex === 1}
             index={1}
             onClick={this.handleClick}
           >
-            <Icon name="dropdown" />
-            Billing
+            <h3>
+              <Icon name="dropdown" /> Billing
+            </h3>
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 1}>
             <UpgradeUser accessToken={accessToken} />
