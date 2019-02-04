@@ -81,6 +81,9 @@ STRIPE_SECRET_TEST_KEY =
 STRIPE_PUBLISHABLE_TEST_KEY =
 # QUANDL API
 QUANDL_API_KEY =
+# AUTH0 KEYS
+AUTH0_DOMAIN =
+AUTH0_AUDIENCE =
 ```
 
 - Generate a Django secret key [here](https://www.miniwebtool.com/django-secret-key-generator/)
@@ -88,6 +91,8 @@ QUANDL_API_KEY =
 - Find Stripe keys in the dashboard [(more info)](https://stripe.com/docs/keys)
 
 - Find Quandl key in account setting [(more info)](https://help.quandl.com/article/320-where-can-i-find-my-api-key)
+
+- [Auth0 keys](#auth0-setup)
 
 The front-end .env (located in `/stockTrainerFrontend`) should look similar to:
 
@@ -101,17 +106,26 @@ REACT_APP_URL=http://localhost:3000/
 REACT_APP_STRIPE_SECRET_TEST_KEY =
 REACT_APP_STRIPE_PUBLISHABLE_TEST_KEY =
 
+# Auth0
+REACT_APP_AUTH0_DOMAIN =
+REACT_APP_AUTH0_AUDIENCE =
+REACT_APP_AUTH0_CLIENTID =
+
 ```
 
 - Find Stripe keys in the dashboard [(more info)](https://stripe.com/docs/keys)
+
+- [Auth0 keys](#auth0-setup)
 
 When deploying, make sure that env variables are set.
 
 ### Auth0 Setup
 
-In `/stockTrainerFrontend/src/Auth/Auth.js`, change lines 15-17 to your instance of Auth0. The domain and client ID can be found in settings for your Auth0 application. The audience can be found in the `APIs` tab, where you should use the Auth0 Management API API identifier. This will usually be composed of an identifier that ends in `/api/v2/`.
+`Front-end .env`
+The domain and client ID can be found in settings for your Auth0 application. The audience can be found in the `APIs` tab, where you should use the Auth0 Management API API identifier. This will usually be composed of an identifier that ends in `/api/v2/`.
 
-In `/stockTrainerBackEnd/settings.py`, change lines 183-184 to the domain and audience respectively, which should be the same as the domain and audience identified in the front-end. When running the application the first time, uncomment line 192 and copy + paste the logged certification into lines 258-263 of `stockTrainerApp/views.py`.
+`Root .env`
+The root .env should have the domain and audience set respectively, which should be the same as the domain and audience identified in the front-end. When running the application the first time, uncomment line 192 in `stockTrainerBackEnd/settings.py` and copy + paste the logged certification into lines 258-263 of `stockTrainerApp/views.py`. This was attempted to be stored in the `.env` multiple times, but as a multi-line variable, we were unable to do so.
 
 ### Front End
 
