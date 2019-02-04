@@ -27,6 +27,7 @@ const StockAppreciation = () => (
       right to cash. They are almost always paid in cash.
     </p>
     <img src={SAR} alt="Apple Graph" className="open" />
+    {/* Image was screenshotted using stock trainers graphs */}
   </Container>
 );
 

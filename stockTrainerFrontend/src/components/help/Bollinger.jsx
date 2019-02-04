@@ -34,6 +34,7 @@ const BollingerBand = () => (
       price data the same as the most recent data.
     </p>
     <img src={Bollinger} alt="Apple Graph" className="open" />
+    {/* Image was screenshotted using stock trainers graph */}
   </Container>
 );
 
