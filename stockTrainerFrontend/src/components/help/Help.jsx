@@ -23,6 +23,7 @@ import MovingAverage from "./Moving";
 import ConvergenceDivergence from "./Convergence";
 import ExponentialMoving from "./Exponential";
 import SimpleMoving from "./Simple";
+import BollingerBand from "./Bollinger";
 
 const articles = [
   {
@@ -132,6 +133,12 @@ const articles = [
     link: "/help/simplemoving",
     text:
       "The simple moving average is calculated by adding the recent closing prices and dividing them by the number of time periods in the average."
+  },
+  {
+    title: "Bollinger Band",
+    link: "/help/bollingerband",
+    text:
+      "A bollinger band is a tool for analysis's to use that are defined by two lines, postive and negetive, plotted away from the simple moving average, but is adjustable to user's prefrences."
   }
 ];
 
@@ -233,6 +240,10 @@ export default class Help extends React.Component {
             <Route
               path={`${match.path}/simplemoving`}
               component={SimpleMoving}
+            />
+            <Route
+              path={`${match.path}/bollingerband`}
+              component={BollingerBand}
             />
             <Redirect to="/404" />
           </Switch>
