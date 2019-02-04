@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { Container, Header } from "semantic-ui-react";
-// import After from "./images/After.png";
+import Bollinger from "./images/Bollinger.png";
 import "./Opening.css";
 
 const BollingerBand = () => (
@@ -33,7 +33,7 @@ const BollingerBand = () => (
       new information may get diluted by outdated data. Because it weighs older
       price data the same as the most recent data.
     </p>
-    {/* <img src={After} alt="Apple Graph" className="open" /> */}
+    <img src={Bollinger} alt="Apple Graph" className="open" />
   </Container>
 );
 
