@@ -189,6 +189,7 @@ if AUTH0_DOMAIN:
     jsonurl = request.urlopen('https://' + AUTH0_DOMAIN + '/.well-known/jwks.json')
     jwks = json.loads(jsonurl.read().decode('utf-8'))
     cert = '-----BEGIN CERTIFICATE-----\n' + jwks['keys'][0]['x5c'][0] + '\n-----END CERTIFICATE-----'
+    # print(cert)
     certificate = load_pem_x509_certificate(cert.encode('utf-8'), default_backend())
     PUBLIC_KEY = certificate.public_key()
     JWT_ISSUER = 'https://' + AUTH0_DOMAIN + '/'
