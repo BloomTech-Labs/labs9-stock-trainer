@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { Container, Header } from "semantic-ui-react";
-import Simple from "./images/Moving.png";
+import Moving from "./images/Moving.png";
 import "./Opening.css";
 
 const SimpleMoving = () => (
@@ -24,7 +24,7 @@ const SimpleMoving = () => (
       reverse a trend. It helps smooth out volatility and be easier to see the
       stocks price trend.
     </p>
-    <img src={Simple} alt="Apple Graph" className="open" />
+    <img src={Moving} alt="Apple Graph" className="open" />
     {/* Image taken from app's graphs */}
   </Container>
 );
