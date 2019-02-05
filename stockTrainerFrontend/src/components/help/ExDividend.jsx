@@ -29,6 +29,7 @@ const ExDividend = () => (
       this way because of the way stock trades are settled.
     </p>
     <img src={Ex} alt="Apple Graph" className="open" />
+    {/* Image from: https://www.pexels.com/photo/flat-lay-photography-of-calendar-1020323/ */}
   </Container>
 );
 

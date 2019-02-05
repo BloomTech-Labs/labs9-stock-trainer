@@ -24,6 +24,7 @@ const ExponentialMoving = () => (
       better for trending markets than just day to day trading uses.
     </p>
     <img src={Exponential} alt="Apple Graph" className="open" />
+    {/* Image taken from app's graphs */}
   </Container>
 );
 

@@ -28,6 +28,7 @@ const ClosingPrice = () => (
       actions, i.e. stock splits, stock dividends, not issued cash dividends.
     </p>
     <img src={Closing} alt="Apple Graph" className="open" />
+    {/* Image taken from app's graphs */}
   </Container>
 );
 

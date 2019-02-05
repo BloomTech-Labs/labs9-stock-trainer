@@ -26,6 +26,7 @@ const SplitAdjusted = () => (
       the value of their holdings other than the change of share numbers.
     </p>
     <img src={SplAdj} alt="Apple Graph" className="open" />
+    {/* Image from: https://www.pexels.com/photo/silver-iphone-6-plus-and-macbook-air-on-wooden-table-38629/ */}
   </Container>
 );
 

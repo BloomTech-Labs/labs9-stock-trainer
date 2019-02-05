@@ -26,6 +26,7 @@ const VolumeWeighted = () => (
       prevents the unnatural elevation of the price of the stock.
     </p>
     <img src={Volume} alt="Apple Graph" className="open" />
+    {/* Image used from: https://www.pexels.com/photo/flat-lay-photography-of-macbook-pro-beside-paper-1509428/ */}
   </Container>
 );
 

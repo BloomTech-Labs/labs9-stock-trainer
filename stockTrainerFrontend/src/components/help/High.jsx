@@ -30,6 +30,7 @@ const RecordHigh = () => (
       unnatural to investors which can make them warry of investing.
     </p>
     <img src={Adjust} alt="Apple Opening Price Graph" className="open" />
+    {/* Image taken from app's graphs  */}
   </Container>
 );
 

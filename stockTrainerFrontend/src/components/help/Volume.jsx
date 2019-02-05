@@ -25,6 +25,7 @@ const Volume = () => (
       stronger the stock is. Anaylists use it to confirm price movement.
     </p>
     <img src={Adjust} alt="Apple Opening Price Graph" className="open" />
+    {/* Image taken from app's graphs  */}
   </Container>
 );
 

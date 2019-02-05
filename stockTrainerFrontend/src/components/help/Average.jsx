@@ -27,6 +27,7 @@ const AverageTrueRange = () => (
       gaps.
     </p>
     <img src={Average} alt="Apple Graph" className="open" />
+    {/* Image used from: https://www.pexels.com/photo/flat-lay-photography-of-macbook-pro-beside-paper-1509428/ */}
   </Container>
 );
 

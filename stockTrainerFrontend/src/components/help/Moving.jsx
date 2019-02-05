@@ -21,6 +21,7 @@ const MovingAverage = () => (
       exponential moving average, and moving average.
     </p>
     <img src={Moving} alt="Apple Graph" className="open" />
+    {/* Image taken from app's graphs */}
   </Container>
 );
 
