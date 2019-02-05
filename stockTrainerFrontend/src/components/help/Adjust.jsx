@@ -30,6 +30,7 @@ const AdjustedClosing = () => (
       representation.
     </p>
     <img src={Adjust} alt="Apple Graph" className="open" />
+    {/* Image taken from app's graphs  */}
   </Container>
 );
 
