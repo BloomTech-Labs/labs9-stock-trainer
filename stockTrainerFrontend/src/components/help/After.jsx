@@ -32,6 +32,7 @@ const AfterHours = () => (
       the ability to trade during non-peak hours.
     </p>
     <img src={After} alt="Apple Graph" className="open" />
+    {/* Image taken from app's graph */}
   </Container>
 );
 
