@@ -30,6 +30,7 @@ const StockSplit = () => (
       2. This is so the company's overall value doesn't change.
     </p>
     <img src={Split} alt="Apple Graph" className="open" />
+    {/* Image from: https://www.pexels.com/photo/silver-iphone-6-plus-and-macbook-air-on-wooden-table-38629/ */}
   </Container>
 );
 
