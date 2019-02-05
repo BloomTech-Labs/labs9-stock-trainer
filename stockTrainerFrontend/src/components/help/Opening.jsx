@@ -32,6 +32,7 @@ const OpeningPrice = () => (
       lack of supply and demand.
     </p>
     <img src={Open} alt="Apple Opening Price Graph" className="open" />
+    {/* Image taken from app's graphs */}
   </Container>
 );
 
