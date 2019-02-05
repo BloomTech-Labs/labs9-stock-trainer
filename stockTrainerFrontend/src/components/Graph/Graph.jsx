@@ -66,7 +66,7 @@ function indicatorGraph(indicator, indicatorHelper) {
             options={[
               {
                 yAccessor: indicatorHelper.accessor(),
-                type: "SMA",
+                type: "Simple Moving Average",
                 stroke: indicatorHelper.stroke(),
                 windowSize: indicatorHelper.options().windowSize,
                 echo: "some echo here"
@@ -91,7 +91,9 @@ function indicatorGraph(indicator, indicatorHelper) {
           <SingleValueTooltip
             origin={[-38, 15]}
             yAccessor={indicatorHelper.accessor()}
-            yLabel={`ATR (${indicatorHelper.options().windowSize})`}
+            yLabel={`Average True Range (${
+              indicatorHelper.options().windowSize
+            })`}
             yDisplayFormat={format(".2f")}
           />
         </>
@@ -112,7 +114,7 @@ function indicatorGraph(indicator, indicatorHelper) {
             options={[
               {
                 yAccessor: indicatorHelper.accessor(),
-                type: "EMA",
+                type: "Exponential Moving Average",
                 stroke: indicatorHelper.stroke(),
                 windowSize: indicatorHelper.options().windowSize,
                 echo: "some echo here"
@@ -141,7 +143,7 @@ function indicatorGraph(indicator, indicatorHelper) {
         <>
           <SARSeries yAccessor={d => d.sar} />
           <SingleValueTooltip
-            yLabel={`SAR (${accelerationFactor}, ${maxAccelerationFactor})`}
+            yLabel={`Parabolic SAR (${accelerationFactor}, ${maxAccelerationFactor})`}
             yAccessor={d => d.sar}
             origin={[-40, 20]}
           />
@@ -208,7 +210,7 @@ class LineAndScatterChart extends React.Component {
     let { data: initialData } = this.state;
     if (initialData.length < 1) {
       return (
-        <div ref={this.contain} className="graph">
+        <div ref={this.contain} className="graph placeholder">
           <h1>Search for stock data above!</h1>
         </div>
       );
