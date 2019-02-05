@@ -12,9 +12,9 @@ export default class Auth {
   constructor() {
     this.auth0 = new auth0.WebAuth({
       // the following three lines MUST be updated
-      domain: "stock-trainer.auth0.com",
-      audience: "https://stock-trainer.auth0.com/api/v2/",
-      clientID: "90QRusJ6F6LjsgmUA97iEc2rXfDANPqa",
+      domain: `${process.env.REACT_APP_AUTH0_DOMAIN}`,
+      audience: `${process.env.REACT_APP_AUTH0_AUDIENCE}`,
+      clientID: `${process.env.REACT_APP_AUTH0_CLIENTID}`,
       redirectUri: `${process.env.REACT_APP_URL}callback`,
       responseType: "token id_token",
       scope: "openid profile email"

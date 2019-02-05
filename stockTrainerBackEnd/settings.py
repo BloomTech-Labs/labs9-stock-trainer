@@ -180,8 +180,8 @@ CORS_ORIGIN_WHITELIST = (
 STRIPE_SECRET_TEST_KEY = config('STRIPE_SECRET_TEST_KEY')
 STRIPE_PUBLISHABLE_TEST_KEY = config('STRIPE_PUBLISHABLE_TEST_KEY')
 
-AUTH0_DOMAIN = 'stock-trainer.auth0.com'
-API_IDENTIFIER = 'https://stock-trainer.auth0.com/api/v2/'
+AUTH0_DOMAIN = config('AUTH0_DOMAIN')
+API_IDENTIFIER = config('AUTH0_AUDIENCE')
 PUBLIC_KEY = None
 JWT_ISSUER = None
 
@@ -189,6 +189,7 @@ if AUTH0_DOMAIN:
     jsonurl = request.urlopen('https://' + AUTH0_DOMAIN + '/.well-known/jwks.json')
     jwks = json.loads(jsonurl.read().decode('utf-8'))
     cert = '-----BEGIN CERTIFICATE-----\n' + jwks['keys'][0]['x5c'][0] + '\n-----END CERTIFICATE-----'
+    # print(cert)
     certificate = load_pem_x509_certificate(cert.encode('utf-8'), default_backend())
     PUBLIC_KEY = certificate.public_key()
     JWT_ISSUER = 'https://' + AUTH0_DOMAIN + '/'
