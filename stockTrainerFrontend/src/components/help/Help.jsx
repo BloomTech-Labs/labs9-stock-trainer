@@ -24,7 +24,7 @@ import ConvergenceDivergence from "./Convergence";
 import ExponentialMoving from "./Exponential";
 import SimpleMoving from "./Simple";
 import BollingerBand from "./Bollinger";
-import StockAppreciation from "./SAR";
+import ParabolicSar from "./SAR";
 
 const articles = [
   {
@@ -142,10 +142,10 @@ const articles = [
       "A bollinger band is a tool for analysis's to use that are defined by two lines, postive and negetive, plotted away from the simple moving average, but is adjustable to user's prefrences."
   },
   {
-    title: "Stock Appreciation Right (SAR)",
-    link: "/help/Stockappreciation",
+    title: "Parabolic SAR",
+    link: "/help/parabolicsar",
     text:
-      "Stock appreciation right is a bonus that is equal to the appreciation of a company stock over a time period given to employees."
+      "A parablic SAR highlights the direction an assest or stock is moving while providing entry and exit points for said asset."
   }
 ];
 
@@ -253,8 +253,8 @@ export default class Help extends React.Component {
               component={BollingerBand}
             />
             <Route
-              path={`${match.path}/Stockappreciation`}
-              component={StockAppreciation}
+              path={`${match.path}/parabolicsar`}
+              component={ParabolicSar}
             />
             <Redirect to="/404" />
           </Switch>
