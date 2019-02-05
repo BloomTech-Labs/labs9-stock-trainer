@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import Carousel from "re-carousel";
@@ -7,7 +8,9 @@ export default function Indicators() {
   return (
     <Carousel loop auto widgets={[IndicatorDots]}>
       <div>
-        <h3>Average True Range</h3>
+        <a target="_blank" href="https://www.investopedia.com/terms/a/atr.asp">
+          <h3>Average True Range</h3>
+        </a>
         <p>
           Average True Range(ATR) is an indicator that measures market
           volatility by calulating the current high minus the current low,
@@ -17,7 +20,12 @@ export default function Indicators() {
         </p>
       </div>
       <div>
-        <h3>Volume Weighted Average Price</h3>
+        <a
+          target="_blank"
+          href="https://www.investopedia.com/terms/v/volume.asp"
+        >
+          <h3>Volume Weighted Average Price</h3>
+        </a>
         <p>
           Volume Weighted Average Price(VWAP) is primarily used for pension
           plans. You can calculate it by adding all the dollars for every
@@ -27,7 +35,12 @@ export default function Indicators() {
         </p>
       </div>
       <div>
-        <h3>Moving Average</h3>
+        <a
+          target="_blank"
+          href="https://www.investopedia.com/ask/answers/071414/whats-difference-between-moving-average-and-weighted-moving-average.asp"
+        >
+          <h3>Moving Average</h3>
+        </a>
         <p>
           Moving averages are the most used and popular tool by investors to
           measure a stocks momentum. There are 3 types of Moving Averages:
