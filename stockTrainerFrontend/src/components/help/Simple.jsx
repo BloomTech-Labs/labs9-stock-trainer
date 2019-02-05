@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { Container, Header } from "semantic-ui-react";
-import Moving from "./images/Moving.png";
+import Moving from "./images/moving.png";
 import "./Opening.css";
 
 const SimpleMoving = () => (
