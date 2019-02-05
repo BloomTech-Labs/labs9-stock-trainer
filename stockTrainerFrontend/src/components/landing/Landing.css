@@ -21,8 +21,19 @@
   padding: 0.5rem;
 }
 
-.frontPageBox h3 {
-  text-align: center;
+.centerList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div .ui .list {
+  margin: 0;
+  padding: 0;
+}
+
+div .ui .list:first-child {
+  margin-right: 0.5rem;
 }
 
 @media only screen and (max-width: 767px) {
