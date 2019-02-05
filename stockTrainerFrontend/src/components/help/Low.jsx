@@ -27,6 +27,7 @@ const RecordLow = () => (
       for them to rebound in value and interest.
     </p>
     <img src={Adjust} alt="Apple Opening Price Graph" className="open" />
+    {/* Image taken from app's graphs  */}
   </Container>
 );
 
