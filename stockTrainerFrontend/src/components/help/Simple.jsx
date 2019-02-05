@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { Container, Header } from "semantic-ui-react";
-import Simple from "./images/Simple.png";
+import Simple from "./images/Moving.png";
 import "./Opening.css";
 
 const SimpleMoving = () => (
@@ -25,6 +25,7 @@ const SimpleMoving = () => (
       stocks price trend.
     </p>
     <img src={Simple} alt="Apple Graph" className="open" />
+    {/* Image taken from app's graphs */}
   </Container>
 );
 
