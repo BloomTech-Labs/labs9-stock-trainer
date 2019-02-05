@@ -196,6 +196,9 @@ export default class Reports extends React.Component {
       this.useGottenData(nextProps.stockData);
       this.setState({ loading: false });
     }
+    if (nextProps.modalOpen) {
+      this.setState({ loading: false });
+    }
   }
 
   // this is so if you go straight to /aapl it'll just pull up the defaults for it. It also has a bunch of checking and stuff

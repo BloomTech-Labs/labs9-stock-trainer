@@ -292,6 +292,7 @@ class App extends Component {
                     retrieveStock={this.retrieveStock}
                     stockData={stockData}
                     favorites={favorites}
+                    modalOpen={modalOpen}
                     {...props}
                   />
                 </Sidebar.Pushable>
