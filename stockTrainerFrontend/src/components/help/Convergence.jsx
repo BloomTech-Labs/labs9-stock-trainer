@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { Container, Header } from "semantic-ui-react";
-import MACD from "./images/MACD.png";
+import Split from "./images/Split.jpg";
 import "./Opening.css";
 
 const ConvergenceDivergence = () => (
@@ -25,7 +25,8 @@ const ConvergenceDivergence = () => (
       MACD goes above that signal line is the time investors buy. And when it
       goes below the signal line is the time to sell the stock.
     </p>
-    <img src={MACD} alt="Apple Graph" className="open" />
+    <img src={Split} alt="Apple Graph" className="open" />
+    {/* Image from: https://www.pexels.com/photo/silver-iphone-6-plus-and-macbook-air-on-wooden-table-38629/ */}
   </Container>
 );
 
