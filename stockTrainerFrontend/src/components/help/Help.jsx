@@ -145,7 +145,7 @@ const articles = [
     title: "Parabolic SAR",
     link: "/help/parabolicsar",
     text:
-     "A parablic SAR highlights the direction an assest or stock is moving while providing entry and exit points for said asset."
+      "A parablic SAR highlights the direction an assest or stock is moving while providing entry and exit points for said asset."
   }
 ];
 
