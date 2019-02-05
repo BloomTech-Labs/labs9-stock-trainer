@@ -32,6 +32,7 @@ const Dividend = () => (
       established track record.
     </p>
     <img src={Dividends} alt="Apple Graph" className="open" />
+    {/* Image from: https://www.pexels.com/photo/brass-round-7-stack-coins-40140/ */}
   </Container>
 );
 
