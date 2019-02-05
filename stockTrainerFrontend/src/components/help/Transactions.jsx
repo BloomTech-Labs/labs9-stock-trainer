@@ -10,6 +10,7 @@ const Transactions = () => (
     <Header as="h1">Transactions</Header>
     <p>Transactions are what occurs between a buyer and a seller of a stock.</p>
     <img src={Transaction} alt="Apple Graph" className="open" />
+    {/* Image from: https://www.pexels.com/photo/close-up-of-human-hand-327540/ */}
   </Container>
 );
 
