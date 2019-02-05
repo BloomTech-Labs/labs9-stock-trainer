@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Button } from "semantic-ui-react";
+
 import {
   CardNumberElement,
   CardExpiryElement,
@@ -46,8 +48,7 @@ class CheckoutForm extends Component {
       .post(
         `${url}`,
         {
-          token: token.id,
-          name: "jhk"
+          token: token.id
         },
         {
           headers
@@ -71,7 +72,7 @@ class CheckoutForm extends Component {
     if (complete === true) return <h1>Purchase Complete</h1>;
     return (
       <div className="checkout">
-        <p>$9.99/month</p>
+        <p>$9.99 for a lifetime of premium </p>
         <form onSubmit={this.handleSubmit}>
           <p>Card number</p>
           <CardNumberElement
@@ -92,14 +93,19 @@ class CheckoutForm extends Component {
             onChange={element => this.stripeElementChange(element, "zip")}
           />
           {error ? <p>Please make sure every field is filled in</p> : null}
-          <button type="submit">Pay</button>
+          <Button secondary type="submit">
+            Pay
+          </Button>
         </form>
+        <br />
         <p>
-          This is a one time payment for premium status. Terms will most likely
-          change in the near future and payments will be collected monthly. We
-          thank you for the support while our app is in the early stages.
-          Upgrading to premium status today will make you a lifetime premium
-          member.
+          Transactions will be processed through Stripe, and we will not store
+          you payment information.
+        </p>
+        <p>
+          This is a one time payment for premium status. We thank you for the
+          support while our app is in the early stages. Upgrading to premium
+          status today will make you a lifetime premium member.
         </p>
       </div>
     );

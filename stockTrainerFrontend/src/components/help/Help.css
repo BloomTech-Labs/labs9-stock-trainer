@@ -22,7 +22,9 @@
   padding: .4em 0 !important;
 }
 @media only screen and (max-width: 768px) {
-
+  .articlesDisplay {
+    overflow-y: auto;
+  }
 .helpContainer{
   height: calc(100% - 1rem);
 }
