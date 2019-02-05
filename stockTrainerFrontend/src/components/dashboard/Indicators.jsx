@@ -7,7 +7,7 @@ import IndicatorDots from "./Indicator-Dots";
 export default function Indicators() {
   return (
     <Carousel loop auto widgets={[IndicatorDots]}>
-      <div>
+      <div className="carousel">
         <a target="_blank" href="https://www.investopedia.com/terms/a/atr.asp">
           <h3>Average True Range</h3>
         </a>
@@ -19,7 +19,7 @@ export default function Indicators() {
           close during a 14 day period.
         </p>
       </div>
-      <div>
+      <div className="carousel">
         <a
           target="_blank"
           href="https://www.investopedia.com/terms/v/volume.asp"
@@ -34,7 +34,7 @@ export default function Indicators() {
           disturb the market with the large number of orders.
         </p>
       </div>
-      <div>
+      <div className="carousel">
         <a
           target="_blank"
           href="https://www.investopedia.com/ask/answers/071414/whats-difference-between-moving-average-and-weighted-moving-average.asp"

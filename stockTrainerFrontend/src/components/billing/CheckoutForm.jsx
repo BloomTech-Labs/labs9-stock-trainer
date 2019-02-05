@@ -100,7 +100,7 @@ class CheckoutForm extends Component {
         <br />
         <p>
           Transactions will be processed through Stripe, and we will not store
-          you payment information.
+          your payment information.
         </p>
         <p>
           This is a one time payment for premium status. We thank you for the
