@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Button } from "semantic-ui-react";
+import { Button, Header } from "semantic-ui-react";
 
 import {
   CardNumberElement,
@@ -33,7 +33,7 @@ class CheckoutForm extends Component {
 
     const { stripe, accessToken } = this.props;
     const { token } = await stripe.createToken({ name: "Name" }); // can add more userinfo here
-    const url = "http://localhost:8000/charge/"; // "django_url/charge/"
+    const url = `${process.env.REACT_APP_BACKEND_URL}charge/`; // "django_url/charge/"
 
     // our post request currently sends the token and name to our backend
     // we can change what user info we send to our backend to connect user to payment
@@ -69,7 +69,12 @@ class CheckoutForm extends Component {
 
   render() {
     const { complete, error } = this.state;
-    if (complete === true) return <h1>Purchase Complete</h1>;
+    if (complete === true)
+      return (
+        <Header as="h1" textAlign="center" style={{ marginTop: "20px" }}>
+          Purchase Complete!
+        </Header>
+      );
     return (
       <div className="checkout">
         <p>$9.99 for a lifetime of premium </p>
